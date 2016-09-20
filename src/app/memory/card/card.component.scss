@@ -1,0 +1,19 @@
+
+
+.card-contanier {
+  perspective: 1000px;
+
+  .front, .back {
+    width: 150px;
+    height: 150px;
+
+    border-radius: 10px;
+    border: 5px solid #999999;
+
+  }
+
+}
+
+
+
+
