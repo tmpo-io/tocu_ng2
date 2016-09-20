@@ -6,7 +6,6 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { MemoryCardComponent } from './memory/card/card.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
