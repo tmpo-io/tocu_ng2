@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+$bgcolor: #999;
+$card_bg: #ccc;
+
+body {
+
+  background-color: $bgcolor;
+
+}
+
+
+h1,h2,h3,h4,p {
+  font-family: 'Itim';
+}

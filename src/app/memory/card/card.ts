@@ -5,9 +5,12 @@ export class Card {
   public audio: String;
 }
 
-
-export enum CardState {
-  Opened,
-  Closed,
-  Played
+export class CardState
+{
+    static Opened = "opened";
+    static Closed = "closed";
+    static Active = "active";
+    static Played = "played";
 }
+
+
