@@ -39,7 +39,8 @@ export class MemoryCardComponent implements OnInit {
   @Input()
   public card: Card;
 
-  public status: CardState = CardState.Opened;
+  @Input()
+  public status: CardState = CardState.Closed;
 
   constructor() {}
 
