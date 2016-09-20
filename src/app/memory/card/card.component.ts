@@ -18,8 +18,8 @@ import { Card, CardState } from './card';
       state(CardState.Closed,   style({
         transform: 'rotateY(180deg)'
       })),
-      transition('opened => closed', animate('300ms ease-out')),
-      transition('closed => opened', animate('300ms ease-out'))
+      transition('opened => closed', animate('300ms ease-in')),
+      transition('closed => opened', animate('300ms ease-in'))
     ]),
     trigger('backState', [
       state(CardState.Opened, style({
@@ -28,8 +28,8 @@ import { Card, CardState } from './card';
       state(CardState.Closed,   style({
         transform: 'rotateY(0deg)'
       })),
-      transition('opened => closed', animate('300ms ease-out')),
-      transition('closed => opened', animate('300ms ease-out'))
+      transition('opened => closed', animate('300ms ease-in')),
+      transition('closed => opened', animate('300ms ease-in'))
     ])
   ]
 })
