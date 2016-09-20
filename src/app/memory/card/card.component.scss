@@ -1,18 +1,17 @@
 
 .card-container {
   perspective: 1000px;
-  color: red;
   background: #eaeaea;
 
-  .front, .back {
+
+}
+
+.front, .back {
     width: 150px;
     height: 150px;
-
     border-radius: 15px;
     border: 8px solid #fff;
-
   }
-}
 
 /* flip speed goes here */
 .flipper {
@@ -31,6 +30,8 @@
 
 /* front pane, placed above back */
 .front {
+  border: 8px solid #209999;
+  background-color: #fff;
   z-index: 2;
   /* for firefox 31 */
   transform: rotateY(180deg);
@@ -49,7 +50,7 @@ p {
   margin: 0px;
   position: absolute;
   bottom: 5px;
-  color: #fff;
+  color: #000;
   text-transform: uppercase;
   left: 50%;
   transform: translateX(-50%);
