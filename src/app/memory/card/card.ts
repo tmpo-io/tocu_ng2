@@ -1,8 +1,9 @@
 
 export class Card {
-  public label: String;
-  public image: String;
-  public audio: String;
+  public id:number
+  public label: string;
+  public image: string;
+  public audio: string;
 }
 
 export class CardState

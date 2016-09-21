@@ -1,7 +1,8 @@
-<div class="card-container" (click)="toggle()">
+<div class="card-container">
   <div class="flipper">
     <div class="front" [@frontState]="status">
       <!-- front content -->
+      <img [src]="card.image" />
       <p>{{ card.label }}</p>
     </div>
     <div class="back" [@backState]="status">

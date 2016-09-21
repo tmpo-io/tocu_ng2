@@ -1,4 +1,11 @@
 
+<p>Results: {{ wins }}/{{ total }}</p>
 
+<div class="board">
 <memory-card
-  ng-for="let card of cards" [card]="card"></memory-card>
+  *ngFor="let card of cards; let i=index; trackBy:index"
+  [card]="card"
+  [status]="cardStatus[i]"
+  (click)="onClick(i)"
+  ></memory-card>
+</div>

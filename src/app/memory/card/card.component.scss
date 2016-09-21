@@ -1,9 +1,19 @@
 
+:host {
+  // display: block;
+}
+
 .card-container {
   perspective: 1500px;
-  background: #eaeaea;
+  // background: #eaeaea;
+}
 
-
+img {
+  top: 50%;
+  position: absolute;
+  width: 70%;
+  left: 50%;
+  transform: translate(-50%, -60%);
 }
 
 .front, .back {

@@ -1,5 +1,5 @@
 import {
-  Component, OnInit, Input, state,
+  Component, OnInit, OnChanges, Input, state,
   style, transition, animate, trigger
  } from '@angular/core';
 import { Card, CardState } from './card';
@@ -18,6 +18,10 @@ import { Card, CardState } from './card';
       state(CardState.Closed,   style({
         transform: 'rotateY(180deg)'
       })),
+      state(CardState.Played,   style({
+        transform: 'rotateY(0deg)',
+        opacity: 0.4
+      })),
       transition('opened => closed', animate('300ms ease-in')),
       transition('closed => opened', animate('300ms ease-in'))
     ]),
@@ -27,6 +31,9 @@ import { Card, CardState } from './card';
       })),
       state(CardState.Closed,   style({
         transform: 'rotateY(0deg)'
+      })),
+      state(CardState.Played,   style({
+        transform: 'rotateY(180deg)'
       })),
       transition('opened => closed', animate('300ms ease-in')),
       transition('closed => opened', animate('300ms ease-in'))
@@ -45,8 +52,9 @@ export class MemoryCardComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    console.log(this.card);
+    //console.log(this.card);
   }
+
 
   toggle() {
     if(this.status === CardState.Closed) {

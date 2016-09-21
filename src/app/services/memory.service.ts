@@ -22,7 +22,7 @@ export class MemoryService {
   getWords(): Observable<Card[]> {
     return this.http
       .get(this.endpoint)
-      .map((r: Response) => r.json().data as Card[]);
+      .map((r: Response) => r.json() as Card[]);
   }
 
 
