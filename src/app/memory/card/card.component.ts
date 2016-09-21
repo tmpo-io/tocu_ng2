@@ -19,11 +19,12 @@ import { Card, CardState } from './card';
         transform: 'rotateY(180deg)'
       })),
       state(CardState.Played,   style({
-        transform: 'rotateY(0deg)',
-        opacity: 0.4
+        transform: 'rotateY(0deg) scale(0.9,0.9)',
+        filter: 'grayscale(100%)'
       })),
       transition('opened => closed', animate('300ms ease-in')),
-      transition('closed => opened', animate('300ms ease-in'))
+      transition('closed => opened', animate('300ms ease-in')),
+      transition('opened => played', animate('100ms ease-in'))
     ]),
     trigger('backState', [
       state(CardState.Opened, style({
