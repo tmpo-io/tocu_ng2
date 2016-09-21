@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "label": "Elefant",
+    "image": "./assets/img/elefant.png",
+    "audio": "",
+    "nivell": 1
+  },
+  {
+    "id": 2,
+    "label": "Lleó",
+    "image": "./assets/img/lleo.png",
+    "audio": "",
+    "nivell": 1
+  },
+  {
+    "id": 3,
+    "label": "Os",
+    "image": "./assets/img/os.png",
+    "audio": "",
+    "nivell": 1
+  },
+  {
+    "id": 4,
+    "label": "Cocodril",
+    "image": "./assets/img/cocodril.png",
+    "audio": "",
+    "nivell": 1
+  },
+  {
+    "id": 5,
+    "label": "Vaca",
+    "image": "./assets/img/vaca.png",
+    "audio": "",
+    "nivell": 1
+  },
+  {
+    "id": 6,
+    "label": "Mico",
+    "image": "./assets/img/mico.png",
+    "audio": "",
+    "nivell": 1
+  },
+  {
+    "id": 7,
+    "label": "Porc",
+    "image": "./assets/img/porc.png",
+    "audio": "",
+    "nivell": 1
+  },
+  {
+    "id": 8,
+    "label": "Gat",
+    "image": "./assets/img/gat.png",
+    "audio": "",
+    "nivell": 1
+  }
+]
