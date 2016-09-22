@@ -2,10 +2,27 @@ import {
   Component, OnInit, Input
 } from '@angular/core';
 
+import {state,
+  style, transition, animate, trigger } from '@angular/core';
+
 import { MemoryService } from '../../services';
 import { Card, CardState } from '../card/card';
 import { Shuffle } from '../../helpers';
 
+
+// animations: [
+//     trigger('inboard', [
+//       state('in', style({transform: 'scale(1,1)'})),
+//       transition('void => *', [
+//         style({transform: 'scale(0,0)'}),
+//         animate('500ms ease-in')
+//       ]),
+//       transition('* => void', [
+//         style({transform: 'scale(1,1)'}),
+//         animate('500ms ease-in')
+//       ])
+//     ])
+//   ]
 
 @Component({
   selector: "memory-board",
