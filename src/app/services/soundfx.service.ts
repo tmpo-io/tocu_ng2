@@ -1,7 +1,13 @@
 
 import { Injectable } from '@angular/core';
-
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Howl } from 'howler';
+
+
+interface LoadStep {
+  step: number;
+  total: number;
+}
 
 
 @Injectable()
@@ -12,6 +18,7 @@ export class SoundFXService {
   private _loaded:number = 0;
   private total:number = 0;
   private pending:string[];
+  public subject: BehaviorSubject<LoadStep>;
 
 
   add(file:string[]) {
@@ -19,19 +26,29 @@ export class SoundFXService {
    this.total += file.length;
   }
 
-  preload():void {
+  preload():BehaviorSubject<LoadStep> {
+    this.subject = new BehaviorSubject<LoadStep>({
+      step: 0,
+      total: this.total
+    });
     this.pending.forEach(v => {
       this.audios[v] = new Howl({
         urls: [v],
         onload: () => {
           this._loaded++;
+          this.subject.next(
+            {step: this._loaded, total: this.total}
+          )
           if(this._loaded == this.total) {
             // @TODO emit complete
+            this.subject.complete();
+            this.subject.dispose();
           }
         }
       });
       this.pending = [];
     });
+    return this.subject;
   }
 
   remove(files:string[]) {
