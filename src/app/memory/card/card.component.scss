@@ -29,12 +29,13 @@ img {
 .flipper {
   transition: 0.6s;
   transform-style: preserve-3d;
-
+  -webkit-transform-style: preserve-3d;
   position: relative;
 }
 
 .front, .back {
   backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   position: absolute;
   top: 0;
   left: 0;
