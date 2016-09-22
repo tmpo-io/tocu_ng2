@@ -3,56 +3,56 @@
     "id": 1,
     "label": "Elefant",
     "image": "./assets/img/elefant.png",
-    "audio": "",
+    "audio": "./assets/snd/elefant.mp3",
     "nivell": 1
   },
   {
     "id": 2,
     "label": "Lleó",
     "image": "./assets/img/lleo.png",
-    "audio": "",
+    "audio": "./assets/snd/lleo.mp3",
     "nivell": 1
   },
   {
     "id": 3,
     "label": "Ós",
     "image": "./assets/img/os.png",
-    "audio": "",
+    "audio": "./assets/snd/os.mp3",
     "nivell": 1
   },
   {
     "id": 4,
     "label": "Cocodril",
     "image": "./assets/img/cocodril.png",
-    "audio": "",
+    "audio": "./assets/snd/cocodril.mp3",
     "nivell": 1
   },
   {
     "id": 5,
     "label": "Vaca",
     "image": "./assets/img/vaca.png",
-    "audio": "",
+    "audio": "./assets/snd/vaca.mp3",
     "nivell": 1
   },
   {
     "id": 6,
     "label": "Mico",
     "image": "./assets/img/mico.png",
-    "audio": "",
+    "audio": "./assets/snd/mico.mp3",
     "nivell": 1
   },
   {
     "id": 7,
     "label": "Porc",
     "image": "./assets/img/porc.png",
-    "audio": "",
+    "audio": "./assets/snd/porc.mp3",
     "nivell": 1
   },
   {
     "id": 8,
     "label": "Gat",
     "image": "./assets/img/gat.png",
-    "audio": "",
+    "audio": "./assets/snd/gat.mp3",
     "nivell": 1
   }
 ]

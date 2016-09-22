@@ -9,7 +9,9 @@ import { MemoryCardComponent }
 import { MemoryBoardComponent }
   from './memory/board/board.component';
 
-import { MemoryService } from './services';
+import {
+  MemoryService,
+  SoundFXService } from './services';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { MemoryService } from './services';
     HttpModule
   ],
   providers: [
-    MemoryService
+    MemoryService,
+    SoundFXService
   ],
   bootstrap: [AppComponent]
 })

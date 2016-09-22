@@ -5,7 +5,9 @@ import {
 import {state,
   style, transition, animate, trigger } from '@angular/core';
 
-import { MemoryService } from '../../services';
+import {
+  MemoryService,
+  SoundFXService } from '../../services';
 import { Card, CardState } from '../card/card';
 import { Shuffle } from '../../helpers';
 
@@ -44,7 +46,10 @@ export class MemoryBoardComponent implements OnInit {
   public wins:number = 0;
   public total:number = 0;
 
-  constructor(private srv:MemoryService) {}
+  constructor(
+    private srv:MemoryService,
+    private fx:SoundFXService
+    ) {}
 
   ngOnInit() {
     this.srv.getWords()
@@ -73,6 +78,7 @@ export class MemoryBoardComponent implements OnInit {
       this.isActive = ind;
       this.isOpened = true;
       this.cardStatus[ind] = CardState.Opened;
+      this.playSound(ind);
       return;
     }
 
@@ -88,6 +94,16 @@ export class MemoryBoardComponent implements OnInit {
 
     // is already opened...
     this.cardStatus[ind] = CardState.Opened;
+    // get the sound
+    this.playSound(ind);
+
+  }
+
+  playSound(ind:number) {
+    let audio:string = this.cards[ind].audio;
+    setTimeout(()=>{
+      this.fx.play(audio);
+    }, 300);
   }
 
   processBad(ind:number) {
@@ -113,7 +129,9 @@ export class MemoryBoardComponent implements OnInit {
 
   buildBoard(cards:Card[]) {
     let a:Card[] = [];
+    let snd:string[] = [];
     cards.forEach((el, ind) => {
+      snd.push(el.audio);
       a.push(el);
       a.push(Object.assign({}, el));
     });
@@ -122,7 +140,8 @@ export class MemoryBoardComponent implements OnInit {
     }
     this.cards = Shuffle(a);
     this.total = this.cards.length/2;
-
+    this.fx.add(snd);
+    this.fx.preload();
   }
 
 

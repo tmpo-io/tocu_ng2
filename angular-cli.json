@@ -18,7 +18,8 @@
         "styles.scss"
       ],
       "scripts": [
-        "../node_modules/web-animations-js/web-animations.min.js"
+        "../node_modules/web-animations-js/web-animations.min.js",
+        "../node_modules/howler/dist/howler.min.js"
       ],
       "environments": {
         "source": "environments/environment.ts",

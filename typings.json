@@ -1,5 +1,5 @@
 {
   "globalDependencies": {
-    "howler": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/301ae9717edd82d898da18211d0fbbd7fe59729c/howlerjs/howler.d.ts"
+    "howler": "registry:dt/howler#1.1.29+20160724070810"
   }
 }
