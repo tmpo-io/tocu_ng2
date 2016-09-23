@@ -18,6 +18,8 @@ export class StarComponent implements OnInit {
   @Input() public amount:number = 10;
   @Input() public delay:number = 10;
 
+  public enabled:boolean = true;
+
   @ViewChildren("svgs") childs: QueryList<any>;
 
   constructor(private _render: Renderer) {}
@@ -48,7 +50,15 @@ export class StarComponent implements OnInit {
         );
       }, this.delay*i)
     });
+
+    // Cleanup DOM after the effect
+    setTimeout(()=>{
+      this.enabled = false;
+    }, (this.delay*this.amount) + 1000);
+
   }
+
+
 
   ngOnInit() {
     for(let i=0; i<this.amount; i++) {

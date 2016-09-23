@@ -1,8 +1,9 @@
 
+<div *ngIf="enabled==true">
 <svg #svgs
     *ngFor="let p of props"
     [ngStyle]="setStyles(p)"
-    style="fill:red;">
+    >
     <g
      inkscape:label="Capa 1"
      inkscape:groupmode="layer"
@@ -27,3 +28,4 @@
        sodipodi:type="star" />
   </g>
   </svg>
+</div>
