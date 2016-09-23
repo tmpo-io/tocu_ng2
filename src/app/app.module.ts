@@ -8,6 +8,8 @@ import { MemoryCardComponent }
   from './memory/card/card.component';
 import { MemoryBoardComponent }
   from './memory/board/board.component';
+import { StarComponent }
+  from './memory/stars/stars.component';
 
 import {
   MemoryService,
@@ -17,7 +19,8 @@ import {
   declarations: [
     AppComponent,
     MemoryCardComponent,
-    MemoryBoardComponent
+    MemoryBoardComponent,
+    StarComponent
   ],
   imports: [
     BrowserModule,

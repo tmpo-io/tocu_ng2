@@ -1,0 +1,16 @@
+svg {
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 100;
+  width: 30px;
+  height: 30px;
+
+  transition: all 1s ease-in-out;
+
+}
+
+.animated {
+  transform: translate3d(-100px, -100px, 0)
+}
