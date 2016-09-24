@@ -10,6 +10,9 @@ import { MemoryBoardComponent }
   from './memory/board/board.component';
 import { StarComponent }
   from './memory/stars/stars.component';
+import { TiDialogComponent }
+  from './shared/dialog/dialog.component';
+
 
 import {
   MemoryService,
@@ -20,7 +23,8 @@ import {
     AppComponent,
     MemoryCardComponent,
     MemoryBoardComponent,
-    StarComponent
+    StarComponent,
+    TiDialogComponent
   ],
   imports: [
     BrowserModule,
