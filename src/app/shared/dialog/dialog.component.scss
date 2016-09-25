@@ -9,6 +9,8 @@
   box-sizing: border-box;
   display: block;
   width: 60%;
+  min-height: 280px;
+
 }
 
 
@@ -24,7 +26,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
 
 
@@ -61,7 +62,20 @@ div.button {
   border-radius: 50% 50%;
   background-color: $verd;
   position: relative;
+
+  transition: all 0.05s linear;
+
+  &:active {
+    @include box_small_active($verd_fosc);
+    border-radius: 50% 50%;
+    background-color: $verd;
+  }
+
 }
+
+
+
+
 
 span.button {
   display: block;

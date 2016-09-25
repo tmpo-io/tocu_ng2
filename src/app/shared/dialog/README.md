@@ -1,21 +1,14 @@
+# Un component per mostrar dialegs.
 
 
-<!--
-<memory-board></memory-board>
--->
-
-<div class="wrapper">
-<h1>Title</h1>
-
-<ti-dialog title="MEMORY"
-  [showButton]="show"
+```
+<ti-dialog 
+  title="MEMORY"
+  [showButton]=true
   button=""
-  class="groc"
-  (onClick)="click($event)">
+  class="vermell">
   <div>
     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque dicta placeat, velit nihil iste, rerum at reprehenderit sit ab? Velit hic, eum repudiandae. Id accusamus modi repudiandae aspernatur laboriosam, suscipit.
   </div>
 </ti-dialog>
-
-
-</div>
+```

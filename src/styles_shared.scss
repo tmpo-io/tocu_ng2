@@ -27,3 +27,8 @@ $vermell_fosc: #b80505;
   border-radius: 8px;
   box-shadow: 3px 3px 0px 0px $color;
 }
+
+@mixin box_small_active($color) {
+  border-radius: 8px;
+  box-shadow: 1px 1px 0px 0px $color;
+}

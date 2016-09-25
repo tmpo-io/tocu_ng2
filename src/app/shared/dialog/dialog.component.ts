@@ -1,9 +1,10 @@
 import {
-  Component, OnInit, Input
+  Component, OnInit, Input, Output, EventEmitter
 } from '@angular/core';
 
 import {state,
-  style, transition, animate, trigger } from '@angular/core';
+  style, transition,
+  animate, trigger } from '@angular/core';
 
 
 
@@ -35,7 +36,7 @@ import {state,
     ]),
     trigger('delayed2', [
       transition('void => *', [
-        style({top: '-300px'}),
+        style({top: '-300px', opacity: 0}),
         animate('600ms 400ms ease-in-out')
       ]),
     ])
@@ -50,9 +51,14 @@ export class TiDialogComponent implements OnInit {
   @Input() public showButton:boolean;
   @Input() public button:string;
 
+  @Output() onClick = new EventEmitter<boolean>();
+
   public state: string = "in";
 
   ngOnInit() {}
 
+  click() {
+    this.onClick.emit(true);
+  }
 
 }

@@ -5,6 +5,6 @@
   <ng-content></ng-content>
 </div>
 <div class="button" *ngIf="showButton"
-  [@delayed2]="state">
+  [@delayed2]="state" (click)="click()">
     {{button}}
 </div>
