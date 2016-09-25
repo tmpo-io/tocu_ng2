@@ -1,9 +1,10 @@
-<div class="title">
-  <ng-content select=".title"></ng-content>
+<div class="title" [@delayed]="state">
+  {{ title }}
 </div>
 <div class="content">
-  <ng-content select=".content"></ng-content>
+  <ng-content></ng-content>
 </div>
-<div class="button">
-  <ng-content select=".button"></ng-content>
+<div class="button" *ngIf="showButton"
+  [@delayed2]="state">
+    {{button}}
 </div>
