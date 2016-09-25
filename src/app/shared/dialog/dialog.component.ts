@@ -19,26 +19,31 @@ import {state,
   animations: [
     trigger('flyInOut', [
       state('in', style({transform: 'translate3d(-50%, -50%, 0)'})),
+      state('void', style({
+        transform: 'translate3d(-50%, -300%, 0)'
+      })),
       transition('void => *', [
-        style({transform: 'translate3d(-50%, -200%, 0)'}),
-        animate('1s ease-in-out')
+        style({transform: 'translate3d(-50%, -300%, 0)'}),
+        animate('1s ease-in')
       ]),
       transition('* => void', [
-        style({transform: 'translate3d(-50%, 200%, 0)'}),
-        animate('600ms ease-in')
+        style({
+          transform: 'translate3d(-50%, -50%, 0)',
+        }),
+        animate('400ms ease-out')
       ])
     ]),
     trigger('delayed', [
       transition('void => *', [
         style({top: '-300px'}),
-        animate('600ms 200ms ease-in-out')
-      ]),
+        animate('600ms 400ms ease-in-out')
+      ])
     ]),
     trigger('delayed2', [
       transition('void => *', [
-        style({top: '-300px', opacity: 0}),
+        style({top: '-200px', opacity: 0}),
         animate('600ms 400ms ease-in-out')
-      ]),
+      ])
     ])
 
   ]

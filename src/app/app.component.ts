@@ -9,9 +9,11 @@ export class AppComponent implements OnInit {
   title = 'app works!';
 
   public show: boolean = false;
+  public visible: boolean = true;
 
   click($event) {
     console.log("Click", $event)
+    this.visible = false;
   }
 
 
