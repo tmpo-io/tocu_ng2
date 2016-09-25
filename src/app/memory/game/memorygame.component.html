@@ -1,0 +1,20 @@
+
+
+<div *ngIf="status=='preload'">
+  <ti-dialog title="MEMORY"
+  [showButton]="preloadReady"
+  button=""
+  (onClick)="startGame($event)">
+  <div>
+    <p *ngIf="preloadReady==false">
+      Estem preparant el teu joc {{ lstep.step }}/{{ lstep.total }}</p>
+    <p *ngIf="preloadReady">
+      Joc a punt!
+    </p>
+  </div>
+</ti-dialog>
+</div>
+
+<div *ngIf="status=='playing'">
+  <memory-board [cards]="cards"></memory-board>
+</div>

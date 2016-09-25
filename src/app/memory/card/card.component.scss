@@ -7,9 +7,7 @@
 
 .card-container {
   perspective: 1500px;
-  // background: #eaeaea;
-  width: 150px;
-  height: 150px;
+  padding-bottom: 75%;
 }
 
 img {
@@ -21,8 +19,9 @@ img {
 }
 
 .front, .back {
-    width: 150px;
-    height: 150px;
+    width: 80%;
+    // height: 100px;
+    padding-bottom: 75%;
     border-radius: 15px;
     border: 8px solid $gris_clar;
   }

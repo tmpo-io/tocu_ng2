@@ -37,7 +37,8 @@ import { Shuffle } from '../../helpers';
 
 export class MemoryBoardComponent implements OnInit {
 
-  public cards:Card[];
+  @Input() cards:Card[];
+
   public cardStatus:string[] = [];
   private isActive:number;
   private isOpened:boolean;
@@ -52,10 +53,7 @@ export class MemoryBoardComponent implements OnInit {
     ) {}
 
   ngOnInit() {
-    this.srv.getWords()
-      .subscribe((card) => {
-        this.buildBoard(card);
-      });
+    this.buildBoard(this.cards);
   }
 
   onClick(ind:number):void {
@@ -131,7 +129,7 @@ export class MemoryBoardComponent implements OnInit {
     let a:Card[] = [];
     let snd:string[] = [];
     cards.forEach((el, ind) => {
-      snd.push(el.audio);
+      // snd.push(el.audio);
       a.push(el);
       a.push(Object.assign({}, el));
     });
@@ -140,8 +138,8 @@ export class MemoryBoardComponent implements OnInit {
     }
     this.cards = Shuffle(a);
     this.total = this.cards.length/2;
-    this.fx.add(snd);
-    this.fx.preload();
+    // this.fx.add(snd);
+    // this.fx.preload();
   }
 
 

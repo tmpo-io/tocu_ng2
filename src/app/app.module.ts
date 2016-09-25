@@ -12,6 +12,8 @@ import { StarComponent }
   from './memory/stars/stars.component';
 import { TiDialogComponent }
   from './shared/dialog/dialog.component';
+import { MemorygameComponent }
+  from './memory/game/memorygame.component';
 
 
 import {
@@ -21,6 +23,7 @@ import {
 @NgModule({
   declarations: [
     AppComponent,
+    MemorygameComponent,
     MemoryCardComponent,
     MemoryBoardComponent,
     StarComponent,
