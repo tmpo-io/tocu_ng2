@@ -1,3 +1,5 @@
+@import '../../../styles_shared';
+
 
 :host {
   // display: block;
@@ -22,7 +24,7 @@ img {
     width: 150px;
     height: 150px;
     border-radius: 15px;
-    border: 8px solid #fff;
+    border: 8px solid $gris_clar;
   }
 
 /* flip speed goes here */
@@ -43,7 +45,7 @@ img {
 
 /* front pane, placed above back */
 .front {
-  border: 8px solid #209999;
+  border: 8px solid $verd;
   background-color: #fff;
   z-index: 2;
   /* for firefox 31 */
@@ -53,8 +55,7 @@ img {
 /* back, initially hidden pane */
 .back {
   transform: rotateY(0deg);
-  background-color: #ccc;
-  background: #ccc url('./assets/img/card_back_star.png') no-repeat;
+  background: $ocre url('./assets/img/card_back_star.png') no-repeat;
   background-position: center;
 }
 
