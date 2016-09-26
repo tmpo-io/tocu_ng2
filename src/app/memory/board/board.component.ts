@@ -3,7 +3,9 @@ import {
 } from '@angular/core';
 
 import {state,
-  style, transition, animate, trigger } from '@angular/core';
+  style, transition, animate, trigger,
+  AnimationEntryMetadata
+ } from '@angular/core';
 
 import {
   MemoryService,
@@ -11,25 +13,44 @@ import {
 import { Card, CardState } from '../card/card';
 import { Shuffle } from '../../helpers';
 
+import { Observable } from 'rxjs/Rx';
 
-// animations: [
-//     trigger('inboard', [
-//       state('in', style({transform: 'scale(1,1)'})),
-//       transition('void => *', [
-//         style({transform: 'scale(0,0)'}),
-//         animate('500ms ease-in')
-//       ]),
-//       transition('* => void', [
-//         style({transform: 'scale(1,1)'}),
-//         animate('500ms ease-in')
-//       ])
-//     ])
-//   ]
+
+function stagger(name:string, ini:number,
+  end:number, delay:number):AnimationEntryMetadata[] {
+
+  let nums:number[] = []
+  for(let i=ini; i<end; i++) {
+    nums.push(i);
+  }
+  //console.log(nums);
+  //console.log(range);
+  let out:any = [];
+  nums.forEach((n) => {
+    out.push(
+
+          state(''+n, style({transform: 'scale(1,1)'})),
+          transition('void => '+n, [
+            style({transform: 'scale(0,0)'}),
+            animate('500ms '+ delay*n +'ms ease-in')
+          ]),
+          transition(n + ' => void', [
+            style({transform: 'scale(1,1)'}),
+            animate('500ms '+ delay*n +'ms ease-in')
+          ])
+
+    );
+  })
+  //console.log(out);
+  return [new AnimationEntryMetadata(name, out)];
+}
+
 
 @Component({
   selector: "memory-board",
   templateUrl:"./board.component.html",
-  styleUrls: ["./board.component.scss"]
+  styleUrls: ["./board.component.scss"],
+  animations: stagger('inboard', 0, 16, 50)
 })
 
 // IsActive
@@ -59,10 +80,11 @@ export class MemoryBoardComponent implements OnInit {
 
   ngOnInit() {
     this.buildBoard(this.cards);
+    // stagger('asdf', 0, 15, '100ms')
   }
 
   onClick(ind:number):void {
-    console.log("click on ", ind);
+    // console.log("click on ", ind);
     if(this.inTransition) {
       return;
     }
@@ -110,7 +132,7 @@ export class MemoryBoardComponent implements OnInit {
   }
 
   processBad(ind:number) {
-    console.log("BADDD")
+    // console.log("BADDD")
     this.cardStatus[ind] = CardState.Closed;
     this.cardStatus[this.isActive] = CardState.Closed;
     this.isActive = undefined;

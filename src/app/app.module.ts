@@ -1,6 +1,6 @@
 
 import 'rxjs/add/operator/combineLatest';
-import 'rxjs/add/operator/concat';
+// import 'rxjs/observable/range';
 
 
 import { BrowserModule } from '@angular/platform-browser';

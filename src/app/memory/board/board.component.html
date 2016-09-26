@@ -2,8 +2,10 @@
 <div class="board">
 <memory-card
   *ngFor="let card of cards; let i=index; trackBy:index"
+  [ngClass]="'card-'+i"
   [card]="card"
   [status]="cardStatus[i]"
   (click)="onClick(i)"
+  [@inboard]="i"
   ></memory-card>
 </div>
