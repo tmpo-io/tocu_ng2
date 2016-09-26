@@ -5,9 +5,12 @@ import { Component, OnInit, Output, Input,
 import { Observable } from 'rxjs/Rx';
 
 // @todo rename MemoryService to @WordService
-import { MemoryService, SoundFXService, ImageLoader } from '../../services';
-import { Card } from '../card/card'; //@todo rename to Word
-
+import {
+  WordsService,
+  Word,
+  SoundFXService,
+  ImageLoader
+} from '../../services';
 
 type GameStatus = 'preload' | 'playing' | 'end'
 
@@ -26,7 +29,7 @@ export class MemorygameComponent implements OnInit {
 
   // @Input()
   preload:Observable<number>;
-  public cards:Card[];
+  public cards:Word[];
 
   // public loaded:number
   public lstep:number = 0;
@@ -37,7 +40,7 @@ export class MemorygameComponent implements OnInit {
   public fails:number = 0;
 
   constructor(
-    private srv:MemoryService,
+    private srv:WordsService,
     private fx:SoundFXService,
     private iloader:ImageLoader,
     private cd: ApplicationRef

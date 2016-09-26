@@ -22,7 +22,7 @@ import { MemorygameComponent }
 
 
 import {
-  MemoryService,
+  WordsService,
   SoundFXService,
   ImageLoader } from './services';
 
@@ -41,7 +41,7 @@ import {
     HttpModule
   ],
   providers: [
-    MemoryService,
+    WordsService,
     SoundFXService,
     ImageLoader
   ],

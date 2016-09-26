@@ -7,10 +7,8 @@ import {state,
   AnimationEntryMetadata
  } from '@angular/core';
 
-import {
-  MemoryService,
-  SoundFXService } from '../../services';
-import { Card, CardState } from '../card/card';
+import { Word, WordsService, SoundFXService } from '../../services';
+import { CardState } from '../card/card';
 import { Shuffle } from '../../helpers';
 
 import { Observable } from 'rxjs/Rx';
@@ -58,7 +56,7 @@ function stagger(name:string, ini:number,
 
 export class MemoryBoardComponent implements OnInit {
 
-  @Input() cards:Card[];
+  @Input() cards:Word[];
 
   public cardStatus:string[] = [];
   private isActive:number;
@@ -74,7 +72,7 @@ export class MemoryBoardComponent implements OnInit {
   @Output() public onFail = new EventEmitter<number>()
 
   constructor(
-    private srv:MemoryService,
+    private srv:WordsService,
     private fx:SoundFXService
     ) {}
 
@@ -156,8 +154,8 @@ export class MemoryBoardComponent implements OnInit {
   }
 
 
-  buildBoard(cards:Card[]) {
-    let a:Card[] = [];
+  buildBoard(cards:Word[]) {
+    let a:Word[] = [];
     let snd:string[] = [];
     cards.forEach((el, ind) => {
       // snd.push(el.audio);
@@ -172,7 +170,4 @@ export class MemoryBoardComponent implements OnInit {
     // this.fx.add(snd);
     // this.fx.preload();
   }
-
-
 }
-
