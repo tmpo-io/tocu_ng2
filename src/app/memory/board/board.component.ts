@@ -1,5 +1,5 @@
 import {
-  Component, OnInit, Input
+  Component, OnInit, Input, EventEmitter, Output,
 } from '@angular/core';
 
 import {state,
@@ -45,7 +45,12 @@ export class MemoryBoardComponent implements OnInit {
   // between state check
   private inTransition:boolean = false;
   public wins:number = 0;
+  public fails:number = 0;
   public total:number = 0;
+
+  // Emitters
+  @Output() public onWin = new EventEmitter<number>();
+  @Output() public onFail = new EventEmitter<number>()
 
   constructor(
     private srv:MemoryService,
@@ -111,17 +116,21 @@ export class MemoryBoardComponent implements OnInit {
     this.isActive = undefined;
     this.isOpened = false;
     this.inTransition = false;
+    this.fails++;
+    this.onFail.emit(this.fails);
+
 }
 
   processGood(ind:number) {
     // @TODO show animation
-    console.log("GOOD!", this.cards[ind].label);
+    //console.log("GOOD!", this.cards[ind].label);
     this.cardStatus[ind] = CardState.Played;
     this.cardStatus[this.isActive] = CardState.Played;
     this.isActive = undefined;
     this.isOpened = false;
     this.inTransition = false;
     this.wins++;
+    this.onWin.emit(this.wins);
   }
 
 

@@ -1,4 +1,11 @@
 
+<!-- @todo make components -->
+
+<p>
+  Points {{ points }} / {{ total }} <br/>
+  Fails {{ fails }}
+</p>
+
 
 <div *ngIf="status=='preload'">
   <ti-dialog title="MEMORY"
@@ -7,8 +14,8 @@
   (onClick)="startGame($event)">
   <div>
     <p *ngIf="preloadReady==false">
-      Estem preparant el teu joc {{ lstep.step }}/{{ lstep.total }}</p>
-    <p *ngIf="preloadReady">
+      Estem preparant el teu joc {{ lstep }}/{{ ltotal }}</p>
+    <p *ngIf="preloadReady==true">
       Joc a punt!
     </p>
   </div>
@@ -16,5 +23,21 @@
 </div>
 
 <div *ngIf="status=='playing'">
-  <memory-board [cards]="cards"></memory-board>
+  <memory-board [cards]="cards"
+    (onWin)="onWin($event)"
+    (onFail)="onFail($event)"></memory-board>
+</div>
+
+
+<div *ngIf="status=='end'">
+  <ti-dialog title="MEMORY"
+  [showButton]=true
+  button=""
+  (onClick)="newGame($event)">
+  <div>
+    <p>
+      Felicitats has guanyat!!!!
+    </p>
+  </div>
+</ti-dialog>
 </div>

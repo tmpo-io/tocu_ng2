@@ -1,3 +1,8 @@
+
+import 'rxjs/add/operator/combineLatest';
+import 'rxjs/add/operator/concat';
+
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -18,7 +23,8 @@ import { MemorygameComponent }
 
 import {
   MemoryService,
-  SoundFXService } from './services';
+  SoundFXService,
+  ImageLoader } from './services';
 
 @NgModule({
   declarations: [
@@ -36,7 +42,8 @@ import {
   ],
   providers: [
     MemoryService,
-    SoundFXService
+    SoundFXService,
+    ImageLoader
   ],
   bootstrap: [AppComponent]
 })

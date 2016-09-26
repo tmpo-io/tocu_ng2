@@ -19,7 +19,7 @@ export class SoundFXService {
   private _loaded:number = 0;
   private total:number = 0;
   private pending:string[];
-  public subject: EventEmitter<LoadStep>;
+  public subject: EventEmitter<number>;
 
 
   add(file:string[]) {
@@ -27,19 +27,20 @@ export class SoundFXService {
    this.total += file.length;
   }
 
-  preload():EventEmitter<LoadStep> {
-    this.subject = new EventEmitter<LoadStep>();
+  preload():EventEmitter<number> {
+    this.subject = new EventEmitter<number>();
     this.pending.forEach(v => {
-      console.log(v);
+      // console.log(v);
       this.audios[v] = new Howl({
         src: [v],
         onload: () => {
           this._loaded++;
           this.subject.emit(
-            {step: this._loaded, total: this.total}
+            this._loaded
           )
           if(this._loaded == this.total) {
             // @TODO emit complete
+            console.log("sound complete");
             this.subject.complete();
             // this.subject.dispose();
           }
