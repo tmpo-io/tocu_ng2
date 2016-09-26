@@ -1,0 +1,40 @@
+@import '../../../styles_shared';
+
+:host {
+  display: block;
+}
+
+.word {
+  margin-top: 30px;
+  background: white;
+  display: inline-block;
+  min-width: 40%;
+  padding: 40px 40px 60px 40px;
+  img {
+    padding-bottom: 40px;
+  }
+  transition: width 0.3;
+}
+
+.letters {
+  padding-top: 80px;
+  display: flex;
+  justify-content: center;
+}
+
+.nextWord {
+  $size: 80px;
+  cursor: pointer;
+  color: $blanc;
+  font-size: 42px;
+  line-height: $size;
+  text-align: center;
+  width: $size - 10px;
+  padding-left: 10px;
+  height: $size;
+  border-radius: $size/2;
+  background-color: $vermell;
+  box-shadow: 3px 3px 0px 0px $vermell_fosc;
+  @include position(absolute, auto auto 0 50%);
+  transform: translate(-50%, 50%);
+}

@@ -1,0 +1,59 @@
+@import '../../../styles_shared';
+
+$size: 84px;
+
+%round {
+  display: block;
+  width: $size;
+  height: $size;
+  border-radius: $size/2;
+}
+
+div {
+  cursor: pointer;
+  position: relative;
+  width: $size;
+  height: $size;
+  margin: 0 10px;
+  span {
+    font-family: 'Itim';
+    z-index: 101;
+    @extend %round;
+    @include position(absolute, 0 auto auto 0);
+    transition: all 0.2s;
+    background: $gris;
+    font-size: 56px;
+    line-height: $size;
+  }
+
+  &:after {
+    content: "";
+    @extend %round;
+    @include position(absolute, 5px auto auto 5px);
+    z-index: -1;
+    background: $gris_fosc;
+  }
+
+  &:active {
+    span {
+      transform: translate3D(5px, 5px, 0);
+    }
+  }
+  &.played {
+    span {
+      background: $verd;
+      transform: translate3D(5px, 5px, 0);
+      color: white;
+    }
+  }
+  &.error {
+    span {
+      background: $vermell;
+      transform: translate3D(5px, 5px, 0);
+      color: white;
+    }
+  }
+}
+star-explosion {
+  z-index: 1;
+}

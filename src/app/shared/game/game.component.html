@@ -10,7 +10,7 @@
 <div *ngIf="status=='preload'">
   <ti-dialog title="MEMORY"
   [showButton]="preloadReady"
-  button=""
+  button="&#9658;"
   (onClick)="startGame($event)">
   <div>
     <p *ngIf="preloadReady==false">
@@ -32,13 +32,19 @@
     (onWin)="onWin($event)"
     (onFail)="onFail($event)"
   ></memory-board>
+  <sequencing-board
+    *ngSwitchCase="'sequencing'"
+    [words]="cards"
+    (onWin)="onWin($event)"
+    (onFail)="onFail($event)"
+  ></sequencing-board>
 </div>
 
 
 <div *ngIf="status=='end'">
   <ti-dialog title="MEMORY"
   [showButton]=true
-  button=""
+  button="&#9658;"
   (onClick)="newGame($event)">
   <div>
     <p>
