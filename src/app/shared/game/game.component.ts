@@ -1,10 +1,7 @@
-
+import { Observable } from 'rxjs/Rx';
 import { Component, OnInit, Output, Input,
     EventEmitter, ApplicationRef } from '@angular/core';
-
-import { Observable } from 'rxjs/Rx';
-
-// @todo rename MemoryService to @WordService
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   WordsService,
   Word,
@@ -12,18 +9,20 @@ import {
   ImageLoader
 } from '../../services';
 
+
 type GameStatus = 'preload' | 'playing' | 'end'
 
 
 @Component({
-  selector: 'memory-game',
-  templateUrl: './memorygame.component.html',
-  styleUrls: ['./memorygame.component.scss'],
+  selector: 'game',
+  templateUrl: './game.component.html',
+  styleUrls: ['./game.component.scss'],
 })
 
-export class MemorygameComponent implements OnInit {
+export class GameComponent implements OnInit {
 
   // States
+  public gameType:string;
   public status:GameStatus = 'preload';
   public preloadReady:boolean = false;
 
@@ -43,16 +42,19 @@ export class MemorygameComponent implements OnInit {
     private srv:WordsService,
     private fx:SoundFXService,
     private iloader:ImageLoader,
+    private route: ActivatedRoute,
     private cd: ApplicationRef
   ) {}
 
 
   ngOnInit() {
-    this.srv.getWords()
-      .subscribe((card)=>{
+    this.route.params.subscribe(params => {
+      this.gameType = params["game"];
+      this.srv.getWords().subscribe((card)=>{
         this.cards = card;
         this.preloadFx();
-      })
+      });
+    });
   }
 
   startGame(event) {

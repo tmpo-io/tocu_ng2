@@ -22,10 +22,16 @@
 </ti-dialog>
 </div>
 
-<div *ngIf="status=='playing'">
-  <memory-board [cards]="cards"
+<div
+  *ngIf="status=='playing'"
+  [ngSwitch]="gameType"
+>
+  <memory-board
+    *ngSwitchCase="'memory'"
+    [cards]="cards"
     (onWin)="onWin($event)"
-    (onFail)="onFail($event)"></memory-board>
+    (onFail)="onFail($event)"
+  ></memory-board>
 </div>
 
 

@@ -1,8 +1,4 @@
-
 import 'rxjs/add/operator/combineLatest';
-// import 'rxjs/observable/range';
-
-
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -17,9 +13,10 @@ import { StarComponent }
   from './memory/stars/stars.component';
 import { TiDialogComponent }
   from './shared/dialog/dialog.component';
-import { MemorygameComponent }
-  from './memory/game/memorygame.component';
+import { GameComponent }
+  from './shared/game/game.component';
 
+import { routing } from './app.routing';
 
 import {
   WordsService,
@@ -29,7 +26,7 @@ import {
 @NgModule({
   declarations: [
     AppComponent,
-    MemorygameComponent,
+    GameComponent,
     MemoryCardComponent,
     MemoryBoardComponent,
     StarComponent,
@@ -38,7 +35,8 @@ import {
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    routing
   ],
   providers: [
     WordsService,
