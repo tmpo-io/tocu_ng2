@@ -34,8 +34,8 @@
   padding-left: 10px;
   height: $size;
   border-radius: $size/2;
-  background-color: $vermell;
-  box-shadow: 3px 3px 0px 0px $vermell_fosc;
+  background-color: $verd;
+  box-shadow: 3px 3px 0px 0px $verd_fosc;
   @include position(absolute, auto auto 0 50%);
   transform: translate(-50%, 50%);
 }
