@@ -6,36 +6,13 @@ import {
 import { Word, WordsService, SoundFXService } from '../../services';
 import { Shuffle } from '../../helpers';
 import { LetterState } from '../letter/letter';
-
+import { SequencingAnimation } from "./board.animations";
 
 @Component({
   selector: "sequencing-board",
   templateUrl:"./board.component.html",
   styleUrls: ["./board.component.scss"],
-  animations: [
-    trigger('WordState', [
-      state("out", style({
-        transform: 'translateY(-100%)',
-        opacity: 0
-      })),
-      state("in",   style({
-        transform: 'translateY(0)',
-        opacity: 1
-      })),
-      transition('out <=> in', animate('300ms ease-in')),
-    ]),
-    trigger('letterState', [
-      state("out", style({
-        transform: 'translateY(300%)',
-        opacity: 0
-      })),
-      state("in",   style({
-        transform: 'translateY(0)',
-        opacity: 1
-      })),
-      transition('out <=> in', animate('300ms ease-in')),
-    ])
-  ]
+  animations: SequencingAnimation
 })
 export class SequencingBoardComponent implements OnInit {
   @Input() private words;
@@ -106,10 +83,8 @@ export class SequencingBoardComponent implements OnInit {
   }
 
   private nextLetter() {
-    if(this.currentLetter < this.splittedWord.length-1) {
-      this.currentLetter++;
-    } else if(this.currentWord < this.words.length) {
-      this.currentLetter++;
+    this.currentLetter++;
+    if(this.currentLetter == this.splittedWord.length) {
       this.resultWord();
     }
   }
