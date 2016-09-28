@@ -51,6 +51,7 @@ export class SequencingBoardComponent implements OnInit {
     }, 100);
     setTimeout(()=> {
       this.lettersVisible = "in";
+      this.clickSound();
     }, 300);
   }
 
@@ -109,6 +110,13 @@ export class SequencingBoardComponent implements OnInit {
     } else {
       this.onFinish.emit();
     }
+  }
+
+  private clickSound() {
+    let audio:string = this.word.audio;
+    setTimeout(()=>{
+      this.fx.play(audio);
+    }, 300);
   }
 
   public ngOnInit() {

@@ -17,6 +17,23 @@
   transition: width 0.3;
 }
 
+.boton-sound {
+  @include position(absolute, 20px 20px auto auto);
+  $size: 60px;
+  display: block;
+  width: $size;
+  height: $size;
+  border-radius: $size/2;
+  background: $verd;
+  box-shadow: 3px 3px 0px 0px $verd_fosc;
+  svg {
+    width: ($size/4)*2;
+    height: ($size/4)*2;
+    @include position(absolute, 50% auto auto 50%);
+    transform: translate(-50%, -50%);
+  }
+}
+
 .letters {
   padding-top: 80px;
   display: flex;
