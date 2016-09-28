@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs/Rx';
-import { Component, OnInit, Output, Input,
-    EventEmitter, ApplicationRef } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter,
+  ApplicationRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   WordsService,
@@ -9,6 +9,7 @@ import {
   ImageLoader
 } from '../../services';
 
+import { TimerComponent } from '../timer/timer.component';
 
 type GameStatus = 'preload' | 'playing' | 'end'
 
@@ -58,21 +59,18 @@ export class GameComponent implements OnInit {
   }
 
   startGame(event) {
+    this.points = 0;
+    this.fails = 0;
     this.status = 'playing';
   }
 
   onWin(event:number) {
     console.log("Wins", event);
     this.points = event;
-    if(this.points == this.total) {
-      this.status = 'end';
-    }
   }
 
-  newGame(ev) {
-    this.points = 0;
-    this.fails = 0;
-    this.status = 'playing';
+  onFinish() {
+    this.status = 'end';
   }
 
   onFail(event:number) {

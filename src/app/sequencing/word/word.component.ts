@@ -1,19 +1,17 @@
-import {
-  Component, Input, OnInit, OnChanges, SimpleChanges
-} from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: "sequencing-word",
   templateUrl:"./word.component.html",
   styleUrls: ["./word.component.scss"],
 })
-export class SequencingWordComponent implements OnInit, OnChanges {
+export class SequencingWordComponent implements OnChanges {
   @Input() private word:string[];
   @Input() private current:number = 0;
 
   private internalWord:string = "";
 
-  private buildWord() {
+  public ngOnChanges(c:SimpleChanges) {
     this.internalWord = "";
     for(let i=0; i<this.current; i++) {
       this.internalWord += this.word[i];
@@ -21,13 +19,5 @@ export class SequencingWordComponent implements OnInit, OnChanges {
     for(let i=this.current; i<this.word.length; i++) {
       this.internalWord += " _";
     }
-  }
-
-  public ngOnInit() {
-    //this.buildWord();
-  }
-
-  public ngOnChanges(c:SimpleChanges) {
-    this.buildWord();
   }
 }

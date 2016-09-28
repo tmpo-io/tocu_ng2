@@ -70,6 +70,7 @@ export class MemoryBoardComponent implements OnInit {
   // Emitters
   @Output() public onWin = new EventEmitter<number>();
   @Output() public onFail = new EventEmitter<number>()
+  @Output() public onFinish = new EventEmitter<number>();
 
   constructor(
     private srv:WordsService,
@@ -151,6 +152,9 @@ export class MemoryBoardComponent implements OnInit {
     this.inTransition = false;
     this.wins++;
     this.onWin.emit(this.wins);
+    if(this.wins==this.total) {
+      this.onFinish.emit();
+    }
   }
 
 
