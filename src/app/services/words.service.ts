@@ -6,23 +6,28 @@ import { environment } from '../../environments/environment';
 
 
 
-import { Card } from '../memory/card/card';
+export class Word {
+  public id:number
+  public label: string;
+  public image: string;
+  public audio: string;
+}
 
 
 @Injectable()
-export class MemoryService {
+export class WordsService {
 
   private endpoint:string
 
   constructor(private http: Http) {
     console.log(environment);
-    this.endpoint = environment.memoryEndpoint
+    this.endpoint = environment.wordsEndpoint
   }
 
-  getWords(): Observable<Card[]> {
+  getWords(): Observable<Word[]> {
     return this.http
       .get(this.endpoint)
-      .map((r: Response) => r.json() as Card[]);
+      .map((r: Response) => r.json() as Word[]);
   }
 
 

@@ -2,8 +2,8 @@ import {
   Component, OnInit, OnChanges, Input, state,
   style, transition, animate, trigger
  } from '@angular/core';
-import { Card, CardState } from './card';
-
+import { CardState } from './card';
+import { Word } from '../../services';
 
 
 @Component({
@@ -45,7 +45,7 @@ import { Card, CardState } from './card';
 export class MemoryCardComponent implements OnInit {
 
   @Input()
-  public card: Card;
+  public card: Word;
 
   @Input()
   public status: CardState = CardState.Closed;

@@ -1,0 +1,5 @@
+<div [class]="status">
+  <span>{{letter}}</span>
+  <star-explosion *ngIf="status=='played'"
+    [amount]="15" [delay]="10" ></star-explosion>
+</div>

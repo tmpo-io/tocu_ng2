@@ -1,11 +1,4 @@
 
-export class Card {
-  public id:number
-  public label: string;
-  public image: string;
-  public audio: string;
-}
-
 export class CardState
 {
     static Opened = "opened";
@@ -13,5 +6,3 @@ export class CardState
     static Active = "active";
     static Played = "played";
 }
-
-

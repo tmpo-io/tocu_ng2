@@ -1,0 +1,28 @@
+<div
+  class="word"
+  [@WordState]="wordVisible"
+>
+  <img [src]="word.image" />
+  <sequencing-word
+    [word]="splittedWord"
+    [current]="currentLetter"
+  ></sequencing-word>
+
+  <a
+    class="nextWord"
+    *ngIf="goingNext"
+    (click)="clickNextWord()"
+  >&#9658;</a>
+</div>
+
+<div
+  class="letters"
+>
+  <sequencing-letter
+    *ngFor="let letter of mixedWord; let i=index;"
+    [@letterState]="lettersVisible"
+    [letter]="letter"
+    [status]="statusWord[i]"
+    (click)="clickLetter(i)"
+  ></sequencing-letter>
+</div>
