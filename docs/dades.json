@@ -1,0 +1,36 @@
+{
+  "users": {
+    "IDxx": {
+      "nom": "asdfasdf",
+      "email": "email",
+      "activitats": ["a12", "a13"]
+    }
+  },
+  "activitats": {
+    "12": {
+      "name": "La tardó",
+      "icon": "icon.png",
+      "jocs": [
+        {
+          "type": "escriure",
+          "name": "Escriu Paraules",
+          "icon": "icon.png",
+          "words": ["w12", "w13", "w14", "w15", "w16", "w17"]
+        },
+        {
+          "type": "memory",
+          "name": "Memoria",
+          "icon": "icon.png",
+          "words": ["w12", "w13", "w14", "w15", "w16", "w17"]
+        }
+      ]
+    }
+  },
+  "words": {
+    "w12": {
+      "label": "Cocodril",
+      "image": "dddd.png",
+      "audio": "asdfasd.mp3"
+    }
+  }
+}
