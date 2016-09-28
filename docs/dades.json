@@ -3,7 +3,9 @@
     "IDxx": {
       "nom": "asdfasdf",
       "email": "email",
-      "activitats": ["a12", "a13"]
+      "activitats": ["a12", "a13"],
+      "grups": ["g1"],
+      "alumnes": ["a1", "a2", "a3"]
     }
   },
   "activitats": {
@@ -30,7 +32,22 @@
     "w12": {
       "label": "Cocodril",
       "image": "dddd.png",
-      "audio": "asdfasd.mp3"
+      "audio": "asdfasd.mp3",
+      "owner": "IDxx"
+    }
+  },
+  "grups": {
+    "g1": {
+      "nom": "els cargols",
+      "owners": ["IDxx"],
+      "alumnes": ["a1", "a2", "a3"]
+    }
+  },
+  "alumnes": {
+    "a1": {
+      "nom": "Pau",
+      "perfil": "asdfasdf",
+      "activitats": ["12"] //?
     }
   }
 }
