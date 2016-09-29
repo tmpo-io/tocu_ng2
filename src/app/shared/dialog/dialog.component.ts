@@ -1,5 +1,5 @@
 import {
-  Component, OnInit, Input, Output, EventEmitter
+  Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation
 } from '@angular/core';
 
 import {state,
@@ -7,10 +7,9 @@ import {state,
   animate, trigger } from '@angular/core';
 
 
-
-
 @Component({
   selector: "ti-dialog",
+  encapsulation: ViewEncapsulation.None,
   templateUrl:"./dialog.component.html",
   styleUrls: ["./dialog.component.scss"],
   host: {
@@ -24,46 +23,25 @@ import {state,
       })),
       transition('void => *', [
         style({transform: 'translate3d(-50%, -300%, 0)'}),
-        animate('1s ease-in')
+        animate('500ms ease-in')
       ]),
       transition('* => void', [
         style({
           transform: 'translate3d(-50%, -50%, 0)',
         }),
-        animate('400ms ease-out')
+        animate('300ms ease-out')
       ])
     ]),
     trigger('delayed', [
       transition('void => *', [
         style({top: '-300px'}),
-        animate('600ms 400ms ease-in-out')
-      ])
-    ]),
-    trigger('delayed2', [
-      transition('void => *', [
-        style({top: '-200px', opacity: 0}),
-        animate('600ms 400ms ease-in-out')
+        animate('300ms 400ms ease-in-out')
       ])
     ])
-
   ]
 })
-
-
 export class TiDialogComponent implements OnInit {
-
   @Input() public title:string;
-  @Input() public showButton:boolean;
-  @Input() public button:string;
-
-  @Output() onClick = new EventEmitter<boolean>();
-
   public state: string = "in";
-
   ngOnInit() {}
-
-  click() {
-    this.onClick.emit(true);
-  }
-
 }

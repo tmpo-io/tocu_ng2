@@ -101,16 +101,17 @@ export class GameComponent implements OnInit {
 
     this.preload.subscribe(
       (data:number) => {
-       this.lstep = data;
-       this.cd.tick();
-     },
-     (err)=>{
-       console.log('error loading audios', err);
-     },
-     () => {
-       this.EndPreload()
-       console.log("items loaded", this);
-     });
+        this.lstep = data;
+        this.cd.tick();
+      },
+      (err)=>{
+        console.log('error loading audios', err);
+      },
+      () => {
+        this.EndPreload()
+        console.log("items loaded", this);
+      }
+    );
   }
 
   EndPreload() {

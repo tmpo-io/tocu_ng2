@@ -17,6 +17,7 @@ import { PointsComponent }
   from './shared/points/points.component';
 import { TimerComponent }
   from './shared/timer/timer.component';
+import { ButtonComponent } from "./shared/buttons";
 
 import { ActivitatComponent } from './activitat';
 import { MemoryCardComponent, MemoryBoardComponent } from './memory';
@@ -45,7 +46,8 @@ import {
     TiDialogComponent,
     PointsComponent,
     TimerComponent,
-    ActivitatComponent
+    ActivitatComponent,
+    ButtonComponent,
   ],
   imports: [
     BrowserModule,

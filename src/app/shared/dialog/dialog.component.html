@@ -1,10 +1,4 @@
 <div class="title" [@delayed]="state">
   {{ title }}
 </div>
-<div class="content">
-  <ng-content></ng-content>
-</div>
-<div class="button" *ngIf="showButton"
-  [@delayed2]="state" (click)="click()">
-    {{button}}
-</div>
+<ng-content></ng-content>

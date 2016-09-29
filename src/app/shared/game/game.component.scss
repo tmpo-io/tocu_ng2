@@ -3,20 +3,28 @@
 :host {
 }
 .controls {
- text-align: right;
- padding-right: 20px;
- position: relative;
- z-index: 900;
- padding-bottom: 20px;
+  text-align: right;
+  padding-right: 20px;
+  position: relative;
+  z-index: 900;
+  padding-bottom: 20px;
+  ti-button {
+    vertical-align: top;
+    margin-top: 20px;
+  }
 }
-.close_game {
-  $size: 40px;
-  margin-top: 15px;
-  vertical-align: top;
-  display: inline-block;
-  width: $size;
-  height: $size;
-  border-radius: $size / 2;
-  background: $vermell;
-  box-shadow: 3px 3px 0px 0px $vermell_fosc;
+
+.preload {
+  height: 20px;
+  width:100%;
+  overflow: hidden;
+  border: 1px solid $blau;
+  @include box_small($blau_fosc);
+  span {
+    display: block;
+    height: 20px;
+    background: $blau;
+    width: 0;
+    transition: width, 0.3s;
+  }
 }
