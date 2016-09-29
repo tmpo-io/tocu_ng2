@@ -13,6 +13,11 @@ import { TiDialogComponent }
   from './shared/dialog/dialog.component';
 import { GameComponent }
   from './shared/game/game.component';
+import { PointsComponent }
+  from './shared/points/points.component';
+import { TimerComponent }
+  from './shared/timer/timer.component';
+
 
 import { MemoryCardComponent, MemoryBoardComponent } from './memory';
 import {
@@ -26,6 +31,7 @@ import {
   SoundFXService,
   ImageLoader } from './services';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +42,9 @@ import {
     SequencingWordComponent,
     SequencingLetterComponent,
     StarComponent,
-    TiDialogComponent
+    TiDialogComponent,
+    PointsComponent,
+    TimerComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,32 @@
+@import '../../../styles_shared';
+
+div {
+  transform: rotate(-180deg);
+  transform-origin:50% 0;
+  display: inline-block;
+  position: relative;
+  height: 90px;
+  width: 100px;
+  margin-right: 20px;
+
+  &:before {
+    content:"";
+    width: 8px;
+    @include position(absolute, 0 auto 5px 50%);
+    background: $gris_fosc;
+    transform: rotate(-4deg);
+  }
+}
+
+span {
+  @include position(absolute, auto auto 0 50%);
+  transform: translateX(-50%) rotate(-8deg);
+  background: $groc_fosc;
+  @include box_small($marro);
+  color: $gris_fosc;
+  font-size: 30px;
+  font-family: 'Itim';
+  padding:8px 12px;
+  min-width: 80px;
+  text-align: center;
+}

@@ -18,6 +18,7 @@ export class SequencingBoardComponent implements OnInit {
   @Input() private words;
   @Output() private onWin = new EventEmitter<number>();
   @Output() private onFail = new EventEmitter<number>();
+  @Output() private onFinish = new EventEmitter<number>();
 
   private wordVisible:string = "out";
   private lettersVisible:string = "out";
@@ -39,10 +40,6 @@ export class SequencingBoardComponent implements OnInit {
     private fx:SoundFXService
   ) {}
 
-  ngOnInit() {
-    this.buildWord();
-  }
-
   private buildWord() {
     this.word = this.words[this.currentWord];
     this.splittedWord = this.word.label.toUpperCase().split("");
@@ -54,6 +51,7 @@ export class SequencingBoardComponent implements OnInit {
     }, 100);
     setTimeout(()=> {
       this.lettersVisible = "in";
+      this.clickSound();
     }, 300);
   }
 
@@ -85,6 +83,8 @@ export class SequencingBoardComponent implements OnInit {
   private nextLetter() {
     this.currentLetter++;
     if(this.currentLetter == this.splittedWord.length) {
+      this.wins++;
+      this.onWin.emit(this.wins);
       this.resultWord();
     }
   }
@@ -99,8 +99,6 @@ export class SequencingBoardComponent implements OnInit {
   }
 
   private clickNextWord() {
-    this.wins++;
-    this.onWin.emit(this.wins);
     if(this.currentWord < this.words.length-1) {
       this.wordVisible = "out";
       setTimeout(()=> {
@@ -109,6 +107,19 @@ export class SequencingBoardComponent implements OnInit {
         this.currentLetter=0;
         this.buildWord();
       }, 300);
+    } else {
+      this.onFinish.emit();
     }
+  }
+
+  private clickSound() {
+    let audio:string = this.word.audio;
+    setTimeout(()=>{
+      this.fx.play(audio);
+    }, 300);
+  }
+
+  public ngOnInit() {
+    this.buildWord();
   }
 }

@@ -1,11 +1,11 @@
-
-<!-- @todo make components -->
-
-<p>
-  Points {{ points }} / {{ total }} <br/>
-  Fails {{ fails }}
-</p>
-
+<div class="controls">
+  <timer [gamestatus]="status"></timer>
+  <points [gamestatus]="status" [points]="points" [total]="total"></points>
+  <a
+    *ngIf="status=='playing'"
+    class="close_game"
+  ></a>
+</div>
 
 <div *ngIf="status=='preload'">
   <ti-dialog title="MEMORY"
@@ -31,12 +31,14 @@
     [cards]="cards"
     (onWin)="onWin($event)"
     (onFail)="onFail($event)"
+    (onFinish)="onFinish($event)"
   ></memory-board>
   <sequencing-board
     *ngSwitchCase="'sequencing'"
     [words]="cards"
     (onWin)="onWin($event)"
     (onFail)="onFail($event)"
+    (onFinish)="onFinish($event)"
   ></sequencing-board>
 </div>
 
@@ -45,7 +47,7 @@
   <ti-dialog title="MEMORY"
   [showButton]=true
   button="&#9658;"
-  (onClick)="newGame($event)">
+  (onClick)="startGame($event)">
   <div>
     <p>
       Felicitats has guanyat!!!!

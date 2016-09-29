@@ -1,0 +1,22 @@
+@import '../../../styles_shared';
+
+:host {
+}
+.controls {
+ text-align: right;
+ padding-right: 20px;
+ position: relative;
+ z-index: 900;
+ padding-bottom: 20px;
+}
+.close_game {
+  $size: 40px;
+  margin-top: 15px;
+  vertical-align: top;
+  display: inline-block;
+  width: $size;
+  height: $size;
+  border-radius: $size / 2;
+  background: $vermell;
+  box-shadow: 3px 3px 0px 0px $vermell_fosc;
+}
