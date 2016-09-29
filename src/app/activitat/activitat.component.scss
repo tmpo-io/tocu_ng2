@@ -1,0 +1,39 @@
+@import '../../styles_shared';
+
+:host {
+  display: block;
+  padding: 40px 0;
+}
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+.item {
+  margin: 20px;
+  position: relative;
+  width: 32%;
+  display: block;
+  background: white;
+  text-decoration: none;
+  @include box_small($gris);
+  span {
+    display: block;
+    padding-top: 80%;
+  }
+  h2 {
+    font-size: 28px;
+    color: $gris_fosc;
+    @include position(absolute, 20px auto auto 20px);
+  }
+  div {
+    @include position(absolute, 70px 20px 20px 20px);
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  &:hover {
+    background: $ocre;
+    @include box_small($ocre_fosc);
+  }
+}

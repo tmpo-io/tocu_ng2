@@ -2,6 +2,7 @@ import { ModuleWithProviders }  from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { GameComponent } from './shared/game';
+import { ActivitatComponent } from './activitat';
 
 
 const appRoutes: Routes = [
@@ -10,8 +11,12 @@ const appRoutes: Routes = [
     component: GameComponent
   },
   {
+    path: 'activitat',
+    component: ActivitatComponent
+  },
+  {
   path: '',
-  redirectTo: '/game/memory',
+  redirectTo: '/activitat',
   pathMatch: 'full'
 },
 ];
