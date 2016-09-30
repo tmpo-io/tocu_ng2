@@ -17,7 +17,7 @@ import { PointsComponent }
   from './shared/points/points.component';
 import { TimerComponent }
   from './shared/timer/timer.component';
-import { ButtonComponent } from "./shared/buttons";
+import { ButtonComponent } from "./shared/button";
 
 import { ActivitatComponent } from './activitat';
 import { MemoryCardComponent, MemoryBoardComponent } from './memory';
