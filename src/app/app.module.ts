@@ -1,64 +1,23 @@
-import 'rxjs/add/operator/combineLatest';
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 
-import { routing } from './app.routing';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
+
+// import { routing } from './app.routing';
 import { AppComponent } from './app.component';
 
-import { StarComponent }
-  from './shared/stars/stars.component';
-import { TiDialogComponent }
-  from './shared/dialog/dialog.component';
-import { GameComponent }
-  from './shared/game/game.component';
-import { PointsComponent }
-  from './shared/points/points.component';
-import { TimerComponent }
-  from './shared/timer/timer.component';
-import { ButtonComponent } from "./shared/button";
+import { GameModule } from '../game';
 
-import { ActivitatComponent } from './activitat';
-import { MemoryCardComponent, MemoryBoardComponent } from './memory';
-import {
-  SequencingBoardComponent,
-  SequencingWordComponent,
-  SequencingLetterComponent
-} from './sequencing';
-
-import {
-  WordsService,
-  SoundFXService,
-  ImageLoader } from './services';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    GameComponent,
-    MemoryCardComponent,
-    MemoryBoardComponent,
-    SequencingBoardComponent,
-    SequencingWordComponent,
-    SequencingLetterComponent,
-    StarComponent,
-    TiDialogComponent,
-    PointsComponent,
-    TimerComponent,
-    ActivitatComponent,
-    ButtonComponent,
   ],
   imports: [
     BrowserModule,
-    FormsModule,
-    HttpModule,
-    routing
-  ],
-  providers: [
-    WordsService,
-    SoundFXService,
-    ImageLoader
+    RouterModule.forRoot([], {useHash:false}),
+    GameModule
   ],
   bootstrap: [AppComponent]
 })

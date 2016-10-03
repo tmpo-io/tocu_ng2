@@ -2,6 +2,7 @@ import './polyfills.ts';
 
 // rxJS
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/combineLatest';
 
 
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
