@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 
 import { GameModule } from '../game';
-
+import { CreatorModule } from '../creator';
 
 
 @NgModule({
@@ -17,7 +17,8 @@ import { GameModule } from '../game';
   imports: [
     BrowserModule,
     RouterModule.forRoot([], {useHash:false}),
-    GameModule
+    GameModule,
+    CreatorModule
   ],
   bootstrap: [AppComponent]
 })
