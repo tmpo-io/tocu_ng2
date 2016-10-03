@@ -5,12 +5,32 @@ import { HttpModule } from '@angular/http';
 import { Routes, RouterModule } from '@angular/router';
 
 
-import { CreatorComponent } from './creator/';
+import {
+  CreatorComponent,
+  HeaderComponent,
+  ActivitatsComponent,
+  ParaulesComponent
+} from './components';
 
 const routes: Routes = [
   {
     path: 'creator',
-    component: CreatorComponent
+    component: CreatorComponent,
+    children: [
+      {
+        path: 'activitats',
+        component: ActivitatsComponent
+      },
+      {
+        path: 'paraules',
+        component: ParaulesComponent
+      },
+      {
+        path: '',
+        redirectTo: 'activitats',
+        pathMatch: 'full'
+      }
+    ]
   }
 ];
 
@@ -23,11 +43,14 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [
-    CreatorComponent
+    CreatorComponent,
+    HeaderComponent,
+    ActivitatsComponent,
+    ParaulesComponent
   ],
-  exports: [
-    CreatorComponent
-  ],
+  // exports: [
+  //   CreatorComponent
+  // ],
   providers: [
 
   ]

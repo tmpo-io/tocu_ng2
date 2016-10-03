@@ -1,0 +1,41 @@
+@import '../../../styles_shared';
+
+nav {
+  background-color: $gris_fosc;
+  font-family: 'Open Sans', sans-serif;
+  color: $blanc;
+  display: flex;
+  align-items: center;
+  // padding: 20px;
+}
+
+h1, h2, h3, li, p, a {
+  font-family: 'Open Sans', sans-serif;
+}
+
+h1 {
+  width: 20%;
+  margin: 10px 0 10px 0;
+  text-align: left;
+  padding-left: 25px
+}
+
+ul {
+  width: 60%;
+  display: flex;
+}
+
+ul li {
+  list-style: none;
+  padding-right: 10px;
+}
+
+ul.right {
+  width: 20%;
+  justify-content: flex-end;
+}
+
+
+a {
+  color: $blanc;
+}

@@ -6,7 +6,8 @@ import { Component, OnInit,
 
 @Component({
   selector: 'creator',
-  templateUrl: './creator.component.html'
+  templateUrl: './creator.component.html',
+  styleUrls: ['./creator.component.scss']
 })
 export class CreatorComponent implements OnInit {
 
