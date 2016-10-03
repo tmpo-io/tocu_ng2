@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 
 import { AuthService } from '../../../auth';
 import { AngularFire } from 'angularfire2';
@@ -11,7 +13,8 @@ import { AngularFire } from 'angularfire2';
 export class HeaderComponent implements OnInit {
   constructor(
     private auth:AuthService,
-    public af:AngularFire
+    public af:AngularFire,
+    private router:Router
     ) { }
 
   public name:string
@@ -23,6 +26,8 @@ export class HeaderComponent implements OnInit {
 
   signOut():void {
     this.auth.signOut();
+    //@TODO Check why is not refreshing page...
+    this.router.navigate(["/"])
   }
 
 }
