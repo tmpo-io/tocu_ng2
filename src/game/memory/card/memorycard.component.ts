@@ -8,8 +8,8 @@ import { Word } from '../../services';
 
 @Component({
   selector: 'memory-card',
-  templateUrl: './card.component.html',
-  styleUrls: ['./card.component.scss'],
+  templateUrl: './memorycard.component.html',
+  styleUrls: ['./memorycard.component.scss'],
   animations: [
     trigger('frontState', [
       state(CardState.Opened, style({

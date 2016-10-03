@@ -46,8 +46,8 @@ function stagger(name:string, ini:number,
 
 @Component({
   selector: "memory-board",
-  templateUrl:"./board.component.html",
-  styleUrls: ["./board.component.scss"],
+  templateUrl:"./memoryboard.component.html",
+  styleUrls: ["./memoryboard.component.scss"],
   animations: stagger('inboard', 0, 16, 50)
 })
 

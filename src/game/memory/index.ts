@@ -1,2 +1,2 @@
-export * from './board/board.component';
-export * from './card/card.component';
+export * from './board/memoryboard.component';
+export * from './card/memorycard.component';
