@@ -6,8 +6,10 @@ import { RouterModule } from '@angular/router';
 // import { routing } from './app.routing';
 import { AppComponent } from './app.component';
 
-import { GameModule } from '../game';
+import { AuthModule } from '../auth';
 import { CreatorModule } from '../creator';
+import { FirebaseModule } from '../firebase';
+import { GameModule } from '../game';
 
 
 @NgModule({
@@ -17,8 +19,10 @@ import { CreatorModule } from '../creator';
   imports: [
     BrowserModule,
     RouterModule.forRoot([], {useHash:false}),
+    AuthModule,
     GameModule,
-    CreatorModule
+    CreatorModule,
+    FirebaseModule
   ],
   bootstrap: [AppComponent]
 })
