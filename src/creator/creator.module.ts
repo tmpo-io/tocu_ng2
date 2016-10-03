@@ -12,10 +12,13 @@ import {
   ParaulesComponent
 } from './components';
 
+import { AuthGuard, AuthService } from '../auth';
+
 const routes: Routes = [
   {
     path: 'creator',
     component: CreatorComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'activitats',
@@ -52,7 +55,7 @@ const routes: Routes = [
   //   CreatorComponent
   // ],
   providers: [
-
+    AuthService
   ]
 })
 export class CreatorModule {}
