@@ -18,7 +18,7 @@ const routes: Routes = [
   {
     path: 'creator',
     component: CreatorComponent,
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     children: [
       {
         path: 'activitats',
