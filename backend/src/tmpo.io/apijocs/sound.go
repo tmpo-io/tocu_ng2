@@ -10,15 +10,21 @@ import (
 	"net/url"
 	"os"
 	"os/exec"
+	"time"
 
 	"cloud.google.com/go/storage"
 	"golang.org/x/net/context"
 )
 
-const bucket = "jocs"
-const bucketPublic = "https://storage-download.googleapis.com/jocs/audios/%s.mp3"
+const (
+	bucket       = "jocs"
+	bucketPublic = "https://storage-download.googleapis.com/%s/%s/%s.mp3"
+	bucketFolder = "audios"
+)
 
 func createAudioFile(w http.ResponseWriter, r *http.Request) {
+
+	start := time.Now()
 
 	word := r.FormValue("w")
 	fname := fmt.Sprintf("%s.mp3", word)
@@ -49,9 +55,12 @@ func createAudioFile(w http.ResponseWriter, r *http.Request) {
 		log.Printf("Can't delete local file")
 	}
 
+	endt := time.Since(start)
+
 	b, _ := json.Marshal(map[string]string{
-		"result": "ok",
-		"audio":  urlForFile(word),
+		"result":  "ok",
+		"process": endt.String(),
+		"audio":   urlForFile(word),
 	})
 
 	w.Write(b)
@@ -71,7 +80,8 @@ func uploadAudio(filename string) error {
 		return err
 	}
 	defer f.Close()
-	wc := client.Bucket(bucket).Object("audios/" + filename).NewWriter(ctx)
+	wc := client.Bucket(bucket).Object(
+		bucketFolder + "/" + filename).NewWriter(ctx)
 	if _, err = io.Copy(wc, f); err != nil {
 		return err
 	}
@@ -83,7 +93,7 @@ func uploadAudio(filename string) error {
 }
 
 func urlForFile(file string) string {
-	return fmt.Sprintf(bucketPublic, url.QueryEscape(file))
+	return fmt.Sprintf(bucketPublic, bucket, bucketFolder, url.QueryEscape(file))
 }
 
 // Update firebase db for word
@@ -106,7 +116,7 @@ func generateAudioFile(word, output string) error {
 	var err error
 	cmd := exec.Command(*audioCmd, word, output)
 	cmd.Stderr = os.Stderr
-	cmd.Stdout = os.Stdout
+	// cmd.Stdout = os.Stdout
 	err = cmd.Run()
 	return err
 }
