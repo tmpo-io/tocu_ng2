@@ -7,14 +7,19 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"os/exec"
 	"strings"
 	"sync"
 )
 
 var (
-	port   = flag.String("port", ":8080", "Listen address")
-	wcache *TranslateCache
+	port        = flag.String("port", ":8080", "Listen address")
+	audioCmd    = flag.String("audiocmd", "./read.sh", "Path to audio command")
+	wcache      *TranslateCache
+	projectID   string
+	firebaseKEY string
+	firebaseDB  string
 )
 
 // Translate is a translated word from apertium
@@ -32,8 +37,22 @@ type TranslateCache struct {
 
 func main() {
 
+	flag.Parse()
+
+	// gcloud project id
+	projectID = os.Getenv("GOOGLE_CLOUD_PROJECT")
+	if projectID == "" {
+		log.Fatal("Can't find project id")
+	}
+	firebaseKEY = os.Getenv("FIREBASE_KEY")
+	firebaseDB = os.Getenv("FIREBASE_DB")
+	if firebaseKEY == "" || firebaseDB == "" {
+		log.Fatal("Need a key for firebaseinteracting")
+	}
+
 	mux := http.NewServeMux()
 	mux.Handle("/translate", http.HandlerFunc(translate))
+	mux.Handle("/audio", http.HandlerFunc(createAudioFile))
 
 	wcache = &TranslateCache{
 		words: make(map[string]*Translate),
