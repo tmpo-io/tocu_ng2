@@ -27,16 +27,17 @@ func createAudioFile(w http.ResponseWriter, r *http.Request) {
 	start := time.Now()
 
 	word := r.FormValue("w")
+	fpath := fmt.Sprintf("/tmp/%s.mp3", word)
 	fname := fmt.Sprintf("%s.mp3", word)
 	// Check if already uploaded?
-	err := generateAudioFile(word, fname)
+	err := generateAudioFile(word, fpath)
 	if err != nil {
 		log.Printf("Can't create audio file %s", err)
 		http.Error(w, "no audio", 500)
 		return
 	}
 
-	err = uploadAudio(fname)
+	err = uploadAudio(fpath, fname)
 	if err != nil {
 		log.Printf("Can't store audio file %s", err)
 		http.Error(w, "can't store audio file", 500)
@@ -50,7 +51,7 @@ func createAudioFile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = removeLocalMedia(fname)
+	err = removeLocalMedia(fpath)
 	if err != nil {
 		log.Printf("Can't delete local file")
 	}
@@ -68,7 +69,7 @@ func createAudioFile(w http.ResponseWriter, r *http.Request) {
 }
 
 // Upload to gcloud
-func uploadAudio(filename string) error {
+func uploadAudio(filename, audio string) error {
 
 	ctx := context.Background()
 	client, err := storage.NewClient(ctx)
@@ -81,7 +82,7 @@ func uploadAudio(filename string) error {
 	}
 	defer f.Close()
 	wc := client.Bucket(bucket).Object(
-		bucketFolder + "/" + filename).NewWriter(ctx)
+		bucketFolder + "/" + audio).NewWriter(ctx)
 	if _, err = io.Copy(wc, f); err != nil {
 		return err
 	}
@@ -127,6 +128,9 @@ type FireDB struct {
 	key string
 }
 
+// builds the internal url for firebase db, like:
+// https://urldb/words/<word>.json
+// to patch its content with new audio file...
 func (db *FireDB) urlForWord(w string) string {
 	return fmt.Sprintf("%s/words/%s.json?auth=%s", db.url, w, db.key)
 }

@@ -11,11 +11,13 @@ RUN apt-get update && \
     festvox-ca-ona-hts lame && \
   apt-get install -y apertium apertium-ca-en apertium-ca-es
 
-COPY read.sh read.sh
 
+COPY read.sh read.sh
+COPY api /api
 
 #text2wave -o bondia.wav   -eval '(voice_upc_ca_ona_hts)' bon_dia.txt
-ENTRYPOINT ["/read.sh"]
+EXPOSE 8080
+ENTRYPOINT ["/api"]
 
 
 #VOLUME ["/output"]
