@@ -57,19 +57,24 @@ export class OpenClipartService {
       .get(translator + `?w=${word}`)
       .flatMap((r: Response) => {
         let m = r.json() as Translated;
+        // Start spanish request
         let a = this.http
           .get(oClipart + m.castellano)
           .flatMap(ffilter);
+
+        // Start english request
         let b =  this.http
           .get(oClipart + m.english)
           .flatMap(ffilter);
+
         return a.concat(b)
           .distinct((x,y) => {
             return x.url == y.url;
           })
           .toArray()
           .map(arr=>arr.sort(compare));
-      })
+
+    })
   }
 
 

@@ -10,7 +10,8 @@ import {
   HeaderComponent,
   ActivitatsComponent,
   ParaulesComponent,
-  ClipartComponent
+  ClipartComponent,
+  AddParaulaComponent
 } from './components';
 
 import {
@@ -55,7 +56,8 @@ const routes: Routes = [
     HeaderComponent,
     ActivitatsComponent,
     ParaulesComponent,
-    ClipartComponent
+    ClipartComponent,
+    AddParaulaComponent
   ],
   // exports: [
   //   CreatorComponent
