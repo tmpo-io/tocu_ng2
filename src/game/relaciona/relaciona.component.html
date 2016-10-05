@@ -1,0 +1,20 @@
+<div class="columna images">
+  <relaciona-word
+    *ngFor="let word of mixedImages; let i=index;"
+    [type]="'image'"
+    [word]="word"
+    [status]="statusImages[word.id]"
+    (click)="clickItem(word.id, 'image')"
+    [@inboard]="i"
+  ></relaciona-word>
+</div>
+<div class="columna text">
+  <relaciona-word
+    *ngFor="let word of mixedTexts; let i=index;"
+    [type]="'text'"
+    [word]="word"
+    [status]="statusTexts[word.id]"
+    (click)="clickItem(word.id, 'text')"
+    [@inboard]="i"
+  ></relaciona-word>
+</div>

@@ -12,7 +12,7 @@
 .item {
   margin: 20px;
   position: relative;
-  width: 32%;
+  width: calc(33% - 40px);
   display: block;
   background: white;
   text-decoration: none;
