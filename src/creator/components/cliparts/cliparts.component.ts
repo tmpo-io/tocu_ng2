@@ -3,6 +3,9 @@ import {
   Component, OnInit,
   Input, Output, EventEmitter } from '@angular/core';
 
+import { Observable } from 'rxjs';
+
+import { OpenClipartService, Clipart } from '../../services';
 
 
 @Component({
@@ -16,18 +19,28 @@ export class ClipartComponent implements OnInit {
   @Input() searchWord:string;
   @Output() onSelect = new EventEmitter<string>();
 
+  public results:Observable<Clipart[]>;
 
-  constructor() { }
+  constructor(private os:OpenClipartService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    // this.os.getCliparts(this.searchWord)
+    //   .subscribe(res => this.results = res);
+    this.results = this.os.getCliparts(this.searchWord);
+  }
 
-  select() {
-    this.onSelect.emit("test selected")
+  select(element) {
+    this.onSelect.emit(element)
     this.close();
+
   }
 
   onClose() {
     this.close();
+  }
+
+  cercar() {
+    this.results = this.os.getCliparts(this.searchWord);
   }
 
 }

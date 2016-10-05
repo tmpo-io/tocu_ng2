@@ -2,8 +2,32 @@
   font-family: 'Open Sans';
 }
 
+.cap {
+
+  margin-bottom: 20px;
+
+}
+
 .resultset {
 
+  margin: 10px;
+
   min-height: 60vh;
+  max-height: 60vh;
+  overflow: hidden;
+  overflow-y: scroll;
+
+  div {
+    margin: 10px;
+    background-color: #eaeaea;
+    border: 2px solid #eaeaea;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    height: 175px;
+    &:hover {
+      border-color: #666;
+    }
+  }
 
 }

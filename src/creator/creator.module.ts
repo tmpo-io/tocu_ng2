@@ -13,6 +13,10 @@ import {
   ClipartComponent
 } from './components';
 
+import {
+  OpenClipartService
+} from './services';
+
 import { AuthGuard, AuthService } from '../auth';
 
 const routes: Routes = [
@@ -57,7 +61,8 @@ const routes: Routes = [
   //   CreatorComponent
   // ],
   providers: [
-    AuthService
+    AuthService,
+    OpenClipartService
   ]
 })
 export class CreatorModule {}

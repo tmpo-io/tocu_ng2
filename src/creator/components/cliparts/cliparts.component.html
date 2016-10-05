@@ -9,21 +9,27 @@
 </div>
 
 <div class="modal-body">
-  <div class="row">
+  <div class="row cap">
     <div class="col-xs">
-      Loading....
+
     </div>
     <div class="col-xs form-inline text-xs-right">
-      <label for="">Cercant</label>
       <input type="text"
         class="form-control form-control-sm"
         [(ngModel)]="searchWord"
         placeholder="Introdueix texte a cercar" />
+        <button (click)="cercar()"
+          class="btn btn-success btn-sm"
+          >Cercar</button>
     </div>
   </div>
 
-  <div class="resultset">
-
-    <button (click)="select()">Click to select</button>
+  <div class="resultset row">
+    <div class="col-xs"
+      *ngFor="let image of (results|async)"
+      (click)="select(image)">
+      <img [attr.src]="image.thumb"
+        width="100" />
+    </div>
   </div>
 </div>
