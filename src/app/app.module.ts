@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 // import { routing } from './app.routing';
 import { AppComponent } from './app.component';
 
@@ -22,7 +24,8 @@ import { GameModule } from '../game';
     AuthModule,
     GameModule,
     CreatorModule,
-    FirebaseModule
+    FirebaseModule,
+    NgbModule
   ],
   bootstrap: [AppComponent]
 })

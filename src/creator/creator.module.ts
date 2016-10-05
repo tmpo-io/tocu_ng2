@@ -9,7 +9,8 @@ import {
   CreatorComponent,
   HeaderComponent,
   ActivitatsComponent,
-  ParaulesComponent
+  ParaulesComponent,
+  ClipartComponent
 } from './components';
 
 import { AuthGuard, AuthService } from '../auth';
@@ -49,7 +50,8 @@ const routes: Routes = [
     CreatorComponent,
     HeaderComponent,
     ActivitatsComponent,
-    ParaulesComponent
+    ParaulesComponent,
+    ClipartComponent
   ],
   // exports: [
   //   CreatorComponent
