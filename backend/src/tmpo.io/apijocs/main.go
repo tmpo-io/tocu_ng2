@@ -11,6 +11,8 @@ import (
 	"os/exec"
 	"strings"
 	"sync"
+
+	"github.com/rs/cors"
 )
 
 var (
@@ -61,7 +63,9 @@ func main() {
 	// Instantiate cache words mutex
 	log.Printf("Service http started at %s", *port)
 
-	if err := http.ListenAndServe(*port, mux); err != nil {
+	handler := cors.Default().Handler(mux)
+
+	if err := http.ListenAndServe(*port, handler); err != nil {
 		log.Fatal(err)
 	}
 
