@@ -1,0 +1,29 @@
+@import '../../../styles_shared';
+
+:host {
+  display: block;
+  position: relative;
+}
+div {
+  border: 8px solid $blanc;
+  background: $blanc;
+  @include box_small($gris);
+  padding: 10px;
+  text-align: center;
+  font-size: 25px;
+}
+.image {
+  padding-top: 75%;
+  position: relative;
+  margin:10px 0;
+
+  img {
+    max-width: 80%;
+    max-height: 80%;
+    @include position(absolute, 50% auto auto 50%);
+    transform: translate(-50%, -50%);
+  }
+}
+.text {
+  margin: 20px 0;
+}

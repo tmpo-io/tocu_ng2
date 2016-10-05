@@ -26,6 +26,11 @@ import {
   } from './sequencing';
 
 import {
+  RelacionaComponent,
+  RelacionaWordComponent
+} from './relaciona';
+
+import {
   WordsService,
   SoundFXService,
   ImageLoader } from './services';
@@ -62,6 +67,8 @@ const routes: Routes = [
     SequencingBoardComponent,
     SequencingWordComponent,
     SequencingLetterComponent,
+    RelacionaComponent,
+    RelacionaWordComponent,
     StarComponent,
     TiDialogComponent,
     PointsComponent,

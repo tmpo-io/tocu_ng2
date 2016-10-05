@@ -1,0 +1,13 @@
+<div [class]="type" [@WordState]="status">
+  <span
+    *ngIf="type=='text'"
+  >
+    {{ word.label.toUpperCase() }}
+  </span>
+  <img
+    *ngIf="type=='image'"
+    [src]="word.image"
+  />
+</div>
+<star-explosion *ngIf="status=='played'"
+  [amount]="15" [delay]="10" ></star-explosion>

@@ -1,0 +1,28 @@
+:host {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.columna {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  &.images {
+    width: 50%;
+    relaciona-word {
+      width: calc(50% - 10px);
+    }
+  }
+  &.text {
+    width: calc(50% - 20px);
+    relaciona-word {
+      width: 100%;
+    }
+  }
+}

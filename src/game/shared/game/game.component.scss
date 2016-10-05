@@ -15,14 +15,14 @@
 }
 
 .preload {
-  height: 20px;
+  height: 10px;
   width:100%;
   overflow: hidden;
   border: 1px solid $blau;
   @include box_small($blau_fosc);
   span {
     display: block;
-    height: 20px;
+    height: 10px;
     background: $blau;
     width: 0;
     transition: width, 0.3s;
