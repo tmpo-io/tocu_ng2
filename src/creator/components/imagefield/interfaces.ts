@@ -1,7 +1,7 @@
 
 
 export interface ImageResult {
-  file: File;
+  file: File | Blob;
   url: string;
   dataURL?: string;
   resized?: {

@@ -4,54 +4,92 @@ import {
   Input,
   OnInit,
   Output, } from '@angular/core';
+import { Headers, Http, Response,
+  ResponseContentType, RequestOptionsArgs } from '@angular/http';
+
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import {ImageResult, ResizeOptions} from './interfaces';
 import {createImage, resizeImage} from './utils';
 
 @Component({
-  moduleId: module.id,
   selector: 'image-field',
   templateUrl: './imagefield.component.html'
 })
 export class ImageFieldComponent implements OnInit {
 
   @Output() rawImage = new EventEmitter<any>();
-  @Input() resizeOptions: ResizeOptions;
+  @Input() resizeOptions: ResizeOptions = {
+    resizeMaxWidth: 600
+  };
+  public src:string;
 
-  constructor() { }
+  constructor(
+    private modal:NgbModal,
+    private http:Http
+    ) { }
 
   ngOnInit() { }
 
-  // @HostListener('change', ['$event'])
-  //   private readFiles(event) {
-  //       for (let file of event.target.files) {
-  //           let result: ImageResult = {
-  //               file: file,
-  //               url: URL.createObjectURL(file)
-  //           };
-  //           this.fileToDataURL(file, result).then(r => this.resize(r)).then(r => this.imageSelected.emit(r));
-  //       }
-  //   }
+  public openLibrary(content) {
+    this.modal.open(content);
+  }
+
+  public selectFromLibrary(item) {
+    let img = item.url;
+    const params: RequestOptionsArgs = {responseType: ResponseContentType.Blob}
+
+    this.http.get(img, params).subscribe(
+      (r:Response) => {
+          let file = r.blob();
+          let result: ImageResult = {
+             file: file,
+             url: URL.createObjectURL(r.blob())
+          }
+          this.fileToDataURL(file, result)
+            .then(r => this.resize(r))
+            .then((r) => {
+              this.rawImage.emit(r)
+              this.src = r.dataURL;
+            });
+      })
+
+  }
+
+  public selectFile(event) {
+    for (let file of event.target.files) {
+      let result: ImageResult = {
+        file: file,
+        url: URL.createObjectURL(file)
+      }
+      this.fileToDataURL(file, result)
+        .then(r => this.resize(r))
+        .then((r) => {
+          this.rawImage.emit(r)
+          this.src = r.dataURL;
+        });
+    }
+  }
 
   private resize(result: ImageResult): Promise<ImageResult> {
-      return new Promise((resolve) => {
-        if (this.resizeOptions) {
-          createImage(result.url, image => {
-            let dataUrl = resizeImage(image, this.resizeOptions);
-            result.resized = {
-              dataURL: dataUrl,
-              type: dataUrl.match(/:(.+\/.+;)/)[1]
-            };
-            resolve(result);
-          });
-        } else {
+    return new Promise((resolve) => {
+      if (this.resizeOptions) {
+        createImage(result.url, image => {
+          let dataUrl = resizeImage(image, this.resizeOptions);
+          result.resized = {
+            dataURL: dataUrl,
+            type: dataUrl.match(/:(.+\/.+;)/)[1]
+          };
           resolve(result);
-        }
-      });
-    }
+        });
+      } else {
+        resolve(result);
+      }
+    });
+  }
 
   private fileToDataURL(
-      file: File, result: ImageResult): Promise<ImageResult> {
+      file: File | Blob, result: ImageResult): Promise<ImageResult> {
     return new Promise((resolve) => {
       let reader = new FileReader();
       reader.onload = function (e) {

@@ -1,0 +1,25 @@
+<template #content let-c="close" let-m="this">
+  <clipart-popup [close]="c"
+    (onSelect)="selectFromLibrary($event)"
+    [searchWord]="word"></clipart-popup>
+</template>
+
+<div class="row">
+  <div class="col-xs">
+    <input
+      class="form-control"
+      type="file"
+      (change)="selectFile($event)" >
+
+    <button
+      class="btn btn-success btn-sm"
+      (click)="openLibrary(content)"
+      style="margin-top:15px;">
+      BIBLIOTECA D'IMATGES</button>
+  </div>
+  <div class="col-xs">
+    <img [src]="src"
+      style="width:100%"
+      [hidden]="!src" />
+  </div>
+</div>
