@@ -10,7 +10,16 @@
   </div>
   <div class="col-xs">
     <label for="">Imatge:</label>
-    <image-field></image-field>
+    <image-field
+      (rawImage)="imageSelected($event)"
+      [word]="paraula"
+      ></image-field>
   </div>
-
+</div>
+<div class="row submit">
+  <div class="col-xs">
+    <button
+      class="btn btn-success"
+      [disabled]="!(paraula.length>1 && image)">GUARDAR</button>
+  </div>
 </div>

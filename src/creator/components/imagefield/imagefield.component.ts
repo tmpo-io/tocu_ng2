@@ -1,16 +1,14 @@
 import {
   Component,
   EventEmitter,
-  Input,
-  OnInit,
-  Output, } from '@angular/core';
+  Input, OnInit, Output, } from '@angular/core';
 import { Headers, Http, Response,
   ResponseContentType, RequestOptionsArgs } from '@angular/http';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import {ImageResult, ResizeOptions} from './interfaces';
-import {createImage, resizeImage} from './utils';
+import { ImageResult, ResizeOptions} from './interfaces';
+import { createImage, resizeImage} from './utils';
 
 @Component({
   selector: 'image-field',
@@ -18,10 +16,12 @@ import {createImage, resizeImage} from './utils';
 })
 export class ImageFieldComponent implements OnInit {
 
-  @Output() rawImage = new EventEmitter<any>();
+  @Output() rawImage = new EventEmitter<ImageResult>();
   @Input() resizeOptions: ResizeOptions = {
     resizeMaxWidth: 600
   };
+  @Input() word:string;
+
   public src:string;
 
   constructor(
