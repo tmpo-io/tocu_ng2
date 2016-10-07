@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFire,
+  FirebaseListObservable } from 'angularfire2';
 
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from '../../../auth';
+
+
 
 @Component({
   selector: 'creator-paraules',
@@ -11,21 +15,19 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 export class ParaulesComponent implements OnInit {
 
   closeResult: string;
-  public word:string = "lleó";
+  // public word:string = "lleó";
 
-  constructor(private modalService: NgbModal) { }
+  paraules:FirebaseListObservable<any>;
+  public bucket:string;
 
-  open(content) {
-    this.modalService.open(content, {size:"lg"}).result.then((result)=> {
-      this.closeResult = `Close with: ${result}`
-    }, (reason)=>{
-      this.closeResult = `Dismissed`
-    })
+  constructor(
+    private af:AngularFire,
+    private auth:AuthService) {
+
+    this.bucket = `users/${auth.id}/words`;
+    this.paraules = af.database.list(this.bucket)
+
+
   }
-
-  select(item) {
-    console.log("Item selected", item);
-  }
-
   ngOnInit() { }
 }

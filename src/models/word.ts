@@ -5,6 +5,7 @@ export class Word {
   public label: string;
   public image?: string;
   public audio?: string;
+  public file?:string;
   // public $key?:string;
 }
 

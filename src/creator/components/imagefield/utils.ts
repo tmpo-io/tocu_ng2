@@ -29,7 +29,7 @@ export function resizeImage(origImage: HTMLImageElement, {
     resizeMaxHeight,
     resizeMaxWidth,
     resizeQuality = 0.7,
-    resizeType = 'image/jpeg'
+    resizeType = 'image/png'
 }: ResizeOptions = {}) {
 
     let canvas = getResizeArea();

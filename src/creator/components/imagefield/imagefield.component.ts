@@ -57,6 +57,10 @@ export class ImageFieldComponent implements OnInit {
 
   }
 
+  public clean() {
+    this.src = null;
+  }
+
   public selectFile(event) {
     for (let file of event.target.files) {
       let result: ImageResult = {
