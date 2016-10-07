@@ -7,6 +7,7 @@ export interface ImageResult {
   resized?: {
     dataURL: string
     type: string;
+    blob: Blob;
   }
 }
 

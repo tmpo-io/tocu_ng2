@@ -9,7 +9,7 @@ import { AngularFireModule, AuthMethods } from 'angularfire2';
 //     messagingSenderId: "827702252538"
 //   };
 
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: 'AIzaSyALud7WIMSAhMmU3aCHt8NEiQLy59_1nRc',
   authDomain: 'jocs-cc8cc.firebaseapp.com',
   databaseURL: 'https://jocs-cc8cc.firebaseio.com',

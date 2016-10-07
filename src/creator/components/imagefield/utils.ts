@@ -63,3 +63,11 @@ export function resizeImage(origImage: HTMLImageElement, {
     // get the data from canvas as 70% jpg (or specified type).
     return canvas.toDataURL(resizeType, resizeQuality);
 }
+
+export function dataURItoBlob(dataURI, dataTYPE) {
+  let binary = atob(dataURI.split(',')[1]), array = [];
+  for (let i = 0; i < binary.length; i++) {
+    array.push(binary.charCodeAt(i));
+  }
+  return new Blob([new Uint8Array(array)], { type: dataTYPE });
+}

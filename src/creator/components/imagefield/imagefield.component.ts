@@ -8,7 +8,8 @@ import { Headers, Http, Response,
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ImageResult, ResizeOptions} from './interfaces';
-import { createImage, resizeImage} from './utils';
+import { createImage,
+  resizeImage, dataURItoBlob } from './utils';
 
 @Component({
   selector: 'image-field',
@@ -78,6 +79,7 @@ export class ImageFieldComponent implements OnInit {
           let dataUrl = resizeImage(image, this.resizeOptions);
           result.resized = {
             dataURL: dataUrl,
+            blob: dataURItoBlob(dataUrl, dataUrl.match(/:(.+\/.+;)/)[1]),
             type: dataUrl.match(/:(.+\/.+;)/)[1]
           };
           resolve(result);
