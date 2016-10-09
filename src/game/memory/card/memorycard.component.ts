@@ -12,13 +12,13 @@ import { Word } from '../../services';
   styleUrls: ['./memorycard.component.scss'],
   animations: [
     trigger('frontState', [
-      state(CardState.Opened, style({
+      state("opened", style({
         transform: 'rotateY(0deg)'
       })),
-      state(CardState.Closed,   style({
+      state("closed",   style({
         transform: 'rotateY(180deg)'
       })),
-      state(CardState.Played,   style({
+      state("played",   style({
         transform: 'rotateY(0deg) scale(0.9,0.9)',
         filter: 'grayscale(100%)'
       })),
@@ -27,13 +27,13 @@ import { Word } from '../../services';
       transition('opened => played', animate('100ms ease-in'))
     ]),
     trigger('backState', [
-      state(CardState.Opened, style({
+      state("opened", style({
         transform: 'rotateY(180deg)'
       })),
-      state(CardState.Closed,   style({
+      state("closed",   style({
         transform: 'rotateY(0deg)'
       })),
-      state(CardState.Played,   style({
+      state("played",   style({
         transform: 'rotateY(180deg)'
       })),
       transition('opened => closed', animate('300ms ease-in')),

@@ -8,15 +8,15 @@ export const WordAnimation:any[] = [
       "border-color": "white"
     })),
     state(WordState.Selected,   style({
-      "border-color": getColor("verd")
+      "border-color": "#73d4c5"
     })),
     state(WordState.Played,   style({
-      "border-color": getColor("gris"),
+      "border-color": "#b0b0b0",
       opacity: 0.6,
       filter: 'grayscale(100%)'
     })),
     state(WordState.Error,   style({
-      "border-color": getColor("vermell")
+      "border-color": "#f80707"
     })),
     transition('* <=> *', animate('300ms ease-in')),
   ])

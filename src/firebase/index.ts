@@ -1,5 +1,5 @@
 import { AngularFireModule, AuthMethods } from 'angularfire2';
-
+import { ModuleWithProviders } from '@angular/core';
 
 // var config = {
 //     apiKey: "AIzaSyALud7WIMSAhMmU3aCHt8NEiQLy59_1nRc",
@@ -17,12 +17,12 @@ export const firebaseConfig = {
   messagingSenderId: "827702252538"
 };
 
-const firebaseAuthConfig = {
+export const firebaseAuthConfig = {
   method: AuthMethods.Popup,
   remember: 'default'
 };
 
 
-export const FirebaseModule = AngularFireModule.initializeApp(
+export const FirebaseModule:ModuleWithProviders = AngularFireModule.initializeApp(
   firebaseConfig, firebaseAuthConfig
 );

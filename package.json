@@ -14,9 +14,9 @@
   "dependencies": {
     "@angular/common": "2.0.1",
     "@angular/compiler": "2.0.1",
-    "@angular/core": "2.0.1",
-    "@angular/forms": "2.0.1",
-    "@angular/http": "2.0.1",
+    "@angular/core": "2.0.2",
+    "@angular/forms": "2.0.2",
+    "@angular/http": "2.0.2",
     "@angular/platform-browser": "2.0.1",
     "@angular/platform-browser-dynamic": "2.0.1",
     "@angular/router": "3.0.0",
@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@types/jasmine": "^2.2.30",
-    "angular-cli": "1.0.0-beta.16",
+    "angular-cli": "1.0.0-beta.17",
     "codelyzer": "~0.0.26",
     "firebase-tools": "3.0.7",
     "jasmine-core": "2.4.1",

@@ -17,8 +17,8 @@ import { RelacionaAnimation } from "./relaciona.animations";
 @Component({
   selector: "relaciona-game",
   templateUrl:"./relaciona.component.html",
-  styleUrls: ["./relaciona.component.scss"],
-  animations: RelacionaAnimation
+  styleUrls: ["./relaciona.component.scss"]
+  // animations: RelacionaAnimation
 })
 export class RelacionaComponent implements OnInit {
 

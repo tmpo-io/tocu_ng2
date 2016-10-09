@@ -5,7 +5,6 @@ import { RouterModule } from '@angular/router';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-// import { routing } from './app.routing';
 import { AppComponent } from './app.component';
 
 import { AuthModule } from '../auth';
@@ -28,9 +27,9 @@ firebase.initializeApp(firebaseConfig);
     RouterModule.forRoot([], {useHash:false}),
     AuthModule,
     GameModule,
-    CreatorModule,
+    // CreatorModule,
     FirebaseModule,
-    NgbModule
+    // NgbModule
   ],
   bootstrap: [AppComponent]
 })

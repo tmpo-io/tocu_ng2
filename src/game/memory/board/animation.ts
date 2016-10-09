@@ -9,7 +9,7 @@ import {state,
 
 
 
- export default function(name:string, ini:number,
+ export function stagger(name:string, ini:number,
   end:number, delay:number):AnimationEntryMetadata[] {
 
   let nums:number[] = []

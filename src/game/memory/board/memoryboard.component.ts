@@ -13,7 +13,7 @@ import { Shuffle } from '../../helpers';
 
 import { Observable } from 'rxjs/Rx';
 
-import { default as stagger } from './animation';
+// import { stagger } from './animation';
 
 // function stagger(name:string, ini:number,
 //   end:number, delay:number):AnimationEntryMetadata[] {
@@ -49,7 +49,7 @@ import { default as stagger } from './animation';
   selector: "memory-board",
   templateUrl:"./memoryboard.component.html",
   styleUrls: ["./memoryboard.component.scss"],
-  animations: stagger('inboard', 0, 16, 50)
+  // animations: stagger('inboard', 0, 16, 50)
 })
 
 // IsActive

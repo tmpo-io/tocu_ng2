@@ -11,7 +11,7 @@ import {
 
 import { TimerComponent } from '../timer/timer.component';
 
-type GameStatus = 'preload' | 'playing' | 'end'
+export type GameStatus = 'preload' | 'playing' | 'end'
 
 
 @Component({
