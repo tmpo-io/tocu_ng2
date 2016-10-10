@@ -8,7 +8,7 @@ RUN apt-get update && \
   add-apt-repository -y ppa:zeehio/festcat && \
   apt-get update && \
   apt-get install -y festival festival-ca festcat-utils \
-    festvox-ca-ona-hts lame && \
+    festvox-ca-ona-hts ffmpeg && \
   apt-get install -y apertium apertium-ca-en apertium-ca-es
 
 
