@@ -27,9 +27,9 @@ firebase.initializeApp(firebaseConfig);
     RouterModule.forRoot([], {useHash:false}),
     AuthModule,
     GameModule,
-    // CreatorModule,
+    CreatorModule,
     FirebaseModule,
-    // NgbModule
+    NgbModule
   ],
   bootstrap: [AppComponent]
 })

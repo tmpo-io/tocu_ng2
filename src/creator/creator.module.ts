@@ -12,7 +12,8 @@ import {
   ParaulesComponent,
   ClipartComponent,
   AddParaulaComponent,
-  ImageFieldComponent
+  ImageFieldComponent,
+  TiPreloadComponent
 } from './components';
 
 import {
@@ -59,7 +60,8 @@ const routes: Routes = [
     ParaulesComponent,
     ClipartComponent,
     AddParaulaComponent,
-    ImageFieldComponent
+    ImageFieldComponent,
+    TiPreloadComponent
   ],
   // exports: [
   //   CreatorComponent
