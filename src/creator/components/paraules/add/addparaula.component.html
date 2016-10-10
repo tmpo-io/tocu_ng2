@@ -20,7 +20,8 @@
   <div class="col-xs">
     <button
       class="btn btn-success"
-      [disabled]="!(paraula.length>1 && image)"
-      (click)="save()">GUARDAR</button>
+      [disabled]="!(paraula.length>1 && image) || (loading==true)"
+      (click)="save()"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+      <ti-preload *ngIf="loading"></ti-preload>  GUARDAR</button>
   </div>
 </div>

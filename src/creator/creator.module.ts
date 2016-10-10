@@ -13,11 +13,13 @@ import {
   ClipartComponent,
   AddParaulaComponent,
   ImageFieldComponent,
-  TiPreloadComponent
+  TiPreloadComponent,
+  TiAudioPlayerComponent
 } from './components';
 
 import {
-  OpenClipartService
+  OpenClipartService,
+  AudioGenService
 } from './services';
 
 import { AuthGuard, AuthService } from '../auth';
@@ -61,14 +63,16 @@ const routes: Routes = [
     ClipartComponent,
     AddParaulaComponent,
     ImageFieldComponent,
-    TiPreloadComponent
+    TiPreloadComponent,
+    TiAudioPlayerComponent
   ],
   // exports: [
   //   CreatorComponent
   // ],
   providers: [
     AuthService,
-    OpenClipartService
+    OpenClipartService,
+    AudioGenService
   ]
 })
 export class CreatorModule {}

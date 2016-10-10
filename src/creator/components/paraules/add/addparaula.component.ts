@@ -7,6 +7,8 @@ import * as firebase from 'firebase';
 import { AuthService } from '../../../../auth';
 import { Word } from '../../../../models';
 import { ImageFieldComponent } from '../../imagefield/imagefield.component';
+import { AudioGenService } from '../../../services';
+
 
 @Component({
   selector: 'add-paraula',
@@ -25,7 +27,8 @@ export class AddParaulaComponent implements OnInit {
 
   constructor(
     private af:AngularFire,
-    private auth:AuthService) { }
+    private auth:AuthService,
+    private audio:AudioGenService) { }
 
   ngOnInit() { }
 
@@ -50,13 +53,14 @@ export class AddParaulaComponent implements OnInit {
       file: storageRef.child(`${path}/${key}.jpg`).fullPath
     }
 
-    //@Todo > Generate audio file...
-
     file.put(this.image.resized.blob).then(()=>{
       //console.log("Image uploaded");
       file.getDownloadURL().then(s=>{
         w.image = s;
-        db.ref().child(path).push(w);
+        db.ref().child(path + "/" + key).update(w)
+          .then((m)=>{
+            this.audio.createAudio(this.auth.id, key, w.label);
+          });
         this.loading = false;
         this.onCreate.next(w);
         this.resetForm();

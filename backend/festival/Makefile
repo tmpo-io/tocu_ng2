@@ -1,6 +1,6 @@
 
 
-VERSION = r01
+VERSION = r02
 REPO = eu.gcr.io/tempo-1250/jocs
 
 build:
@@ -14,4 +14,6 @@ push:
 	gcloud --project tempo-1250 docker push $(REPO):latest
 	gcloud --project tempo-1250 docker push $(REPO):$(VERSION)
 
-
+run:
+	gcloud docker pull $(REPO):latest
+	docker run --rm -p 8080:8080  $(REPO):latest

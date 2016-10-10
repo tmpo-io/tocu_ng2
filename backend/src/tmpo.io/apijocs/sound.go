@@ -18,8 +18,9 @@ import (
 
 const (
 	bucket       = "jocs"
-	bucketPublic = "https://storage-download.googleapis.com/%s/%s/%s.mp3"
+	bucketPublic = "https://storage-download.googleapis.com/%s/%s/%s"
 	bucketFolder = "audios"
+	// path = `%s/words`
 )
 
 func createAudioFile(w http.ResponseWriter, r *http.Request) {
@@ -27,8 +28,11 @@ func createAudioFile(w http.ResponseWriter, r *http.Request) {
 	start := time.Now()
 
 	word := r.FormValue("w")
+	userID := r.FormValue("uid")
+	wordUID := r.FormValue("wid")
+
 	fpath := fmt.Sprintf("/tmp/%s.mp3", word)
-	fname := fmt.Sprintf("%s.mp3", word)
+	fname := fmt.Sprintf("%s_%s.mp3", userID, wordUID)
 	// Check if already uploaded?
 	err := generateAudioFile(word, fpath)
 	if err != nil {
@@ -44,7 +48,7 @@ func createAudioFile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = updateDB(word, fname)
+	err = updateDB(userID, wordUID, fname)
 	if err != nil {
 		log.Printf("can't update db %s", err)
 		http.Error(w, "cant update db", 500)
@@ -98,13 +102,13 @@ func urlForFile(file string) string {
 }
 
 // Update firebase db for word
-func updateDB(word, file string) error {
+func updateDB(userID, wordUID, file string) error {
 	db := &FireDB{
 		url: firebaseDB,
 		key: firebaseKEY,
 	}
 	urlfile := urlForFile(file)
-	err := db.UpdateAudioWord(word, urlfile)
+	err := db.UpdateAudioWord(userID, wordUID, urlfile)
 	return err
 }
 
@@ -131,15 +135,18 @@ type FireDB struct {
 // builds the internal url for firebase db, like:
 // https://urldb/words/<word>.json
 // to patch its content with new audio file...
-func (db *FireDB) urlForWord(w string) string {
-	return fmt.Sprintf("%s/words/%s.json?auth=%s", db.url, w, db.key)
+// const path = `users/${this.auth.id}/words`
+
+func (db *FireDB) urlForWord(userID, wordUID string) string {
+	return fmt.Sprintf("%s/users/%s/words/%s.json?auth=%s", db.url, userID, wordUID, db.key)
 }
 
 // UpdateAudioWord updateds store with an audio
-func (db *FireDB) UpdateAudioWord(word, audio string) error {
+func (db *FireDB) UpdateAudioWord(userID, wordUID, audio string) error {
 
 	// build url
-	url := db.urlForWord(word)
+	url := db.urlForWord(userID, wordUID)
+	log.Printf("Url %s\n", url)
 	obj := map[string]string{
 		"audio": audio,
 	}
@@ -153,6 +160,7 @@ func (db *FireDB) UpdateAudioWord(word, audio string) error {
 		return err
 	}
 	response, err := client.Do(request)
+	// io.Copy(os.Stdout, response.Body)
 	defer response.Body.Close()
 	if err != nil {
 		return err

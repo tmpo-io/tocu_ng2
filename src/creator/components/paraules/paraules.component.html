@@ -6,9 +6,11 @@
 
 <div class="paraules-list row">
   <div
-    class="col-xs"
+    class="col-xs paraula"
     *ngFor="let paraula of paraules | async">
-    {{ paraula.label }}
     <img [src]="paraula.image" style="width:100px" />
+    <span>{{ paraula.label }}</span>
+    <ti-audioplayer [src]="paraula.audio"></ti-audioplayer>
   </div>
 </div>
+

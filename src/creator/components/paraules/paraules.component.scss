@@ -1,0 +1,30 @@
+@import '../../../styles_shared';
+
+
+.row {
+  margin: 0px;
+  margin-left: -10px;
+  margin-top: 15px;
+}
+
+
+.paraula {
+  text-align:center;
+  background-color: white;
+  border-radius: 5px;
+  padding: 10px;
+  max-width: 150px;
+  margin: 10px;
+  position:relative;
+  padding-bottom: 60px;
+}
+
+
+span {
+  @include position(absolute, auto 0 0 0);
+}
+
+ti-audioplayer {
+  @include position(absolute, auto 0 25px 0);
+
+}
