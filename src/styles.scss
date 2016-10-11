@@ -8,6 +8,7 @@ $card_bg: #ccc;
 body {
 	font-family: 'Itim';
   background: #fdfbee url('./assets/img/bg.png') repeat;
+  font-size: 14px;
 }
 
 
@@ -24,4 +25,9 @@ h1,h2,h3,h4,p {
   max-width: 900px;
   height: 99vh;
   // border: 1px solid red;
+}
+
+
+.form-control {
+  font-size: 14px;
 }
