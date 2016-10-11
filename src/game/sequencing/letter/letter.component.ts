@@ -13,6 +13,6 @@ import { getColor } from '../../helpers';
   animations: []
 })
 export class SequencingLetterComponent {
-  @Input() private letter;
-  @Input() private status;
+  @Input() letter;
+  @Input() status;
 }

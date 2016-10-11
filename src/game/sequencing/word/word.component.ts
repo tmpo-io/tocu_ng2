@@ -6,8 +6,8 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
   styleUrls: ["./word.component.scss"],
 })
 export class SequencingWordComponent implements OnChanges {
-  @Input() private word:string[];
-  @Input() private current:number = 0;
+  @Input() word:string[];
+  @Input() current:number = 0;
 
   private internalWord:string = "";
 

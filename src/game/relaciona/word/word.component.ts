@@ -10,7 +10,7 @@ import { Word } from '../../services';
 import { WordState } from "./word";
 // import { WordAnimation } from "./word.animations";
 
-type wordType = 'image' | 'text';
+export type wordType = 'image' | 'text';
 
 @Component({
   selector: "relaciona-word",
@@ -37,7 +37,7 @@ type wordType = 'image' | 'text';
   ]
 })
 export class RelacionaWordComponent {
-  @Input() private word:Word;
-  @Input() private status:WordState;
-  @Input() private type:wordType;
+  @Input() word:Word;
+  @Input() status:WordState;
+  @Input() type:wordType;
 }

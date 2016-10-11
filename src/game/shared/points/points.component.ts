@@ -21,7 +21,7 @@ import { Component, Input, OnInit, OnChanges, SimpleChanges, state, style,
   ]
 })
 export class PointsComponent {
-  @Input() private points:number;
-  @Input() private total:number;
-  @Input() private gamestatus:string;
+  @Input() points:number;
+  @Input() total:number;
+  @Input() gamestatus:string;
 }

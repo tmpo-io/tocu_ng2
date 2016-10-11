@@ -1,6 +1,7 @@
 <div class="controls">
   <timer [gamestatus]="status"></timer>
-  <points [gamestatus]="status" [points]="points" [total]="total"></points>
+  <points [gamestatus]="status"
+    [points]="points" [total]="total"></points>
   <ti-button
     *ngIf="status=='playing'"
     [routerLink]="'/activitat'"

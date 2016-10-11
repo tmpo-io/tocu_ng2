@@ -1,6 +1,6 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 
-type typeButton = 'icon' | 'text' | 'text-icon';
+export type typeButton = 'icon' | 'text' | 'text-icon';
 
 @Component({
   selector: 'ti-button',
@@ -8,6 +8,7 @@ type typeButton = 'icon' | 'text' | 'text-icon';
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
 })
+
 export class ButtonComponent {
-  @Input() private type:typeButton;
+  @Input() type:typeButton;
 }

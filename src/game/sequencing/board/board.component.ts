@@ -15,10 +15,10 @@ import { SequencingAnimation } from "./board.animations";
   animations: SequencingAnimation
 })
 export class SequencingBoardComponent implements OnInit {
-  @Input() private words;
-  @Output() private onWin = new EventEmitter<number>();
-  @Output() private onFail = new EventEmitter<number>();
-  @Output() private onFinish = new EventEmitter<number>();
+  @Input()  words;
+  @Output() onWin = new EventEmitter<number>();
+  @Output() onFail = new EventEmitter<number>();
+  @Output() onFinish = new EventEmitter<number>();
 
   private wordVisible:string = "out";
   private lettersVisible:string = "out";

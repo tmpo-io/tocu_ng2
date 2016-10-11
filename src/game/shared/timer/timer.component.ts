@@ -25,7 +25,7 @@ type timerStatus = 'start' | 'stop';
   ]
 })
 export class TimerComponent implements OnInit, OnChanges, OnDestroy {
-  @Input() private gamestatus:string;
+  @Input() gamestatus:string;
 
   private tick: string;
   private subscription:any = undefined;
