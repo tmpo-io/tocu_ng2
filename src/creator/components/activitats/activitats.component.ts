@@ -5,7 +5,14 @@ import {
   FirebaseListObservable
 } from 'angularfire2';
 
+import * as firebase from 'firebase';
 import { AuthService } from '../../../auth';
+
+
+export interface TipusJoc {
+  key:string
+  desc:string
+}
 
 
 @Component({
@@ -16,6 +23,7 @@ export class ActivitatsComponent implements OnInit {
 
   activitats: FirebaseListObservable<any>;
   public bucket: string;
+  public tipus:TipusJoc[] = [];
 
   constructor(private af: AngularFire,
     private auth: AuthService) {
@@ -23,8 +31,19 @@ export class ActivitatsComponent implements OnInit {
     this.activitats = af.database.list(this.bucket)
   }
 
-
-
-  ngOnInit() { }
+  ngOnInit() {
+    // Get available game types
+    let db = firebase.database().ref("tipus")
+    db.once("value").then(v => {
+      const t = v.val();
+      Object.keys(t).forEach(k => {
+        this.tipus.push({
+          key: k,
+          desc: t[k].desc
+        });
+      })
+      // console.log(this.tipus);
+    })
+  }
 
 }

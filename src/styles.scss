@@ -14,11 +14,9 @@ body {
   font-size: 14px;
 }
 
-
 h1,h2,h3,h4,p {
   font-family: 'Itim';
 }
-
 
 .wrapper {
   display: block;
@@ -30,11 +28,16 @@ h1,h2,h3,h4,p {
   // border: 1px solid red;
 }
 
-
 .form-control {
   font-size: 14px;
 }
 
+.row {
+  font-family: 'Open Sans';
+   * {
+    font-family: 'Open Sans';
+   }
+}
 
 .row.admin {
   font-family: 'Open Sans';
@@ -71,4 +74,11 @@ h1,h2,h3,h4,p {
 
 }
 
-
+.row.header {
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #999;
+  .buttons {
+    text-align:right;
+  }
+}

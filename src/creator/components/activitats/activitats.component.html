@@ -12,11 +12,11 @@
 <add-activitat *ngIf="showAdd"></add-activitat>
 
 <div class="paraules-list row">
-	<div class="col-xs activitats ticard hover"
+  <div class="col-xs activitats ticard hover"
     *ngFor="let obj of activitats | async"
     [routerLink]="'/creator/activitats/' + obj.id"
     >
-		<img [src]="obj.image" style="width:100px" />
-		<span>{{ obj.label }}</span>
-	</div>
+    <img [src]="obj.image" style="width:100px" />
+    <span>{{ obj.label }}</span>
+  </div>
 </div>

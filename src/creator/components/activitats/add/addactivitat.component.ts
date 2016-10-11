@@ -1,4 +1,4 @@
-import { Component, Output,
+import { Component, Output, OnInit,
     ViewChild, EventEmitter } from '@angular/core';
 
 import { ImageResult } from '../../imagefield/interfaces';
@@ -22,7 +22,7 @@ export interface Activitat {
   templateUrl: './addactivitat.component.html',
   styleUrls: ['./addactivitat.component.scss']
 })
-export class AddActivitatComponent {
+export class AddActivitatComponent implements OnInit {
 
   public image: ImageResult;
   public paraula: string = "";
@@ -36,6 +36,9 @@ export class AddActivitatComponent {
     private af: AngularFire,
     private auth: AuthService) { }
 
+  ngOnInit() {
+
+  }
 
   imageSelected(event:ImageResult) {
     this.image = event;
