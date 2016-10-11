@@ -1,1 +1,22 @@
-<h3>Activitats</h3>
+
+<div class="row header">
+  <div class="col-xs">
+    <h3>Activitats</h3>
+  </div>
+  <div class="col-xs buttons">
+    <button class="btn btn-success"
+      (click)="(showAdd = !showAdd)">Afegir Activitat</button>
+  </div>
+</div>
+
+<add-activitat *ngIf="showAdd"></add-activitat>
+
+<div class="paraules-list row">
+	<div class="col-xs activitats ticard hover"
+    *ngFor="let obj of activitats | async"
+    [routerLink]="'/creator/activitats/' + obj.id"
+    >
+		<img [src]="obj.image" style="width:100px" />
+		<span>{{ obj.label }}</span>
+	</div>
+</div>

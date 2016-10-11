@@ -2,14 +2,14 @@
 
 <div class="row admin">
   <div class="col-xs">
-    <label>Paraula:</label>
+    <label>Activitat:</label>
     <input type="text" [(ngModel)]="paraula"
-      placeholder="Introdueix la paraula"
+      placeholder="Introdueix el nom de l'activitat'"
       class="form-control"
         />
   </div>
   <div class="col-xs">
-    <label for="">Imatge:</label>
+    <label for="">Imatge/Icona:</label>
     <image-field
       (rawImage)="imageSelected($event)"
       [word]="paraula"
@@ -25,3 +25,4 @@
       <ti-preload *ngIf="loading"></ti-preload>  GUARDAR</button>
   </div>
 </div>
+

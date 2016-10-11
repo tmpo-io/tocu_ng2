@@ -9,6 +9,8 @@ import {
   CreatorComponent,
   HeaderComponent,
   ActivitatsComponent,
+  AddActivitatComponent,
+  ActivitatEditorComponent,
   ParaulesComponent,
   ClipartComponent,
   AddParaulaComponent,
@@ -35,6 +37,10 @@ const routes: Routes = [
         component: ActivitatsComponent
       },
       {
+        path: 'activitats/:id',
+        component: ActivitatEditorComponent
+      },
+      {
         path: 'paraules',
         component: ParaulesComponent
       },
@@ -59,12 +65,14 @@ const routes: Routes = [
     CreatorComponent,
     HeaderComponent,
     ActivitatsComponent,
+    AddActivitatComponent,
     ParaulesComponent,
     ClipartComponent,
     AddParaulaComponent,
     ImageFieldComponent,
     TiPreloadComponent,
-    TiAudioPlayerComponent
+    TiAudioPlayerComponent,
+    ActivitatEditorComponent
   ],
   // exports: [
   //   CreatorComponent
