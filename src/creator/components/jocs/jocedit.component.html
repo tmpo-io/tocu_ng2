@@ -1,0 +1,76 @@
+
+<form name="form" class="form_creator">
+<div class="row admin">
+  <div class="col-xs">
+    <label for="label">Nom del joc:</label>
+    <input type="text"
+      [(ngModel)]="joc.label"
+      id="label"
+      required
+      name="label"
+      placeholder="Introdueix el nom del joc"
+      class="form-control"
+        />
+  </div>
+  <div class="col-xs">
+    <label for="">Imatge/Icona:</label>
+    <image-field
+      (rawImage)="imageSelected($event)"
+      [word]="joc.label"
+      ></image-field>
+  </div>
+</div>
+
+<div class="row admin">
+  <div class="col-xs">
+    <label for="tipus">Tipus de joc:</label>
+  </div>
+  <div class="col-xs-10">
+    <div class="form-check"  *ngFor="let tjoc of tipusJoc">
+    <label class="form-check-label">
+        <input type="radio"
+          class="form-check-input"
+          name="tipus" id="tipus_1"
+          [(ngModel)]="joc.tipus"
+          [value]="tjoc.key"
+          checked>
+          <strong>{{ tjoc.label }}</strong><br/>
+          {{ tjoc.desc }}
+    </label>
+    </div>
+  </div>
+</div>
+
+<div class="row admin">
+  <div class="col-xs">
+    <label for="">Paraules:</label>
+  </div>
+  <div class="col-xs-10">
+    <input type="text"
+      class="form-control"
+      name="paraules"
+      [(ngModel)]="selectedWord"
+      [ngbTypeahead]="searchWords"
+      [resultFormatter]="wordFormater"
+      (selectItem)="wordSelected($event)"
+      placeholder="Selecciona les paraules"><br />
+
+     <div class="paraules">
+      <span class="tag tag-success tag-pill"
+        *ngFor="let word of selectedWords"
+          (click)="removeWord(word)">{{ word.label }} &times;</span>
+     </div>
+
+  </div>
+</div>
+
+<div class="row admin submit">
+  <div class="col-xs">
+    <button
+      class="btn btn-success"
+      [disabled]="!(paraula.length>1 && image) || (loading==true)"
+      (click)="save()"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+      <ti-preload *ngIf="loading"></ti-preload>  GUARDAR</button>
+  </div>
+</div>
+</form>

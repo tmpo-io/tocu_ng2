@@ -4,12 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { Routes, RouterModule } from '@angular/router';
 
+import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 
 import {
   CreatorComponent,
   HeaderComponent,
-  ActivitatsComponent,
-  AddActivitatComponent,
+  JocsListComponent,
+  JocEditComponent,
   ActivitatEditorComponent,
   ParaulesComponent,
   ClipartComponent,
@@ -33,12 +34,16 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       {
-        path: 'activitats',
-        component: ActivitatsComponent
+        path: 'jocs',
+        component: JocsListComponent
       },
       {
-        path: 'activitats/:id',
-        component: ActivitatEditorComponent
+        path: 'jocs/add/',
+        component: JocEditComponent
+      },
+      {
+        path: 'jocs/:id',
+        component: JocEditComponent
       },
       {
         path: 'paraules',
@@ -46,7 +51,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: 'activitats',
+        redirectTo: 'jocs',
         pathMatch: 'full'
       }
     ]
@@ -59,20 +64,21 @@ const routes: Routes = [
     CommonModule,
     HttpModule,
     FormsModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    NgbTypeaheadModule
   ],
   declarations: [
     CreatorComponent,
     HeaderComponent,
-    ActivitatsComponent,
-    AddActivitatComponent,
+    JocsListComponent,
+    JocEditComponent,
     ParaulesComponent,
     ClipartComponent,
     AddParaulaComponent,
     ImageFieldComponent,
     TiPreloadComponent,
     TiAudioPlayerComponent,
-    ActivitatEditorComponent
+    ActivitatEditorComponent,
   ],
   // exports: [
   //   CreatorComponent
