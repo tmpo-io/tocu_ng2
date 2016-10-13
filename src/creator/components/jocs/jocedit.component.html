@@ -17,6 +17,7 @@
     <image-field
       (rawImage)="imageSelected($event)"
       [word]="joc.label"
+      [src]="joc.image"
       ></image-field>
   </div>
 </div>
@@ -57,7 +58,7 @@
 
      <div class="paraules">
       <span class="tag tag-success tag-pill"
-        *ngFor="let word of selectedWords"
+        *ngFor="let word of joc.words"
           (click)="removeWord(word)">{{ word.label }} &times;</span>
      </div>
 

@@ -1,11 +1,28 @@
 
+import { Word } from '../../../models';
+
 
 export interface Joc {
   label?: string
   id?: string
   image?: string
   file?: string
+  status?: boolean
+  tipus?:string
+  words?:Word[]
 }
+
+
+export class JocModel {
+  label?: string
+  id?: string
+  image?: string
+  file?: string
+  status?: boolean
+  tipus?:string
+  words?:Word[]
+}
+
 
 
 export interface TJoc {

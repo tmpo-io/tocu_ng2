@@ -2,8 +2,8 @@
 <nav>
   <h1>jocs</h1>
   <ul>
+    <li><a [routerLink]="['jocs']">Jocs</a></li>
     <li><a [routerLink]="['paraules']">Paraules</a></li>
-    <li><a [routerLink]="['jocs']">Activitats</a></li>
   </ul>
   <ul class="right">
     <li>({{ (af.auth | async)?.auth.displayName }}) <a (click)="signOut()">Sortir</a></li>

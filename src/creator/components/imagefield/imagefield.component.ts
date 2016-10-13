@@ -22,8 +22,9 @@ export class ImageFieldComponent implements OnInit {
     resizeMaxWidth: 600
   };
   @Input() word:string;
+  @Input() src:string;
 
-  public src:string;
+  // public src:string;
 
   constructor(
     private modal:NgbModal,
@@ -54,8 +55,8 @@ export class ImageFieldComponent implements OnInit {
               this.src = r.dataURL;
             });
       })
-
   }
+
 
   public clean() {
     this.src = null;

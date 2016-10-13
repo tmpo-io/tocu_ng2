@@ -38,10 +38,6 @@ const routes: Routes = [
         component: JocsListComponent
       },
       {
-        path: 'jocs/add/',
-        component: JocEditComponent
-      },
-      {
         path: 'jocs/:id',
         component: JocEditComponent
       },

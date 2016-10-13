@@ -58,27 +58,26 @@ export class JocEditComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params=>{
-      if(params) {
+      const p = params["id"];
+      if(p == "add") {
+        this.joc = {
+           label: '',
+           words: []
+         };
+      } else {
         // Is edit.. load game instance
         this.jocID = params["id"];
         this.joc$ = this.af.database.object(this.getPath(this.jocID));
         this.joc$.subscribe(obj=>{
           this.joc = obj;
         });
-       } else {
-         this.joc = {
-           label: ''
-         };
-       }
+      }
     })
     const path = `users/${this.auth.id}/words`
     this._paraules = this.af.database.list(path)
     this._paraules.subscribe(w=>{
       this.paraules = w;
-      para = this.paraules;
-      // console.log("Paraules", this.paraules)
     })
-    // this.tipusJoc = this.af.database.list("tipus");
   }
 
   // aquesta funcio ha de ser una arrow, pq conservi el this
@@ -97,7 +96,7 @@ export class JocEditComponent implements OnInit {
           this.paraules.filter(
             v=>new RegExp(term, 'gi').test(v.label)
           ).filter(el=>{
-            return (this.selectedWords.find(k=>k.id==el.id)==undefined)
+            return (this.joc.words.find(k=>k.id==el.id)==undefined)
           })
         );
       })
@@ -109,12 +108,17 @@ export class JocEditComponent implements OnInit {
 
   wordSelected(event:NgbTypeaheadSelectItemEvent) {
     this.selectedWord = "";
-    this.selectedWords.push(event.item);
+    if(!this.joc.words) {
+      this.joc.words = []
+    }
+    this.joc.words.push(event.item)
+    //this.selectedWords.push(event.item);
     event.preventDefault();
   }
 
   removeWord(w:Word) {
-    this.selectedWords = this.selectedWords.filter(el => w.id!=el.id)
+    this.joc.words = this.joc.words.filter(el => w.id!=el.id)
+    // this.selectedWords = this.selectedWords.filter(el => w.id!=el.id)
   }
 
   imageSelected(event:ImageResult) {
