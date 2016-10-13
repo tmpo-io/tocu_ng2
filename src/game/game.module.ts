@@ -31,6 +31,11 @@ import {
 } from './relaciona';
 
 import {
+  MixedComponent,
+  MixedWordComponent
+} from './mixed';
+
+import {
   WordsService,
   SoundFXService,
   ImageLoader } from './services';
@@ -69,6 +74,8 @@ const routes: Routes = [
     SequencingLetterComponent,
     RelacionaComponent,
     RelacionaWordComponent,
+    MixedComponent,
+    MixedWordComponent,
     StarComponent,
     TiDialogComponent,
     PointsComponent,

@@ -1,0 +1,7 @@
+<div
+  [class]="status"
+>
+  {{ word }}
+  <star-explosion *ngIf="status=='success'"
+    [amount]="15" [delay]="10" ></star-explosion>
+</div>

@@ -1,0 +1,20 @@
+@import '../../../styles_shared';
+
+div {
+  position: relative;
+  display: inline-block;
+  margin: 20px;
+  font-size: 28px;
+  background: white;
+  @include box($gris);
+  padding: 10px 20px;
+  transition: all 0.3s;
+
+  &.error {
+    background: $vermell;
+    color: white;
+  }
+  &.success {
+    background: $groc_fosc;
+  }
+}

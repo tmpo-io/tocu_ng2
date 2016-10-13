@@ -52,6 +52,13 @@
     (onFail)="onFail($event)"
     (onFinish)="onFinish($event)"
   ></relaciona-game>
+  <mixed-game
+    *ngSwitchCase="'mixed'"
+    [words]="cards"
+    (onWin)="onWin($event)"
+    (onFail)="onFail($event)"
+    (onFinish)="onFinish($event)"
+  ></mixed-game>
 </div>
 
 

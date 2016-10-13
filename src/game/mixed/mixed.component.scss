@@ -1,0 +1,64 @@
+@import '../../styles_shared';
+
+/*:host {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.columna {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  &.images {
+    width: 50%;
+    relaciona-word {
+      width: calc(50% - 10px);
+    }
+  }
+  &.text {
+    width: calc(50% - 20px);
+    relaciona-word {
+      width: 100%;
+    }
+  }
+}
+*/
+.word {
+  position: relative;
+  margin-top: 30px;
+  background: white;
+  display: inline-block;
+  min-width: 60%;
+  padding: 40px 40px 60px 40px;
+  @include box($gris);
+  img {
+    padding-bottom: 40px;
+  }
+  .bt-sound {
+    @include position(absolute, 20px 20px auto auto);
+  }
+  .bt-nextWord {
+    @include position(absolute, auto auto 0 50%);
+    transform: translate(-50%, 50%);
+  }
+}
+
+.words {
+  width: 100%;
+  margin: 40px 0;
+
+  div {
+    margin: 20px;
+    font-size: 28px;
+    background: white;
+    display: inline-block;
+    @include box($gris);
+    padding: 10px 20px;
+  }
+}
