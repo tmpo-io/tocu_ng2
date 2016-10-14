@@ -1,11 +1,14 @@
-import { Component, Output, OnInit,
+import { Component, Output, OnInit, OnDestroy,
     ViewChild, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
+
 
 import { AngularFire,
   FirebaseObjectObservable,
@@ -33,7 +36,7 @@ export function clean(obj) {
   templateUrl: './jocedit.component.html',
   styleUrls: ['./jocedit.component.scss']
 })
-export class JocEditComponent implements OnInit {
+export class JocEditComponent implements OnInit, OnDestroy {
 
   public image: ImageResult;
   public paraula: string = "";
@@ -42,6 +45,7 @@ export class JocEditComponent implements OnInit {
 
   private jocID:string;
   private joc$:FirebaseObjectObservable<Joc>;
+  private subscription:Subscription;
   public joc:Joc = {
     label: '',
     words: []
@@ -101,7 +105,7 @@ export class JocEditComponent implements OnInit {
 
   private _getGameData() {
     this.joc$ = this.db.getJoc(this.jocID);
-    this.joc$.subscribe(o => {
+    this.subscription = this.joc$.subscribe(o => {
       this.joc = clean(o);
       if(!this.joc.words) {
         this.joc.words = [];
@@ -130,6 +134,15 @@ export class JocEditComponent implements OnInit {
           })
         );
       })
+  }
+
+  delete() {
+    let res = confirm("Estàs segur que vols esborrar el joc?")
+    if(res) {
+      this.db.remove(this.joc).subscribe(()=>{
+         this.router.navigate(['/creator/jocs']);
+      });
+    }
   }
 
   wordFormater(result:Word):string {
@@ -169,6 +182,10 @@ export class JocEditComponent implements OnInit {
       this.loading = false;
       this.modified = false;
     })
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 

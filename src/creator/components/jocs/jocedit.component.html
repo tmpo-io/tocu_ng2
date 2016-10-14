@@ -69,13 +69,18 @@
 </div>
 
 <div class="row admin submit">
-  <div class="col-xs">
+  <div class="col-xs text-xs-right">
     <button
       class="btn btn-success"
       [disabled]="(jocForm.form.valid==false) || (loading==true) || (modified==false)"
       (click)="save()"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
       <ti-preload *ngIf="loading"></ti-preload>  GUARDAR</button>
+      <button class="btn btn-danger"
+        *ngIf="jocID"
+        (click)="delete()">&times; ELIMINAR</button>
+      <!--
       {{ modified }} | {{ !jocForm.form.valid }} | {{ loading }}
+      -->
   </div>
 </div>
 </form>

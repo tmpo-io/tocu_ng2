@@ -7,7 +7,8 @@ export interface Joc {
   id?: string
   image?: string
   file?: string
-  status?: boolean
+  published?: boolean
+  public?: boolean
   tipus?:string
   words?:Word[]
   $exists?:any
@@ -31,6 +32,11 @@ export interface TJoc {
   desc:string
   label:string
   key:string
+
+  validate?:any
+  validateHelp?:string
+
+  hasLevels?:boolean
 }
 
 
@@ -38,7 +44,8 @@ export const tipusJoc:TJoc[] = [
   {
     desc: "Un Memory de paraules",
     key: "memory",
-    label: "Memory"
+    label: "Memory",
+    validate: joc => joc.words.length==8
   },
   {
     desc: "El joc de les parelles on s'ha de relacionar imatge i texte",
