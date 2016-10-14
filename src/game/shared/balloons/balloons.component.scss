@@ -1,0 +1,61 @@
+@import '../../../styles_shared.scss';
+
+:host {
+  display: block;
+  position: relative;
+  z-index: 1001;
+}
+.balloon {
+  $size: 80px;
+  display: inline-block;
+  transition: transform 3s linear, opacity .2s;
+  opacity: 0;
+  @include position(absolute, 0 auto auto 30%);
+  transform: translate3d(0, 700px, 0);
+  $shakeTime: 1.5s;
+  span {
+    display: block;
+    width: $size;
+    height: $size;
+    border-radius: $size / 2;
+    animation: shaking $shakeTime linear 0s infinite reverse;
+
+    svg {
+      width: 100%;
+      height: auto;
+    }
+  }
+  &.reverseShaking {
+    left: 60%;
+    span {
+      animation: shaking2 $shakeTime linear 0s infinite reverse;
+    }
+  }
+  &.exploding {
+    span {
+      animation: explode .6s linear forwards;
+    }
+  }
+}
+
+@keyframes shaking {
+  0% { transform:translateX(0); }
+  25% { transform:translateX(-15%); }
+  50% { transform:translateX(0); }
+  75% { transform:translateX(15%); }
+  100% { transform:translateX(0); }
+}
+@keyframes shaking2 {
+  0% { transform:translateX(0); }
+  25% { transform:translateX(15%); }
+  50% { transform:translateX(0); }
+  75% { transform:translateX(-15%); }
+  100% { transform:translateX(0); }
+}
+@keyframes explode {
+  0% { transform:scale(1); }
+  33% { transform:scale(0.6); }
+  66% { transform:scale(1.6); }
+  90% { opacity:1; }
+  100% { transform:scale(6); opacity:0; }
+}

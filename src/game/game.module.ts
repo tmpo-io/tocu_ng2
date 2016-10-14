@@ -10,6 +10,7 @@ import {
   GameComponent,
   PointsComponent,
   StarComponent,
+  BallonsComponent,
   TiDialogComponent,
   TimerComponent
   } from './shared';
@@ -77,6 +78,7 @@ const routes: Routes = [
     MixedComponent,
     MixedWordComponent,
     StarComponent,
+    BallonsComponent,
     TiDialogComponent,
     PointsComponent,
     TimerComponent,
