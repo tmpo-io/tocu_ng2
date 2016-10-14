@@ -28,7 +28,6 @@ export class BallonsComponent implements OnInit {
   constructor(private _render: Renderer) {}
 
   private clickBalloon(indx:number) {
-    console.log(this.explode);
     this.explode[indx] = true;
   }
 
