@@ -13,6 +13,8 @@ import { AngularFire,
 import * as firebase from 'firebase';
 import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 
+
+import { JocDb } from '../../services';
 import { AuthService } from '../../../auth';
 import { ImageResult } from '../imagefield/interfaces';
 import { ImageFieldComponent } from '../imagefield/imagefield.component';
@@ -20,9 +22,11 @@ import { Joc, tipusJoc, TJoc  } from './models'
 import { Word } from '../../../models';
 
 
-
-
-export let para:Word[];
+export function clean(obj) {
+  delete obj.$key;
+  delete obj.$exists;
+  return obj;
+}
 
 @Component({
   selector: 'creator-jocs-edit',
@@ -34,12 +38,19 @@ export class JocEditComponent implements OnInit {
   public image: ImageResult;
   public paraula: string = "";
   public loading: boolean = false;
+  public ready: boolean = false;
 
   private jocID:string;
   private joc$:FirebaseObjectObservable<Joc>;
-  public joc:Joc = {};
-  private modifed:boolean;
+  public joc:Joc = {
+    label: '',
+    words: []
+  };
+
+  private modified:boolean = false;
+
   public tipusJoc:TJoc[] = tipusJoc;
+
   private _paraules:FirebaseListObservable<Word[]>
   public paraules:Word[] = [];
   public selectedWords:Word[] = []
@@ -53,7 +64,9 @@ export class JocEditComponent implements OnInit {
   constructor(
     private af: AngularFire,
     private auth: AuthService,
-    private route:ActivatedRoute) {
+    private route:ActivatedRoute,
+    private router:Router,
+    private db:JocDb) {
     }
 
   ngOnInit() {
@@ -64,13 +77,19 @@ export class JocEditComponent implements OnInit {
            label: '',
            words: []
          };
+         this.ready = true;
       } else {
         // Is edit.. load game instance
         this.jocID = params["id"];
-        this.joc$ = this.af.database.object(this.getPath(this.jocID));
-        this.joc$.subscribe(obj=>{
-          this.joc = obj;
-        });
+        this.db.gameExists(this.jocID).subscribe(
+          res => {
+            if(res===false) {
+              return this.router.navigate(['/creator/jocs']);
+            }
+            this._getGameData();
+            this.ready = true;
+          }
+        )
       }
     })
     const path = `users/${this.auth.id}/words`
@@ -78,6 +97,17 @@ export class JocEditComponent implements OnInit {
     this._paraules.subscribe(w=>{
       this.paraules = w;
     })
+  }
+
+  private _getGameData() {
+    this.joc$ = this.db.getJoc(this.jocID);
+    this.joc$.subscribe(o => {
+      this.joc = clean(o);
+      if(!this.joc.words) {
+        this.joc.words = [];
+      }
+      // console.log("the game", this.joc);
+    });
   }
 
   // aquesta funcio ha de ser una arrow, pq conservi el this
@@ -111,55 +141,34 @@ export class JocEditComponent implements OnInit {
     if(!this.joc.words) {
       this.joc.words = []
     }
-    this.joc.words.push(event.item)
-    //this.selectedWords.push(event.item);
+    this.modified = true
+    this.joc.words.push(clean(event.item))
     event.preventDefault();
-  }
+  };
 
   removeWord(w:Word) {
+    this.modified = true;
     this.joc.words = this.joc.words.filter(el => w.id!=el.id)
-    // this.selectedWords = this.selectedWords.filter(el => w.id!=el.id)
   }
 
   imageSelected(event:ImageResult) {
     this.image = event;
+    this.modified = true;
   }
 
   save() {
     this.loading = true;
-    const path = `users/${this.auth.id}/jocs`
-    let storageRef = firebase.storage().ref();
-    let db = firebase.database();
-    let key = db.ref().child(path).push().key;
-    let file = storageRef.child(`${path}/${key}.jpg`)
-
-    let w:Joc = {
-      label: this.paraula,
-      id: key,
-      image: '',
-      file: storageRef.child(`${path}/${key}.jpg`).fullPath
-    }
-
-    file.put(this.image.resized.blob).then(()=>{
-      //console.log("Image uploaded");
-      file.getDownloadURL().then(s=>{
-        w.image = s;
-        db.ref().child(path + "/" + key).update(w)
-        this.loading = false;
-        this.onCreate.next(w);
-        this.resetForm();
-      })
+    // console.log(this.image);
+    let isInsert = (this.joc.id==null)
+    let b:Blob = (this.image) ? this.image.resized.blob : null;
+    this.db.save(this.joc, b).subscribe((r)=>{
+      // console.log("Operation", r)
+      if(isInsert) {
+        this.router.navigate(['/creator/jocs/'+r.id]);
+      }
+      this.loading = false;
+      this.modified = false;
     })
-  }
-
-  private getPath(id:string):string {
-    return `users/${this.auth.id}/jocs/${id}`
-  }
-
-  resetForm() {
-    this.imgField.clean();
-    this.image = undefined;
-    this.paraula = '';
   }
 
 

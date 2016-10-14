@@ -10,6 +10,8 @@ export interface Joc {
   status?: boolean
   tipus?:string
   words?:Word[]
+  $exists?:any
+  $key?:any
 }
 
 

@@ -1,5 +1,6 @@
 
-<form name="form" class="form_creator">
+<form name="form" class="form_creator"
+   #jocForm="ngForm" *ngIf="ready">
 <div class="row admin">
   <div class="col-xs">
     <label for="label">Nom del joc:</label>
@@ -10,6 +11,7 @@
       name="label"
       placeholder="Introdueix el nom del joc"
       class="form-control"
+      (change)="modified=true"
         />
   </div>
   <div class="col-xs">
@@ -34,6 +36,7 @@
           name="tipus" id="tipus_1"
           [(ngModel)]="joc.tipus"
           [value]="tjoc.key"
+          (change)="modified=true"
           checked>
           <strong>{{ tjoc.label }}</strong><br/>
           {{ tjoc.desc }}
@@ -69,9 +72,10 @@
   <div class="col-xs">
     <button
       class="btn btn-success"
-      [disabled]="!(paraula.length>1 && image) || (loading==true)"
+      [disabled]="(jocForm.form.valid==false) || (loading==true) || (modified==false)"
       (click)="save()"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
       <ti-preload *ngIf="loading"></ti-preload>  GUARDAR</button>
+      {{ modified }} | {{ !jocForm.form.valid }} | {{ loading }}
   </div>
 </div>
 </form>

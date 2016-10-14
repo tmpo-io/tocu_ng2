@@ -22,7 +22,8 @@ import {
 
 import {
   OpenClipartService,
-  AudioGenService
+  AudioGenService,
+  JocDb
 } from './services';
 
 import { AuthGuard, AuthService } from '../auth';
@@ -82,7 +83,8 @@ const routes: Routes = [
   providers: [
     AuthService,
     OpenClipartService,
-    AudioGenService
+    AudioGenService,
+    JocDb
   ]
 })
 export class CreatorModule {}
