@@ -77,6 +77,7 @@ export class JocDb {
         })
       } else {
         remove();
+        observer.next(true);
       }
     });
   }

@@ -29,7 +29,7 @@ firebase.initializeApp(firebaseConfig);
     GameModule,
     CreatorModule,
     FirebaseModule,
-    NgbModule
+    NgbModule.forRoot()
   ],
   bootstrap: [AppComponent]
 })
