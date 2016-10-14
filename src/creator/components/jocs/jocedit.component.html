@@ -59,11 +59,18 @@
       (selectItem)="wordSelected($event)"
       placeholder="Selecciona les paraules"><br />
 
+      <ngb-alert *ngIf="suggest!=''" type="success" (close)="suggest=''">No disposes de la paraula <strong>{{ suggest }}</strong> <a (click)="showSuggest=true" class="link">vols afegir-la?</a> </ngb-alert>
+
      <div class="paraules">
       <span class="tag tag-success tag-pill"
         *ngFor="let word of joc.words"
           (click)="removeWord(word)">{{ word.label }} &times;</span>
      </div>
+
+     <div *ngIf="showSuggest" class="suggest">
+        <span class="close" (click)="showSuggest=false">&times;</span>
+        <add-paraula [paraula]="suggest" (onCreate)="createWord($event)"></add-paraula>
+      </div>
 
   </div>
 </div>
@@ -77,7 +84,7 @@
       <ti-preload *ngIf="loading"></ti-preload>  GUARDAR</button>
       <button class="btn btn-danger"
         *ngIf="jocID"
-        (click)="delete()">&times; ELIMINAR</button>
+        (click)="delete()"><i class="fa fa-trash"></i></button>
       <!--
       {{ modified }} | {{ !jocForm.form.valid }} | {{ loading }}
       -->

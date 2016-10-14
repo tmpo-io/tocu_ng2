@@ -4,7 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { Routes, RouterModule } from '@angular/router';
 
-import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbTypeaheadModule,
+  NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 
 import {
   CreatorComponent,
@@ -62,7 +64,8 @@ const routes: Routes = [
     HttpModule,
     FormsModule,
     RouterModule.forChild(routes),
-    NgbTypeaheadModule
+    NgbTypeaheadModule,
+    NgbAlertModule
   ],
   declarations: [
     CreatorComponent,

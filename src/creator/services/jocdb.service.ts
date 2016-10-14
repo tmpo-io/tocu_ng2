@@ -50,7 +50,7 @@ export class JocDb {
           (result:uploadedFile) => {
             t.file = result.file;
             t.image = result.image;
-            this._saveObject(t).subscribe((p)=>{
+            this.saveObject(t).subscribe((p)=>{
               obs.next(p);
               obs.complete();
             });
@@ -58,7 +58,7 @@ export class JocDb {
         )
       });
     }
-    return this._saveObject(t);
+    return this.saveObject(t);
   }
 
   remove(joc:Joc):Observable<boolean> {
@@ -104,8 +104,8 @@ export class JocDb {
       });
   }
 
-  private _saveObject(t:Joc):Observable<Joc> {
-    return new Observable<boolean>( (obs)=> {
+  private saveObject(t:Joc):Observable<Joc> {
+    return new Observable<Joc>( (obs)=> {
         firebase.database().ref()
         .child(this.getPath(t.id))
         .update(t, ()=>{

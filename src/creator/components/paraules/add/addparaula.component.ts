@@ -1,4 +1,4 @@
-import { Component, Output,
+import { Component, Output, Input,
   OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ImageResult } from '../../imagefield/interfaces';
 import { AngularFire } from 'angularfire2';
@@ -18,7 +18,9 @@ import { AudioGenService } from '../../../services';
 export class AddParaulaComponent implements OnInit {
 
   public image:ImageResult;
-  public paraula:string = "";
+
+  @Input()
+  paraula:string = "";
   public loading:boolean = false;
 
   @ViewChild(ImageFieldComponent) imgField;

@@ -1,5 +1,5 @@
 import { Component, Output, OnInit, OnDestroy,
-    ViewChild, EventEmitter } from '@angular/core';
+    ViewChild, EventEmitter, ApplicationRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
@@ -8,6 +8,8 @@ import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/delay';
+
 
 
 import { AngularFire,
@@ -59,6 +61,10 @@ export class JocEditComponent implements OnInit, OnDestroy {
   public paraules:Word[] = [];
   public selectedWords:Word[] = []
 
+  // Suggest words
+  public suggest:string = ''
+  public showSuggest:boolean = false;
+
   public selectedWord:string;
   // public tipusJoc:FirebaseListObservable<TipusJoc[]>;
 
@@ -70,7 +76,10 @@ export class JocEditComponent implements OnInit, OnDestroy {
     private auth: AuthService,
     private route:ActivatedRoute,
     private router:Router,
-    private db:JocDb) {
+    private db:JocDb,
+    private appRef: ApplicationRef
+
+    ) {
     }
 
   ngOnInit() {
@@ -122,17 +131,23 @@ export class JocEditComponent implements OnInit, OnDestroy {
       .distinctUntilChanged()
       .switchMap(term => {
         if(term=='') {
+          this.suggest = '';
           return Observable.of([]);
         }
         // filtrem la llista de paraules coincidents amb el patró
         // pero eliminem les ja seleccionades
-        return Observable.of(
-          this.paraules.filter(
-            v=>new RegExp(term, 'gi').test(v.label)
-          ).filter(el=>{
-            return (this.joc.words.find(k=>k.id==el.id)==undefined)
-          })
-        );
+        let result = this.paraules.filter(
+          v => new RegExp(term, 'gi').test(v.label)
+        ).filter(el => {
+          return (this.joc.words.find(k => k.id == el.id) == undefined)
+        })
+        // If there are no results sure is not an added word..
+        if(result.length==0) {
+          this.suggest = term;
+        } else {
+          this.suggest = '';
+        }
+        return Observable.of(result);
       })
   }
 
@@ -172,16 +187,28 @@ export class JocEditComponent implements OnInit, OnDestroy {
   save() {
     this.loading = true;
     // console.log(this.image);
-    let isInsert = (this.joc.id==null)
+    let isInsert = (this.jocID==null)
     let b:Blob = (this.image) ? this.image.resized.blob : null;
-    this.db.save(this.joc, b).subscribe((r)=>{
-      // console.log("Operation", r)
-      if(isInsert) {
-        this.router.navigate(['/creator/jocs/'+r.id]);
-      }
-      this.loading = false;
-      this.modified = false;
+    this.db.save(this.joc, b)
+      .delay(200)
+      .subscribe((r)=>{
+        console.log("Saved", r)
+        if(isInsert) {
+          this.router.navigate(['/creator/jocs/'+r.id]);
+        }
+        this.loading = false;
+        this.modified = false;
+        this.appRef.tick();
+        //console.log(this.loading, this.modified);
     })
+  }
+
+  createWord(word:Word) {
+    this.joc.words.push(word)
+    this.modified = true;
+    this.showSuggest = false;
+    this.suggest = '';
+    this.selectedWord = "";
   }
 
   ngOnDestroy() {

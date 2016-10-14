@@ -1,0 +1,11 @@
+
+
+localhost:2000
+tls self_signed
+gzip
+
+rewrite {
+    to {path} {path}/ /index.html
+}
+
+root ./dist

@@ -3,6 +3,11 @@ progress,sub,sup{vertical-align:baseline}button,hr,input{overflow:visible}html{f
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; padding: 0; margin: 0; }
 
 
+
+
+$fa-font-path: '/assets/fonts';
+@import '../node_modules/font-awesome/scss/font-awesome';
+
 @import 'styles_shared';
 
 $bgcolor: #999;
@@ -34,9 +39,6 @@ h1,h2,h3,h4,p {
 
 .row {
   font-family: 'Open Sans';
-   * {
-    font-family: 'Open Sans';
-   }
 }
 
 .row.admin, .form_creator {
@@ -49,6 +51,7 @@ h1,h2,h3,h4,p {
 
 .row.submit {
   margin-top: -10px;
+  padding-top: 40px;
 }
 
 .ticard {
