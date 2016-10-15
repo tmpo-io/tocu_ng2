@@ -56,17 +56,17 @@ export class ImageFieldComponent implements OnInit {
              file: file,
              url: URL.createObjectURL(r.blob())
           }
-          this.zone.run(()=> {
-            this.fileToDataURL(file, result)
-              .then(r => this.resize(r))
-              .then(r => {
-
+          this.fileToDataURL(file, result)
+            .then(r => this.resize(r))
+            .then(r => {
+              this.zone.run(()=> {
                 this.loadingImage = false;
                 this.rawImage.emit(r)
                 this.src = r.dataURL;
-                // console.log()
-              });
-          });
+              })
+              // console.log()
+            });
+
       })
   }
 
