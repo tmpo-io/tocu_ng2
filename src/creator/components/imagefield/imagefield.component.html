@@ -18,8 +18,14 @@
       BIBLIOTECA D'IMATGES</button>
   </div>
   <div class="col-xs drop">
+    <ti-preload
+      *ngIf="loadingImage"
+      style="color:#000"></ti-preload>
     <img [src]="src"
-      style="width:100%; max-height: 100px"
-      [hidden]="!src" />
+      style="width:100%;"
+      [hidden]="!src || loadingImage" />
+     <p *ngIf="!src && !loadinImage">Puja una imatge del teu ordinador
+       o fes servir la biblioteca per emprar imatges lliures</p>
+
   </div>
 </div>

@@ -23,6 +23,10 @@ import {
 } from './components';
 
 import {
+  Autofocus
+} from './directives';
+
+import {
   OpenClipartService,
   AudioGenService,
   JocDb
@@ -79,6 +83,7 @@ const routes: Routes = [
     TiPreloadComponent,
     TiAudioPlayerComponent,
     ActivitatEditorComponent,
+    Autofocus
   ],
   // exports: [
   //   CreatorComponent

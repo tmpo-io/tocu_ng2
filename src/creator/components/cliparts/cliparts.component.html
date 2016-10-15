@@ -6,25 +6,29 @@
       <span aria-hidden="true">&times;</span>
   </button>
   <h5 class="modal-title">Biblioteca d'Imatges</h5>
+  <p>Cerca imatges lliures per fer servir al teu joc</p>
 </div>
 
 <div class="modal-body">
+  <form (submit)="cercar()" novalidate>
   <div class="row cap">
-    <div class="col-xs">
-      <span *ngIf="!loaded">Loading...</span>
-    </div>
-    <div class="col-xs form-inline text-xs-right">
+    <div class="col-xs form-inline">
       <input type="text"
+        autofocus
+        name="search"
+        autocomplete="off"
         class="form-control form-control-sm"
         [(ngModel)]="searchWord"
-        placeholder="Introdueix texte a cercar" />
+        placeholder="Introdueix la cerca" />
         <button (click)="cercar()"
           class="btn btn-success btn-sm"
-          >Cercar</button>
+          >Cercar <ti-preload *ngIf="!loaded"></ti-preload></button>
     </div>
   </div>
+</form>
 
   <div class="resultset row">
+    <p *ngIf="numResults===0">No he trobat cap imatge amb la paraula:<strong>{{ searchWord }}</strong>.</p>
     <div class="col-xs"
       *ngFor="let image of (results|async)"
       (click)="select(image)">

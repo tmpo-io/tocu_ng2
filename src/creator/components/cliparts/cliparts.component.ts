@@ -8,10 +8,12 @@ import { Observable } from 'rxjs';
 import { OpenClipartService, Clipart } from '../../services';
 
 
-const onLoad = function(res) {
-        this.results = Observable.from(res).toArray();
-        this.loaded = true;
-      }
+export const onLoad = function(res) {
+  // console.log("Found", res.length);
+  this.numResults = res.length;
+  this.results = Observable.from(res).toArray();
+  this.loaded = true;
+}
 
 @Component({
   selector: 'clipart-popup',
@@ -21,18 +23,21 @@ const onLoad = function(res) {
 export class ClipartComponent implements OnInit {
 
   @Input() close:any
-  @Input() searchWord:string;
+  @Input() searchWord:string = "";
   @Output() onSelect = new EventEmitter<string>();
 
   public results:Observable<Clipart[]>;
   // public results:Clipart[];
-  public loaded:boolean = false;
+  public loaded:boolean = true;
+  public numResults:number;
 
   constructor(private os:OpenClipartService) { }
 
   ngOnInit() {
-    this.os.getCliparts(this.searchWord)
-      .subscribe(onLoad.bind(this));
+    if(this.searchWord != "") {
+      this.os.getCliparts(this.searchWord)
+        .subscribe(onLoad.bind(this));
+    }
     // this.results = this.os.getCliparts(this.searchWord);
   }
 

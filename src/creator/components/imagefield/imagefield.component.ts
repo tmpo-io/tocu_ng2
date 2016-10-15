@@ -1,7 +1,11 @@
 import {
   Component,
   EventEmitter,
-  Input, OnInit, Output, } from '@angular/core';
+  Input,
+  OnInit,
+  Output,
+  NgZone } from '@angular/core';
+
 import { Headers, Http, Response,
   ResponseContentType, RequestOptionsArgs } from '@angular/http';
 
@@ -13,7 +17,8 @@ import { createImage,
 
 @Component({
   selector: 'image-field',
-  templateUrl: './imagefield.component.html'
+  templateUrl: './imagefield.component.html',
+  styleUrls: ['./imagefield.component.scss']
 })
 export class ImageFieldComponent implements OnInit {
 
@@ -24,11 +29,14 @@ export class ImageFieldComponent implements OnInit {
   @Input() word:string;
   @Input() src:string;
 
+  public loadingImage:boolean = false;
+
   // public src:string;
 
   constructor(
     private modal:NgbModal,
-    private http:Http
+    private http:Http,
+    private zone:NgZone
     ) { }
 
   ngOnInit() { }
@@ -40,7 +48,7 @@ export class ImageFieldComponent implements OnInit {
   public selectFromLibrary(item) {
     let img = item.url;
     const params: RequestOptionsArgs = {responseType: ResponseContentType.Blob}
-
+    this.loadingImage = true;
     this.http.get(img, params).subscribe(
       (r:Response) => {
           let file = r.blob();
@@ -48,12 +56,17 @@ export class ImageFieldComponent implements OnInit {
              file: file,
              url: URL.createObjectURL(r.blob())
           }
-          this.fileToDataURL(file, result)
-            .then(r => this.resize(r))
-            .then((r) => {
-              this.rawImage.emit(r)
-              this.src = r.dataURL;
-            });
+          this.zone.run(()=> {
+            this.fileToDataURL(file, result)
+              .then(r => this.resize(r))
+              .then(r => {
+
+                this.loadingImage = false;
+                this.rawImage.emit(r)
+                this.src = r.dataURL;
+                // console.log()
+              });
+          });
       })
   }
 

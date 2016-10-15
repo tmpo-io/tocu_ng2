@@ -2,10 +2,31 @@
   font-family: 'Open Sans';
 }
 
+p {
+  font-family: 'Open Sans';
+  margin-bottom: 0px;
+}
+
 .cap {
 
   margin-bottom: 20px;
 
+}
+
+.preload {
+  color: #000;
+}
+
+button {
+  ti-preload {
+    margin-left: 5px;
+  }
+}
+
+input {
+  font-size: 14px;
+  // width: 150px;
+  line-height: 14px;
 }
 
 .resultset {

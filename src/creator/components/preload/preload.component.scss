@@ -1,6 +1,6 @@
 @keyframes spin {
-    from { transform: rotate(0deg);}
-    to { transform: rotate(360deg);}
+  from { transform: rotate(0deg);}
+  to { transform: rotate(360deg);}
 }
 
 
@@ -8,6 +8,6 @@
   vertical-align: middle;
   animation: spin 1s infinite linear;
   display: inline-block;
-  transform-origin:8.5px 8.5px;
+  transform-origin:51% 52%;
 }
 
