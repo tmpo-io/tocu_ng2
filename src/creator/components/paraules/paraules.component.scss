@@ -5,6 +5,11 @@
   margin: 0px;
   margin-left: -10px;
   margin-top: 15px;
+
+  p {
+    font-family: 'Open Sans';
+    padding-top:5px;
+  }
 }
 
 
@@ -13,10 +18,17 @@
   background-color: white;
   border-radius: 5px;
   padding: 10px;
-  max-width: 150px;
+
   margin: 10px;
   position:relative;
   padding-bottom: 60px;
+  height: 250px;
+
+  image {
+    width: 100%;
+    max-height: 60px;
+  }
+
 }
 
 

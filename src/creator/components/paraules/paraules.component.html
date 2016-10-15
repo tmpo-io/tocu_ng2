@@ -28,11 +28,21 @@
 
 <div class="paraules-list row">
   <div
-    class="col-xs paraula"
+    class="col-xs-2 paraula"
     *ngFor="let paraula of resultparaules">
-    <img [src]="paraula.image" style="width:100px" />
+    <img [src]="paraula.image" />
     <span>{{ paraula.label }}</span>
     <ti-audioplayer [src]="paraula.audio"></ti-audioplayer>
   </div>
 </div>
 
+<div class="row" *ngIf="!term.value">
+  <div class="col-xs-12 text-center-xs">
+  <ngb-pagination
+    [collectionSize]="total"
+    [page]="current"
+    pageSize="10"
+    (pageChange)="changePage($event)"
+    [directionLinks]="false"></ngb-pagination>
+  </div>
+</div>

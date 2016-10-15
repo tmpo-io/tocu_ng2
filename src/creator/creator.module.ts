@@ -6,7 +6,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 import {
   NgbTypeaheadModule,
-  NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+  NgbAlertModule,
+  NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 import {
   CreatorComponent,
@@ -70,7 +71,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forChild(routes),
     NgbTypeaheadModule,
-    NgbAlertModule
+    NgbAlertModule,
+    NgbPaginationModule
   ],
   declarations: [
     CreatorComponent,

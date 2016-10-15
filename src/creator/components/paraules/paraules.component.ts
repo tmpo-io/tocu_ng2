@@ -22,6 +22,8 @@ export class ParaulesComponent implements OnInit {
   paraules:Word[] = [];
   resultparaules:Word[] = [];
   total:number = 0;
+  current:number = 1;
+  perPage:number = 10;
 
   term = new FormControl();
 
@@ -33,7 +35,11 @@ export class ParaulesComponent implements OnInit {
     private auth:AuthService) {
 
     this.bucket = `users/${auth.id}/words`;
-    this.paraules$ = af.database.list(this.bucket);
+    this.paraules$ = af.database.list(this.bucket, {
+      query: {
+        orderByChild: 'key'
+      }
+    });
     this.paraules$.subscribe(l=>{
       this.paraules = l;
       this.total = this.paraules.length;
@@ -41,15 +47,24 @@ export class ParaulesComponent implements OnInit {
     })
 
     this.term.valueChanges
-      .debounceTime(400)
+      .debounceTime(100)
       .subscribe(term => {
         if(term.length<1) {
           this.resultparaules = this.paraules.slice(0,10);
+          this.current = 1;
           return;
         }
         this.resultparaules = this.paraules
           .filter(v => new RegExp(term, 'gi').test(v.label))
       })
+  }
+
+  changePage(event) {
+    // this.current = current;
+    this.current = event;
+    let ini = (this.current*this.perPage) - this.perPage;
+    this.resultparaules = this.paraules.slice(
+      ini, ini+this.perPage );
   }
 
 
