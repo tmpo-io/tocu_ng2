@@ -1,13 +1,35 @@
 
 
-<h3>Paraules</h3>
+<div class="row header">
+  <div class="col-xs">
+    <h3>Paraules</h3>
+  </div>
+  <div class="col-xs buttons">
+    <button class="btn btn-success" (click)="addParaula=!addParaula"><i class="fa fa-plus"></i> AFEGIR PARAULA</button>
+  </div>
+</div>
 
-<add-paraula></add-paraula>
+<div class="row">
+  <div class="col-xs-6">
+    <input type="text"
+      [formControl]="term"
+      placeholder="Introdueix la cerca"
+      class="form-control" />
+  </div>
+  <div class="col-xs-6">
+    <p>Tens {{ total }} paraules. </p>
+  </div>
+</div>
+
+
+<div class="row">
+  <add-paraula *ngIf="addParaula"></add-paraula>
+</div>
 
 <div class="paraules-list row">
   <div
     class="col-xs paraula"
-    *ngFor="let paraula of paraules | async">
+    *ngFor="let paraula of resultparaules">
     <img [src]="paraula.image" style="width:100px" />
     <span>{{ paraula.label }}</span>
     <ti-audioplayer [src]="paraula.audio"></ti-audioplayer>

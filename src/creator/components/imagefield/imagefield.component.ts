@@ -91,6 +91,7 @@ export class ImageFieldComponent implements OnInit {
   }
 
   private resize(result: ImageResult): Promise<ImageResult> {
+    // let tim = performance.now();
     return new Promise((resolve) => {
       if (this.resizeOptions) {
         createImage(result.url, image => {
@@ -100,6 +101,7 @@ export class ImageFieldComponent implements OnInit {
             blob: dataURItoBlob(dataUrl, dataUrl.match(/:(.+\/.+;)/)[1]),
             type: dataUrl.match(/:(.+\/.+;)/)[1]
           };
+          // console.log("Resized in: " + (performance.now()-tim) );
           resolve(result);
         });
       } else {
