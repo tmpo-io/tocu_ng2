@@ -1,5 +1,5 @@
 import { Component, Output, OnInit, OnDestroy,
-    ViewChild, EventEmitter, ApplicationRef } from '@angular/core';
+    ViewChild, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
@@ -76,9 +76,7 @@ export class JocEditComponent implements OnInit, OnDestroy {
     private auth: AuthService,
     private route:ActivatedRoute,
     private router:Router,
-    private db:JocDb,
-    private appRef: ApplicationRef
-
+    private db:JocDb
     ) {
     }
 
@@ -138,9 +136,10 @@ export class JocEditComponent implements OnInit, OnDestroy {
         // pero eliminem les ja seleccionades
         let result = this.paraules.filter(
           v => new RegExp(term, 'gi').test(v.label)
-        ).filter(el => {
-          return (this.joc.words.find(k => k.id == el.id) == undefined)
-        })
+          ).filter(el => {
+            return (
+              this.joc.words.find(k => k.id == el.id) == undefined)
+          })
         // If there are no results sure is not an added word..
         if(result.length==0) {
           this.suggest = term;
@@ -190,16 +189,12 @@ export class JocEditComponent implements OnInit, OnDestroy {
     let isInsert = (this.jocID==null)
     let b:Blob = (this.image) ? this.image.resized.blob : null;
     this.db.save(this.joc, b)
-      .delay(200)
       .subscribe((r)=>{
-        console.log("Saved", r)
         if(isInsert) {
           this.router.navigate(['/creator/jocs/'+r.id]);
         }
         this.loading = false;
         this.modified = false;
-        this.appRef.tick();
-        //console.log(this.loading, this.modified);
     })
   }
 

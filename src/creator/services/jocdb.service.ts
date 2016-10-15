@@ -1,6 +1,6 @@
 
 
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable, EventEmitter, NgZone } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -26,7 +26,8 @@ export class JocDb {
 
   constructor(
     private af: AngularFire,
-    private auth: AuthService) {}
+    private auth: AuthService,
+    private zone: NgZone) {}
 
   gameExists(gameId:string):EventEmitter<boolean> {
     // console.log(this.getPath(authId, gameId))
@@ -39,27 +40,22 @@ export class JocDb {
     return o;
   }
 
-  save(t:Joc, file?:Blob):Observable<Joc> {
-    // console.log(t);
+  save(t: Joc, file?:Blob):Observable<Joc> {
     if(!t.id) {
       t.id = this.getNewId();
     }
+
     if(file) {
-      return new Observable<Joc>(obs=>{
-        this.storeFile(t.id, file).subscribe(
-          (result:uploadedFile) => {
-            t.file = result.file;
-            t.image = result.image;
-            this.saveObject(t).subscribe((p)=>{
-              obs.next(p);
-              obs.complete();
-            });
-          }
-        )
-      });
+      return this.storeFile(t.id, file)
+        .flatMap((result:uploadedFile) => {
+          t.file = result.file;
+          t.image = result.image;
+          return this.saveObject(t);
+        })
     }
     return this.saveObject(t);
   }
+
 
   remove(joc:Joc):Observable<boolean> {
     return new Observable<boolean>((observer)=>{
@@ -90,29 +86,29 @@ export class JocDb {
 
   private storeFile(key, file):Observable<uploadedFile> {
     let result:uploadedFile = {};
-    return new Observable<uploadedFile>(
-      (observer)=>{
-        const ref = firebase.storage().ref().child(this.getPath(key) + ".png");
-        result.file = ref.fullPath;
-        ref.put(file).then(()=>{
-          ref.getDownloadURL().then(s=>{
-            result.image = s
-            observer.next(result);
-            observer.complete();
-          })
+    return new Observable<uploadedFile>(observer=>{
+      const ref = firebase.storage().ref().child(this.getPath(key) + ".png");
+      result.file = ref.fullPath;
+      ref.put(file).then(()=>{
+        ref.getDownloadURL().then(s=>{
+          result.image = s
+          observer.next(result);
+          observer.complete();
         })
-      });
+      })
+    });
   }
+
 
   private saveObject(t:Joc):Observable<Joc> {
     return new Observable<Joc>( (obs)=> {
-        firebase.database().ref()
+      firebase.database().ref()
         .child(this.getPath(t.id))
-        .update(t, ()=>{
+        .update(t, ()=> this.zone.run(()=>{
           obs.next(t);
           obs.complete();
-        })
-      });
+        }))
+    });
   }
 
   private getNewId():string {
