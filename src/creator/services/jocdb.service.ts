@@ -22,8 +22,6 @@ interface uploadedFile {
 
 @Injectable()
 export class JocDb {
-
-
   constructor(
     private af: AngularFire,
     private auth: AuthService,

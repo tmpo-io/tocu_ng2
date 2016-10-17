@@ -90,6 +90,7 @@ export class JocEditComponent implements OnInit, OnDestroy {
          };
          this.ready = true;
       } else {
+        // @TODO convert to a route guard
         // Is edit.. load game instance
         this.jocID = params["id"];
         this.db.gameExists(this.jocID).subscribe(
