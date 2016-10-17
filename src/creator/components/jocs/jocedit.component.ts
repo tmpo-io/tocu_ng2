@@ -23,7 +23,7 @@ import { JocDb } from '../../services';
 import { AuthService } from '../../../auth';
 import { ImageResult } from '../imagefield/interfaces';
 import { ImageFieldComponent } from '../imagefield/imagefield.component';
-import { Joc, tipusJoc, TJoc  } from './models'
+import { Joc, tipusJoc, TJoc, validateJoc  } from './models'
 import { Word } from '../../../models';
 
 
@@ -64,9 +64,9 @@ export class JocEditComponent implements OnInit, OnDestroy {
   // Suggest words
   public suggest:string = ''
   public showSuggest:boolean = false;
-
   public selectedWord:string;
-  // public tipusJoc:FirebaseListObservable<TipusJoc[]>;
+
+  public validateMsg:string;
 
   @ViewChild(ImageFieldComponent) imgField;
   @Output() onCreate: EventEmitter<Joc> = new EventEmitter<Joc>()
@@ -207,8 +207,35 @@ export class JocEditComponent implements OnInit, OnDestroy {
     this.selectedWord = "";
   }
 
+  publish() {
+    let result = validateJoc(this.joc);
+    if(!result.status) {
+      this.validateMsg = result.msg;
+      return;
+    }
+
+    this.joc.published = true;
+    this.loading = true;
+    this.db.save(this.joc, null).subscribe((r)=>{
+      this.loading = false;
+      this.modified = false;
+    })
+
+  }
+
+  unpublish() {
+    this.joc.published = false;
+    this.loading = true;
+    this.db.save(this.joc, null).subscribe((r)=>{
+      this.loading = false;
+      this.modified = false;
+    })
+  }
+
   ngOnDestroy() {
-    // this.subscription.unsubscribe();
+    if(this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
 

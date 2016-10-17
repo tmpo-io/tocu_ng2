@@ -75,6 +75,26 @@
   </div>
 </div>
 
+<div class="row admin" *ngIf="jocID">
+  <div class="col-xs">
+    <label for="">Estat:</label>
+  </div>
+  <div class="col-xs-10">
+    <div *ngIf="!joc.published">
+      <ngb-alert *ngIf="validateMsg"
+        type="danger"
+        (close)="validateMsg=undefined">{{ validateMsg }}</ngb-alert>
+      <p>El joc és inactiu. No visible a la pantalla de jocs dels alumnes</p>
+      <button class="btn btn-info" (click)="publish()"><ti-preload *ngIf="loading"></ti-preload> PUBLICAR</button>
+    </div>
+    <div *ngIf="joc.published">
+      <p>El joc es visible als alumnes</p>
+      <button class="btn btn-info" (click)="unpublish()"><ti-preload *ngIf="loading"></ti-preload>  DESPUBLICAR</button>
+    </div>
+
+  </div>
+</div>
+
 <div class="row admin submit">
   <div class="col-xs text-xs-right">
     <button
