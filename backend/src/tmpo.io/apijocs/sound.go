@@ -31,7 +31,7 @@ func createAudioFile(w http.ResponseWriter, r *http.Request) {
 	userID := r.FormValue("uid")
 	wordUID := r.FormValue("wid")
 
-	fpath := fmt.Sprintf("/tmp/%s.mp3", word)
+	fpath := fmt.Sprintf("/tmp/%s_%s.mp3", userID, wordUID)
 	fname := fmt.Sprintf("%s_%s.mp3", userID, wordUID)
 	// Check if already uploaded?
 	err := generateAudioFile(word, fpath)
@@ -119,7 +119,8 @@ func removeLocalMedia(filename string) error {
 // Create audio file on filesystem
 func generateAudioFile(word, output string) error {
 	var err error
-	cmd := exec.Command(*audioCmd, word, output)
+	safeWord := fmt.Sprintf("\"%s\"", word)
+	cmd := exec.Command(*audioCmd, safeWord, output)
 	cmd.Stderr = os.Stderr
 	// cmd.Stdout = os.Stdout
 	err = cmd.Run()
