@@ -1,0 +1,32 @@
+
+
+
+label {
+  position: absolute;
+  top: 5px;
+  right:0px;
+  color: #fff;
+  background-color: #5bc0de;
+  padding: 0px 3px 0px 3px;
+
+}
+
+
+span {
+  p {
+    font-family: 'Open Sans';
+    background-color:#eaeaea;
+    font-size:11px;
+    display: inline-block;
+    margin-bottom: 4px;
+    padding: 1px 3px 1px 3px;
+    text-transform: uppercase;
+
+    &.visible {
+      background-color: #5cb85c;
+      color: #fff;
+    }
+
+  }
+
+}

@@ -15,7 +15,16 @@
     *ngFor="let obj of activitats | async"
     [routerLink]="[obj.id]"
     >
+    <label>{{ obj.tipus }}</label>
     <img [src]="obj.image" style="width:100px" />
-    <span>{{ obj.label }}</span>
+    <span>
+      {{ obj.label }}
+      <br/>
+
+      <p *ngIf="obj.published" class="visible">Visible</p>
+      <p *ngIf="!obj.published">Inactiu</p>
+    </span>
+
+
   </div>
 </div>

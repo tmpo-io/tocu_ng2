@@ -12,12 +12,13 @@ import { AuthService } from '../../../auth';
 
 @Component({
   selector: 'creator-jocs',
-  templateUrl: 'jocslist.component.html'
+  templateUrl: 'jocslist.component.html',
+  styleUrls: ['./joclist.component.scss']
 })
 export class JocsListComponent implements OnInit {
 
   activitats: FirebaseListObservable<any>;
-  public bucket: string;
+  bucket: string;
 
   constructor(private af: AngularFire,
     private auth: AuthService) {
