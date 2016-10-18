@@ -1,5 +1,5 @@
 
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable, EventEmitter, NgZone } from '@angular/core';
 // import { Observable } from 'rxjs/Observable';
 
 
@@ -21,6 +21,7 @@ export class SoundFXService {
   private pending:string[];
   public subject: EventEmitter<number>;
 
+  constructor( private zone:NgZone ){}
 
   add(file:string[]) {
   //  console.log("[sndfx] add:" + file );
@@ -35,7 +36,7 @@ export class SoundFXService {
       this.audios[v] = new Howl({
         src: [v],
         format: "mp3",
-        onload: () => {
+        onload: ()=> this.zone.run(() => {
           this._loaded++;
           // console.log("Item loaded")
           this.subject.emit(
@@ -47,7 +48,7 @@ export class SoundFXService {
             this.subject.complete();
             // this.subject.dispose();
           }
-        }
+        })
       });
       this.pending = [];
     });

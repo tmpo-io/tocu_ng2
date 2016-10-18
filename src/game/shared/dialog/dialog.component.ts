@@ -9,7 +9,7 @@ import {state,
 
 @Component({
   selector: "ti-dialog",
-  encapsulation: ViewEncapsulation.None,
+  // encapsulation: ViewEncapsulation.None,
   templateUrl:"./dialog.component.html",
   styleUrls: ["./dialog.component.scss"],
   host: {

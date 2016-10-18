@@ -1,6 +1,5 @@
-import { Observable } from 'rxjs/Rx';
 import { Component, OnInit, Output, Input, EventEmitter,
-  ApplicationRef } from '@angular/core';
+  ApplicationRef, NgZone } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   WordsService,
@@ -9,10 +8,13 @@ import {
   ImageLoader
 } from '../../services';
 
-import { TimerComponent } from '../timer/timer.component';
+import { Observable } from 'rxjs/Rx';
+import 'rxjs/add/operator/withLatestFrom';
+
 
 export type GameStatus = 'preload' | 'playing' | 'end'
 
+let Zone:any
 
 @Component({
   selector: 'game',
@@ -40,6 +42,8 @@ export class GameComponent implements OnInit {
   public points:number = 0;
   public fails:number = 0;
 
+  public isPreview:boolean = false;
+
   private gameID:string
 
   constructor(
@@ -47,13 +51,21 @@ export class GameComponent implements OnInit {
     private fx:SoundFXService,
     private iloader:ImageLoader,
     private route: ActivatedRoute,
-    private cd: ApplicationRef
+    // private cd: ApplicationRef,
+    // private zone: NgZone
   ) {}
 
 
   ngOnInit() {
     this.route.params
-      .switchMap((p, i)=>{
+      .withLatestFrom(
+          this.route.url,
+          (x,y)=>{ return {p:x, r:y} }
+      ).switchMap((route, i)=>{
+        let p = route.p;
+        if(route.r[0] == "preview") {
+          this.isPreview = true;
+        }
         if("game" in p) {
           // debug
           this.gameType = p["game"];
@@ -126,7 +138,8 @@ export class GameComponent implements OnInit {
       (data:number) => {
         // console.log("Loaded")
         this.lstep = data;
-        this.cd.tick();
+        // console.log(Zone.current.name);
+        // this.cd.tick();
       },
       (err)=>{
         console.log('error loading audios', err);
@@ -141,7 +154,14 @@ export class GameComponent implements OnInit {
   EndPreload() {
     this.preloadReady = true;
     // console.log("End preload", this.preloadReady);
-    this.cd.tick();
+    // this.cd.tick();
+  }
+
+  get tipus():string {
+    if(!this.gameType) {
+      return ""
+    }
+    return this.gameType.toUpperCase();
   }
 
 }

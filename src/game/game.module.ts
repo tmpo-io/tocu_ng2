@@ -52,6 +52,10 @@ const routes: Routes = [
     component: GameComponent
   },
   {
+    path: 'preview/:uid/:id',
+    component: GameComponent
+  },
+  {
     path: 'activitat',
     component: ActivitatComponent
   },

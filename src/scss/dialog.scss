@@ -1,0 +1,45 @@
+ti-dialog {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  box-sizing: border-box;
+  display: block;
+  width: 60%;
+  z-index: 1000;
+
+  .content {
+    min-height: 280px;
+    background-color: #fff;
+    width: 100%;
+    padding: 20px;
+    min-height: 200px;
+    border-radius: 10px;
+    @include box($gris);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .title {
+    font-size: 28px;
+    display: inline-block;
+
+    padding: 10px 30px;
+    background-color: $blau;
+    color: #fff;
+    @include box_small($blau_fosc);
+    position: absolute;
+    left: 50%;
+    top: -30px;
+    transform: rotate(-6deg) translateX(-50%);
+  }
+
+  .buttons {
+    @include position(absolute, auto auto -30px 0);
+    width: 100%;
+    text-align: center;
+    ti-button {
+      margin:0 10px;
+    }
+  }
+}

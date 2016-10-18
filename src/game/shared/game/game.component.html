@@ -3,15 +3,22 @@
   <points [gamestatus]="status"
     [points]="points" [total]="total"></points>
   <ti-button
-    *ngIf="status=='playing'"
+    *ngIf="status=='playing' && !isPreview"
     [routerLink]="'/activitat'"
     [type]="'icon size-m vermell'"
   >X</ti-button>
+  <ti-button
+    *ngIf="status=='playing' && isPreview"
+    [routerLink]="['/creator/jocs', gameID]"
+    [type]="'icon size-m vermell'"
+  >X</ti-button>
+
+
 </div>
 
 <ti-dialog
   *ngIf="status=='preload'"
-  [title]="title"
+  [title]="tipus"
 >
   <div class="content">
     <div class="preload" *ngIf="preloadReady==false">
@@ -65,7 +72,7 @@
 
 <ti-dialog
   *ngIf="status=='end'"
-  [title]="title"
+  [title]="tipus"
 >
   <div class="content">
     <p>

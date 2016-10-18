@@ -4,7 +4,7 @@ export type typeButton = 'icon' | 'text' | 'text-icon';
 
 @Component({
   selector: 'ti-button',
-  encapsulation: ViewEncapsulation.None,
+  // encapsulation: ViewEncapsulation.None,
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
 })

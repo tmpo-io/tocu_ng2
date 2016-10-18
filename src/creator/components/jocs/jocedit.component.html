@@ -98,8 +98,10 @@
 <div class="row admin submit">
   <div class="col-xs text-xs-right">
     <button class="btn btn-warning"
-      [routerLink]="['/play/', uid, jocID]"
+      *ngIf="modified==false && jocID"
+      [routerLink]="['/preview', uid, jocID]"
     >JUGAR</button>
+
     <button
       class="btn btn-success"
       [disabled]="(jocForm.form.valid==false) || (loading==true) || (modified==false)"
