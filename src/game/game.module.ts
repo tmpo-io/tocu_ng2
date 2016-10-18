@@ -10,6 +10,7 @@ import {
   GameComponent,
   PointsComponent,
   StarComponent,
+  BallonsComponent,
   TiDialogComponent,
   TimerComponent
   } from './shared';
@@ -29,6 +30,11 @@ import {
   RelacionaComponent,
   RelacionaWordComponent
 } from './relaciona';
+
+import {
+  MixedComponent,
+  MixedWordComponent
+} from './mixed';
 
 import {
   WordsService,
@@ -69,7 +75,10 @@ const routes: Routes = [
     SequencingLetterComponent,
     RelacionaComponent,
     RelacionaWordComponent,
+    MixedComponent,
+    MixedWordComponent,
     StarComponent,
+    BallonsComponent,
     TiDialogComponent,
     PointsComponent,
     TimerComponent,

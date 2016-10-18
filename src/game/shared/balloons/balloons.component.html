@@ -1,0 +1,21 @@
+<div *ngIf="enabled==true">
+  <div
+    #balloons
+    *ngFor="let p of props; let i=index;"
+    class="balloon"
+    [ngClass]="{
+      reverseShaking: (i%2==0),
+      exploding: explode[i]
+    }"
+    (click)="clickBalloon(i)"
+  >
+    <span>
+      <svg width="268px" height="352px" viewBox="45 0 268 352" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(45.000000, 0.000000)">
+          <path [style.fill]="colors[i]" d="M267.764,133.764 C267.764,59.888 207.876,0 134,0 C60.124,0 0.236,59.888 0.236,133.764 C0.236,205.141 71.047,280.455 128.063,320.26 L108.955,351.51 L159.047,351.51 L139.939,320.26 C196.954,280.455 267.764,205.141 267.764,133.764 L267.764,133.764 Z" fill="#FF3776"></path>
+          <path d="M33.447,142.053 C33.447,142.053 33.445,142.053 33.447,142.053 C28.861,142.053 25.144,138.334 25.144,133.749 C25.153,73.734 73.986,24.908 134,24.908 C138.585,24.908 142.303,28.625 142.303,33.211 C142.303,37.797 138.586,41.514 134,41.514 C83.14,41.514 41.757,82.891 41.749,133.751 C41.748,138.336 38.031,142.053 33.447,142.053 L33.447,142.053 Z" fill="#FFFFFF"></path>
+        </g>
+      </svg>
+    </span>
+  </div>
+</div>
