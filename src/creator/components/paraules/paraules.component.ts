@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { animate, state, style, transition,
     trigger } from '@angular/core';
 import { FormControl } from '@angular/forms';
@@ -6,6 +6,7 @@ import { FormControl } from '@angular/forms';
 import { AngularFire,
   FirebaseListObservable } from 'angularfire2';
 import { Observable } from 'rxjs';
+import { Subscription } from 'rxjs/Subscription';
 
 import { AuthService } from '../../../auth';
 import { Word } from '../../../models';
@@ -24,10 +25,12 @@ import { staggered$ } from '../../../shared';
       ])
     ]
 })
-export class ParaulesComponent {
+export class ParaulesComponent implements OnDestroy {
 
   closeResult: string;
-  paraules$:FirebaseListObservable<any>
+  paraules$:FirebaseListObservable<any>;
+  subscription:Subscription;
+
   paraules:Word[] = [];
   total:number = 0;
   current:number = 1;
@@ -39,7 +42,6 @@ export class ParaulesComponent {
 
   public bucket:string;
 
-
   constructor(
     private af:AngularFire,
     private auth:AuthService) {
@@ -50,8 +52,8 @@ export class ParaulesComponent {
         orderByChild: 'key'
       }
     });
-    this.paraules$.subscribe(l=>{
-      this.paraules = l;
+    this.subscription = this.paraules$.subscribe(l=>{
+      this.paraules = l.reverse();
       this.total = this.paraules.length;
       this.setQueryset(this.paraules.slice(0,10))
     })
@@ -84,5 +86,12 @@ export class ParaulesComponent {
     this.setQueryset(this.paraules.slice(ini, ini+this.perPage ))
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  trackby(m:Word) {
+    return m.id;
+  }
 
 }

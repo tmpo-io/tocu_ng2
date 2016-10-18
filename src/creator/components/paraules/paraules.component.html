@@ -38,7 +38,7 @@
 <div class="paraules-list row">
   <div
     class="col-xs-2 paraula"
-    *ngFor="let paraula of per$|async" [@in]="'in'">
+    *ngFor="let paraula of per$|async; trackBy:trackby" [@in]="'in'">
     <img [src]="paraula.image" />
     <span>{{ paraula.label }}</span>
     <ti-audioplayer [src]="paraula.audio"></ti-audioplayer>
