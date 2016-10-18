@@ -23,6 +23,7 @@ export class SoundFXService {
 
 
   add(file:string[]) {
+  //  console.log("[sndfx] add:" + file );
    this.pending = file;
    this.total += file.length;
   }
@@ -30,17 +31,19 @@ export class SoundFXService {
   preload():EventEmitter<number> {
     this.subject = new EventEmitter<number>();
     this.pending.forEach(v => {
-      // console.log(v);
+      // console.log("Audios", v);
       this.audios[v] = new Howl({
         src: [v],
+        format: "mp3",
         onload: () => {
           this._loaded++;
+          // console.log("Item loaded")
           this.subject.emit(
             this._loaded
           )
           if(this._loaded == this.total) {
             // @TODO emit complete
-            console.log("sound complete");
+            // console.log("sound complete");
             this.subject.complete();
             // this.subject.dispose();
           }

@@ -24,6 +24,7 @@ export class GameComponent implements OnInit {
 
   // States
   public gameType:string;
+  public title:string;
   public status:GameStatus = 'preload';
   public preloadReady:boolean = false;
 
@@ -39,6 +40,8 @@ export class GameComponent implements OnInit {
   public points:number = 0;
   public fails:number = 0;
 
+  private gameID:string
+
   constructor(
     private srv:WordsService,
     private fx:SoundFXService,
@@ -49,13 +52,32 @@ export class GameComponent implements OnInit {
 
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.gameType = params["game"];
-      this.srv.getWords().subscribe((card)=>{
+    this.route.params
+      .switchMap((p, i)=>{
+        if("game" in p) {
+          // debug
+          this.gameType = p["game"];
+          this.title = this.gameType;
+          return this.srv.getWords()
+        } else {
+          // if we need to store game params...
+          this.gameID = p["id"];
+          // need to fetch game type... and game properties...
+          return this.srv.getGame(p["uid"], p["id"]).switchMap(
+            (snapshot, ind)=>{
+              let game = snapshot.val()
+              this.gameType = game.tipus;
+              this.title = game.label.toUpperCase();
+              return Observable.from(game.words)
+                .toArray();
+            }
+          )
+        }
+      }).subscribe((card)=>{
+        // console.log(card)
         this.cards = card;
         this.preloadFx();
-      });
-    });
+      })
   }
 
   startGame(event) {
@@ -80,6 +102,7 @@ export class GameComponent implements OnInit {
   preloadFx() {
     let snd:string[] = [];
     let img:string[] = [];
+    // console.log("[GL]: preloadFx", this.cards)
     this.cards.forEach((el, ind) => {
       snd.push(el.audio);
       img.push(el.image);
@@ -101,6 +124,7 @@ export class GameComponent implements OnInit {
 
     this.preload.subscribe(
       (data:number) => {
+        // console.log("Loaded")
         this.lstep = data;
         this.cd.tick();
       },
@@ -109,13 +133,14 @@ export class GameComponent implements OnInit {
       },
       () => {
         this.EndPreload()
-        console.log("items loaded", this);
+        // console.log("items loaded", this);
       }
     );
   }
 
   EndPreload() {
     this.preloadReady = true;
+    // console.log("End preload", this.preloadReady);
     this.cd.tick();
   }
 

@@ -11,7 +11,7 @@
 
 <ti-dialog
   *ngIf="status=='preload'"
-  title="MEMORY"
+  [title]="title"
 >
   <div class="content">
     <div class="preload" *ngIf="preloadReady==false">
@@ -65,7 +65,7 @@
 
 <ti-dialog
   *ngIf="status=='end'"
-  title="MEMORY"
+  [title]="title"
 >
   <div class="content">
     <p>

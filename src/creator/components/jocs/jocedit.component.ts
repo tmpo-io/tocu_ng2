@@ -48,10 +48,13 @@ export class JocEditComponent implements OnInit, OnDestroy {
   private jocID:string;
   private joc$:FirebaseObjectObservable<Joc>;
   private subscription:Subscription;
+  private wsubs:Subscription;
   public joc:Joc = {
     label: '',
     words: []
   };
+
+  public uid:string;
 
   private modified:boolean = false;
 
@@ -81,6 +84,7 @@ export class JocEditComponent implements OnInit, OnDestroy {
     }
 
   ngOnInit() {
+    this.uid = this.auth.id;
     this.route.params.subscribe(params=>{
       const p = params["id"];
       if(p == "add") {
@@ -106,7 +110,7 @@ export class JocEditComponent implements OnInit, OnDestroy {
     })
     const path = `users/${this.auth.id}/words`
     this._paraules = this.af.database.list(path)
-    this._paraules.subscribe(w=>{
+    this.wsubs = this._paraules.subscribe(w=>{
       this.paraules = w;
     })
   }
@@ -235,6 +239,9 @@ export class JocEditComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if(this.subscription) {
       this.subscription.unsubscribe();
+    }
+    if(this.wsubs) {
+      this.wsubs.unsubscribe();
     }
   }
 
