@@ -14,12 +14,11 @@ import { withLatestFrom } from 'rxjs/operator/withLatestFrom';
 import { combineLatest} from 'rxjs/operator/combineLatest';
 
 import 'rxjs/add/operator/withLatestFrom';
-import 'rxjs/add/operator/merge';
 
 
 
 
-export type GameStatus = 'preload' | 'playing' | 'end'
+export type GameStatus = 'preload' | 'playing' | 'end' | '';
 
 let Zone:any
 
@@ -34,7 +33,7 @@ export class GameComponent implements OnInit, OnDestroy {
   // States
   public gameType:string;
   public title:string;
-  public status:GameStatus = 'preload';
+  public status:GameStatus = '';
   public preloadReady:boolean = false;
 
   public cards:Word[];
@@ -81,6 +80,7 @@ export class GameComponent implements OnInit, OnDestroy {
     const getStateFromGame = (game) => {
       this.cards = game.words;
       this.gameType = game.tipus;
+      this.status = 'preload'
     }
 
     const setPreloadReady = () => {
