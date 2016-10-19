@@ -88,11 +88,6 @@ export class GameComponent implements OnInit, OnDestroy {
       this.preloadReady = true;
     }
 
-    const preloadFac$ = (game) => {
-      return this.preloadFx$(game);
-    }
-
-
     this.sub = getParams$
       .do(getStateFromRouter)
       .switchMap(r => ("game" in r.p) ? this.fromDev(r) : this.fromDb(r))
