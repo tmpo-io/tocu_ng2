@@ -33,7 +33,7 @@ export class GameComponent implements OnInit, OnDestroy {
   // States
   public gameType:string;
   public title:string;
-  public status:GameStatus = '';
+  public status:GameStatus = 'preload';
   public preloadReady:boolean = false;
 
   public cards:Word[];
@@ -161,7 +161,7 @@ export class GameComponent implements OnInit, OnDestroy {
 
   get tipus():string {
     if(!this.gameType) {
-      return ""
+      return "CARR..."
     }
     return this.gameType.toUpperCase();
   }

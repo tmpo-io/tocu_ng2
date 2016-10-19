@@ -1,14 +1,9 @@
 
-import { Injectable, EventEmitter, NgZone } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 
 declare var Howl:any;
-
-export interface LoadStep {
-  step: number;
-  total: number;
-}
 
 
 @Injectable()
@@ -19,41 +14,48 @@ export class SoundFXService {
   private _loaded:number = 0;
   private total:number = 0;
   private pending:string[];
-  public subject: EventEmitter<number>;
+  // public subject: EventEmitter<number>;
 
   constructor( private zone:NgZone ){}
 
   add(file:string[]):Observable<number> {
   //  console.log("[sndfx] add:" + file );
    this.pending = file;
-   this.total += file.length;
-   return this.preload() as Observable<number>;
+   this.total = file.length;
+   return this.preload();
   }
 
-  preload():EventEmitter<number> {
-    this.subject = new EventEmitter<number>();
-    this.pending.forEach(v => {
-      // console.log("Audios", v);
-      this.audios[v] = new Howl({
-        src: [v],
-        format: "mp3",
-        onload: ()=> this.zone.run(() => {
-          this._loaded++;
-          // console.log("Item loaded")
-          this.subject.next(
-            this._loaded
-          )
-          if(this._loaded == this.total) {
-            // @TODO emit complete
-            console.log("[SRVFX] sound complete");
-            this.subject.complete();
-            // this.subject.dispose();
-          }
-        })
+  preload():Observable<number> {
+    const pend = this.pending.slice();
+    this._loaded = 0;
+    // this.subject = new EventEmitter<number>();
+    return Observable.create((obs)=>{
+      this.pending.forEach(v => {
+        // console.log("Audios", v);
+        this.audios[v] = new Howl({
+          src: [v],
+          format: "mp3",
+          onload: ()=> this.zone.run(() => {
+            this._loaded++;
+            obs.next(this._loaded)
+            if(this._loaded == this.total) {
+              console.log("[SRVFX] sound complete");
+              obs.complete();
+            }
+          })
+        });
       });
-      this.pending = [];
+
+      return ()=> {
+        pend.forEach((v)=>{
+          if(v in this.audios) {
+            this.audios[v].unload();
+          }
+          delete this.audios[v];
+        });
+        this.total = 0;
+      }
     });
-    return this.subject;
   }
 
   remove(files:string[]) {
