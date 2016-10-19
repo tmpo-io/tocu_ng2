@@ -33,7 +33,7 @@ export class ImageLoader {
         })
       });
       return ()=> {
-
+        console.log("[IMGSRV] callback cancel called");
       }
     });
   }

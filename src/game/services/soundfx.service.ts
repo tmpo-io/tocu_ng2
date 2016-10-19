@@ -29,7 +29,7 @@ export class SoundFXService {
     const pend = this.pending.slice();
     this._loaded = 0;
     // this.subject = new EventEmitter<number>();
-    return Observable.create((obs)=>{
+    return new Observable<number>((obs)=>{
       this.pending.forEach(v => {
         // console.log("Audios", v);
         this.audios[v] = new Howl({
@@ -47,14 +47,15 @@ export class SoundFXService {
       });
 
       return ()=> {
-        pend.forEach((v)=>{
-          if(v in this.audios) {
-            this.audios[v].unload();
-          }
-          delete this.audios[v];
-        });
-        this.total = 0;
-      }
+        console.log("[SNDFX] observer callback called");
+        // pend.forEach((v)=>{
+        //   if(v in this.audios) {
+        //     this.audios[v].unload();
+        //   }
+        //   delete this.audios[v];
+        // });
+        // this.total = 0;
+       }
     });
   }
 

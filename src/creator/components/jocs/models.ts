@@ -104,3 +104,9 @@ export function validateJoc(j:Joc):jocValidation {
   }
 
 }
+
+
+export function audioForWord(w:Word, l:Word[]):string {
+  const words = l.filter(p=>p.id==w.id)
+  return words[0].audio;
+}

@@ -23,7 +23,8 @@ import { JocDb } from '../../services';
 import { AuthService } from '../../../auth';
 import { ImageResult } from '../imagefield/interfaces';
 import { ImageFieldComponent } from '../imagefield/imagefield.component';
-import { Joc, tipusJoc, TJoc, validateJoc  } from './models'
+import { Joc, tipusJoc,
+  TJoc, validateJoc, audioForWord  } from './models'
 import { Word } from '../../../models';
 
 
@@ -189,6 +190,13 @@ export class JocEditComponent implements OnInit, OnDestroy {
   }
 
   save() {
+    // Wait till audio is uploaded
+    if( this.ensureWordsHasAudios() == false) {
+      setTimeout(()=>{
+        this.save();
+      },1000);
+      return;
+    }
     this.loading = true;
     // console.log(this.image);
     let isInsert = (this.jocID==null)
@@ -201,6 +209,20 @@ export class JocEditComponent implements OnInit, OnDestroy {
         this.loading = false;
         this.modified = false;
     })
+  }
+
+  ensureWordsHasAudios():boolean {
+    for(let i=0; i<this.joc.words.length; i++) {
+      if(this.joc.words[i].audio == "") {
+        let x = this.joc.words[i]
+        x.audio = audioForWord(x, this.paraules);
+        if(x.audio=="") {
+          return false;
+        }
+        this.joc.words[i] = x;
+      }
+    }
+    return true;
   }
 
   createWord(word:Word) {
