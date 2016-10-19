@@ -1,6 +1,6 @@
 
 import { Injectable, EventEmitter, NgZone } from '@angular/core';
-// import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 
 
 declare var Howl:any;
@@ -23,10 +23,11 @@ export class SoundFXService {
 
   constructor( private zone:NgZone ){}
 
-  add(file:string[]) {
+  add(file:string[]):Observable<number> {
   //  console.log("[sndfx] add:" + file );
    this.pending = file;
    this.total += file.length;
+   return this.preload() as Observable<number>;
   }
 
   preload():EventEmitter<number> {
@@ -39,12 +40,12 @@ export class SoundFXService {
         onload: ()=> this.zone.run(() => {
           this._loaded++;
           // console.log("Item loaded")
-          this.subject.emit(
+          this.subject.next(
             this._loaded
           )
           if(this._loaded == this.total) {
             // @TODO emit complete
-            // console.log("sound complete");
+            console.log("[SRVFX] sound complete");
             this.subject.complete();
             // this.subject.dispose();
           }

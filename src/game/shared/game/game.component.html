@@ -22,7 +22,7 @@
 >
   <div class="content">
     <div class="preload" *ngIf="preloadReady==false">
-      <span [style.width.%]="(lstep/ltotal)*100"></span>
+      <span [style.width.%]="((preload$|async)/total)*100"></span>
     </div>
     <p *ngIf="preloadReady==true">
       Joc a punt!

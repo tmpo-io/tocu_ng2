@@ -1,8 +1,9 @@
 
 import { Injectable, EventEmitter } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 
-declare var Image:any;
+// declare var Image:any;
 
 @Injectable()
 export class ImageLoader {
@@ -12,9 +13,10 @@ export class ImageLoader {
 
   constructor(private http: Http) {}
 
-  add(file:string[]) {
+  add(file:string[]):Observable<number> {
     this.images = file;
     this.total = file.length;
+    return this.preload() as Observable<number>;
   }
 
   preload():EventEmitter<number> {
@@ -24,20 +26,11 @@ export class ImageLoader {
       this.http.get(img, {}).subscribe(()=>{
         loaded++;
         sub.next(loaded);
-        if(loaded == this.total) {
+        if(loaded > this.total) {
+          console.log("[SRVIL] complete")
           sub.complete();
         }
       })
-      // let i = new Image();
-      // i.onload = ()=> {
-      //   sub.emit(loaded);
-      //   if(loaded==this.total) {
-      //     sub.complete();
-      //   } else {
-      //     loaded++;
-      //   }
-      // }
-      // i.src = img;
     });
     return sub;
   }

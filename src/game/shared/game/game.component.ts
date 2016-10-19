@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, Input, EventEmitter,
-  ApplicationRef, NgZone } from '@angular/core';
+  ApplicationRef, NgZone, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   WordsService,
@@ -9,7 +9,14 @@ import {
 } from '../../services';
 
 import { Observable } from 'rxjs/Rx';
+import { Subscription } from 'rxjs/Subscription';
+import { withLatestFrom } from 'rxjs/operator/withLatestFrom';
+import { combineLatest} from 'rxjs/operator/combineLatest';
+
 import 'rxjs/add/operator/withLatestFrom';
+import 'rxjs/add/operator/merge';
+
+
 
 
 export type GameStatus = 'preload' | 'playing' | 'end'
@@ -22,7 +29,7 @@ let Zone:any
   styleUrls: ['./game.component.scss'],
 })
 
-export class GameComponent implements OnInit {
+export class GameComponent implements OnInit, OnDestroy {
 
   // States
   public gameType:string;
@@ -30,15 +37,11 @@ export class GameComponent implements OnInit {
   public status:GameStatus = 'preload';
   public preloadReady:boolean = false;
 
-  // @Input()
-  preload:Observable<number>;
   public cards:Word[];
 
-  // public loaded:number
-  public lstep:number = 0;
-  public ltotal:number;
+  public preload$:Observable<number>
+  private sub:Subscription
 
-  public total:number;
   public points:number = 0;
   public fails:number = 0;
 
@@ -49,48 +52,79 @@ export class GameComponent implements OnInit {
   constructor(
     private srv:WordsService,
     private fx:SoundFXService,
-    private iloader:ImageLoader,
+    private il:ImageLoader,
     private route: ActivatedRoute,
-    // private cd: ApplicationRef,
-    // private zone: NgZone
   ) {}
 
 
   ngOnInit() {
-    this.route.params
-      .withLatestFrom(
-          this.route.url,
-          (x,y)=>{ return {p:x, r:y} }
-      ).switchMap((route, i)=>{
-        let p = route.p;
-        if(route.r[0] == "preview") {
-          this.isPreview = true;
-        }
-        if("game" in p) {
-          // debug
-          this.gameType = p["game"];
-          this.title = this.gameType;
-          return this.srv.getWords()
-        } else {
-          // if we need to store game params...
-          this.gameID = p["id"];
-          // need to fetch game type... and game properties...
-          return this.srv.getGame(p["uid"], p["id"]).switchMap(
-            (snapshot, ind)=>{
-              let game = snapshot.val()
-              this.gameType = game.tipus;
-              this.title = game.label.toUpperCase();
-              return Observable.from(game.words)
-                .toArray();
-            }
-          )
-        }
-      }).subscribe((card)=>{
-        // console.log(card)
-        this.cards = card;
-        this.preloadFx();
+
+    const noop = (a) => {}
+
+    const params$ = this.route.params;
+    const url$ = this.route.url;
+
+    const getParams$ = withLatestFrom.call(
+        params$, url$,
+        (x,y)=>({p:x, r:y[0]})
+    )
+
+    const getStateFromRouter = (router) => {
+      if(router.r.path=="preview") {
+        this.isPreview = true;
+      }
+      if("id" in router.p) {
+        this.gameID = router.p["id"];
+      }
+    }
+
+    const getStateFromGame = (game) => {
+      this.cards = game.words;
+      this.gameType = game.tipus;
+    }
+
+    const setPreloadReady = () => {
+      console.log("[set preload ready]")
+      this.preloadReady = true;
+    }
+
+    const preloadFac$ = (game) => {
+      return this.preloadFx$(game);
+    }
+
+
+    this.sub = getParams$
+      .do(getStateFromRouter)
+      .switchMap(r => ("game" in r.p) ? this.fromDev(r) : this.fromDb(r))
+      .do(getStateFromGame)
+      .subscribe((game)=>{
+        this.preload$ = this.preloadFx$(game)
+          .do(null, null, setPreloadReady);
       })
+      // .switchMap(preloadFac$)
+      // .do(null, null, setPreloadReady);
+
   }
+
+  // todo add preview...
+  fromDb(router):Observable<any> {
+    return this.srv
+        .getGame(router.p["uid"], router.p["id"])
+        .map(snap=>snap.val())
+  }
+
+  fromDev(router):Observable<any> {
+    return this.srv.getWords().
+        map((w)=>{
+          console.log("w", w)
+          return {
+            tipus: router.p["game"],
+            title: router.p["game"],
+            words: w
+          }
+        })
+  }
+
 
   startGame(event) {
     this.points = 0;
@@ -99,7 +133,7 @@ export class GameComponent implements OnInit {
   }
 
   onWin(event:number) {
-    console.log("Wins", event);
+    // console.log("Wins", event);
     this.points = event;
   }
 
@@ -111,50 +145,18 @@ export class GameComponent implements OnInit {
     this.fails = event;
   }
 
-  preloadFx() {
-    let snd:string[] = [];
-    let img:string[] = [];
-    // console.log("[GL]: preloadFx", this.cards)
-    this.cards.forEach((el, ind) => {
-      snd.push(el.audio);
-      img.push(el.image);
-    });
-
-    this.total = img.length;
-    this.fx.add(snd);
-    this.iloader.add(img);
-
-    this.ltotal = snd.length + img.length;
-
-    let sndpr:Observable<number> = this.fx.preload().asObservable();
-    let imgpr:Observable<number> = this.iloader.preload().asObservable()
-
-    this.preload = sndpr.combineLatest(
-      imgpr,
-      (a, b)=>{ return a+b }
-    );
-
-    this.preload.subscribe(
-      (data:number) => {
-        // console.log("Loaded")
-        this.lstep = data;
-        // console.log(Zone.current.name);
-        // this.cd.tick();
-      },
-      (err)=>{
-        console.log('error loading audios', err);
-      },
-      () => {
-        this.EndPreload()
-        // console.log("items loaded", this);
-      }
-    );
+  preloadFx$(game):Observable<number> {
+    const loadAudio$ = this.fx.add(game.words.map(x=>x.audio));
+    const loadImages$ = this.il.add(this.cards.map(x=>x.image));
+    const merge = (a,b) => (a+b);
+    return combineLatest.call(loadAudio$, loadImages$, merge);
   }
 
-  EndPreload() {
-    this.preloadReady = true;
-    // console.log("End preload", this.preloadReady);
-    // this.cd.tick();
+  get total():number {
+    if(!this.cards) {
+      return 0
+    }
+    return this.cards.length;
   }
 
   get tipus():string {
@@ -162,6 +164,12 @@ export class GameComponent implements OnInit {
       return ""
     }
     return this.gameType.toUpperCase();
+  }
+
+  ngOnDestroy() {
+    if(this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 
 }
