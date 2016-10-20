@@ -54,7 +54,7 @@ export class BallonsComponent implements OnInit {
     });
     setTimeout(()=>{
       this.enabled = false;
-    }, 3000+this.delay);
+    }, 7000+this.delay);
   }
 
   public ngOnInit() {

@@ -105,6 +105,7 @@ export class MixedComponent implements OnInit {
     this.optionsState[indx] = WordState.Success;
     this.wins++;
     this.onWin.emit(this.wins);
+    this.playSound(this.word.id);
     if(this.wins==this.total) {
       this.onFinish.emit();
     } else {
