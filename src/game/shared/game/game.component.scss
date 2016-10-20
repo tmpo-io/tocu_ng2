@@ -16,9 +16,10 @@
 
 .preload {
   height: 10px;
-  width:100%;
+  width:60%;
   overflow: hidden;
   border: 1px solid $blau;
+  background-color: $blau_light;
   @include box_small($blau_fosc);
   span {
     display: block;

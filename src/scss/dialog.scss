@@ -35,7 +35,7 @@ ti-dialog {
   }
 
   .buttons {
-    @include position(absolute, auto auto -30px 0);
+    @include position(absolute, auto auto -50px 0);
     width: 100%;
     text-align: center;
     ti-button {

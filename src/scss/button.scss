@@ -1,4 +1,4 @@
-$sizes: (s: 40px, m: 46px, l: 60px);
+$sizes: (s: 40px, m: 60px, l: 90px);
 $colors: (
   groc: ($gris_fosc, $groc_fosc, $marro),
   vermell: (white, $vermell, $vermell_fosc),
@@ -48,11 +48,22 @@ ti-button {
           height: $value - 18px;
         }
       }
+      i {
+        @if $size == l {
+          font-size: $value - 30px;
+          width: $value - 30px;
+          height: $value - 30px;
+        } @else {
+          font-size: $value - 40px;
+          width: $value - 40px;
+          height: $value - 40px;
+        }
+      }
     }
   }
 
   .icon {
-    svg {
+    svg, i {
       @include position(absolute, 50% auto auto 50%);
       transform: translate(-50%, -50%);
     }
@@ -66,7 +77,7 @@ ti-button {
   .text-icon {
     padding: 0 12px;
     width: auto;
-    svg {
+    svg, i {
       vertical-align: sub;
     }
   }
