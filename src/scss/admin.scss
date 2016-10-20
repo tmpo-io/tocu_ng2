@@ -1,0 +1,61 @@
+
+.form-control {
+  font-size: 14px;
+}
+
+.row {
+  font-family: 'Open Sans';
+}
+
+.row.admin, .form_creator {
+  font-family: 'Open Sans';
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 0px;
+}
+
+.row.submit {
+  margin-top: -10px;
+  padding-top: 40px;
+}
+
+.ticard {
+  text-align:center;
+  background-color: white;
+  border-radius: 5px;
+  padding: 10px;
+  max-width: 150px;
+  margin: 10px;
+  position:relative;
+  padding-bottom: 30px;
+
+  span {
+    @include position(absolute, auto 0 0 0);
+  }
+
+  &.hover {
+    cursor: pointer;
+    &:hover {
+      background-color: #fdfbee;
+    }
+  }
+
+}
+
+.row.header {
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #999;
+  .buttons {
+    text-align:right;
+  }
+  h3 {
+    font-family: 'Open Sans'
+  }
+}
+
+
+.ptop .pagination {
+  margin-top: 0px;
+}
