@@ -54,7 +54,7 @@ ti-button {
       }
       i {
         @if $size == xl {
-          font-size: $value - 45px
+          font-size: $value - 45px;
           width: $value - 45px;
           height: $value - 45px;
         }

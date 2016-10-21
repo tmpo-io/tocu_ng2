@@ -15,7 +15,6 @@
       "prefix": "app",
       "mobile": false,
       "styles": [
-        "../node_modules/bootstrap/scss/bootstrap-flex.scss",
         "styles.scss"
       ],
       "scripts": [

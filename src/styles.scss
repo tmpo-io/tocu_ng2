@@ -4,6 +4,7 @@ progress,sub,sup{vertical-align:baseline}button,hr,input{overflow:visible}html{f
 
 
 
+@import '../node_modules/bootstrap/scss/bootstrap-flex';
 
 $fa-font-path: '/assets/fonts';
 @import '../node_modules/font-awesome/scss/font-awesome';

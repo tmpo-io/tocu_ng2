@@ -34,11 +34,11 @@ export class RelacionaComponent implements OnInit {
   private selected:number;
   private selectedType:string;
 
-  private mixedImages:Array<any> = [];
-  private mixedTexts:Array<any> = [];
+  public mixedImages:Array<any> = [];
+  public mixedTexts:Array<any> = [];
 
-  private statusImages:Array<string> = [];
-  private statusTexts:Array<string> = [];
+  public statusImages:Array<string> = [];
+  public statusTexts:Array<string> = [];
 
   constructor(
     private srv:WordsService,
@@ -55,7 +55,7 @@ export class RelacionaComponent implements OnInit {
     setTimeout(()=> this.fx.play(audio), 300);
   }
 
-  private clickItem(indx:number, type:string):void {
+  public clickItem(indx:number, type:string):void {
     if(this.selectedType==type) {
       return;
     }
