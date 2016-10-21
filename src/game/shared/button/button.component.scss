@@ -1,2 +1,81 @@
 @import '../../../styles_shared.scss';
 
+<<<<<<< HEAD
+=======
+$sizes: (s: 40px, m: 46px, l: 60px, xl: 80px);
+$colors: (
+  groc: ($gris_fosc, $groc_fosc, $marro),
+  vermell: (white, $vermell, $vermell_fosc),
+  verd: (white, $verd, $verd_fosc),
+  blau: (white, $blau, $blau_fosc),
+);
+
+ti-button {
+  display: inline-block;
+  position: relative;
+  font-family: 'Itim';
+  cursor: pointer;
+
+  span {
+    display: block;
+    text-align: center;
+    border-radius: 8px;
+  }
+
+  @each $color, $value in $colors {
+    .#{$color} {
+      background: nth($value, 2);
+      box-shadow: 3px 3px 0px 0px nth($value, 3);
+      color: nth($value, 1);
+      svg {
+        fill: nth($value, 1);
+      }
+      &:hover {
+        background: lighten(nth($value, 3), 25%);
+      }
+    }
+  }
+
+  @each $size, $value in $sizes {
+    .size-#{$size} {
+      width: $value;
+      height: $value;
+      border-radius: $value / 2;
+      line-height: $value;
+      font-size: $value - 15px;
+      svg {
+        @if $size == xl {
+          width: $value - 45px;
+          height: $value - 45px;
+        } @elseif $size == l {
+          width: $value - 25px;
+          height: $value - 25px;
+        } @else {
+          width: $value - 18px;
+          height: $value - 18px;
+        }
+      }
+    }
+  }
+
+  .icon {
+    svg {
+      @include position(absolute, 50% auto auto 50%);
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  .text {
+    width: auto;
+    padding: 0 12px;
+  }
+
+  .text-icon {
+    padding: 0 12px;
+    width: auto;
+    svg {
+      vertical-align: sub;
+    }
+  }
+}
+>>>>>>> ec4c80300a7ffbab74dc2eb9967efca903c1883f

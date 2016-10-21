@@ -8,7 +8,7 @@
 .balloon {
   $size: 80px;
   display: inline-block;
-  transition: transform 3s linear, opacity .2s;
+  transition: transform 7s linear, opacity .2s;
   opacity: 0;
   @include position(absolute, 0 auto auto 30%);
   transform: translate3d(0, 700px, 0);

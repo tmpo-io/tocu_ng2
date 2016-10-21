@@ -1,4 +1,4 @@
-$sizes: (s: 40px, m: 60px, l: 90px);
+$sizes: (s: 40px, m: 46px, l: 60px, xl: 80px);
 $colors: (
   groc: ($gris_fosc, $groc_fosc, $marro),
   vermell: (white, $vermell, $vermell_fosc),
@@ -40,6 +40,10 @@ ti-button {
       line-height: $value;
       font-size: $value - 15px;
       svg {
+        @if $size == xl {
+          width: $value - 45px;
+          height: $value - 45px;
+        }
         @if $size == l {
           width: $value - 25px;
           height: $value - 25px;
@@ -49,6 +53,11 @@ ti-button {
         }
       }
       i {
+        @if $size == xl {
+          font-size: $value - 45px
+          width: $value - 45px;
+          height: $value - 45px;
+        }
         @if $size == l {
           font-size: $value - 30px;
           width: $value - 30px;
