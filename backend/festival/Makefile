@@ -1,6 +1,6 @@
 
 
-VERSION = r02
+VERSION = r03
 REPO = eu.gcr.io/tempo-1250/jocs
 
 build:
