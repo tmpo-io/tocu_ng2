@@ -5,8 +5,7 @@ import { Injectable, EventEmitter, NgZone } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { AngularFire,
-  FirebaseObjectObservable,
-  FirebaseListObservable } from 'angularfire2';
+  FirebaseObjectObservable } from 'angularfire2';
 
 import * as firebase from 'firebase';
 
@@ -15,9 +14,9 @@ import { Joc } from '../components/jocs/models';
 
 
 interface uploadedFile {
-  file?: string
-  image?: string
-  status?: boolean
+  file?: string;
+  image?: string;
+  status?: boolean;
 }
 
 @Injectable()
@@ -32,7 +31,7 @@ export class JocDb {
     let ref = firebase.database().ref(this.getPath(gameId));
     let o = new EventEmitter<boolean>();
     ref.once('value', function(snapshot) {
-      var exists = (snapshot.val() !== null);
+      let exists = (snapshot.val() !== null);
       o.next(exists);
     });
     return o;

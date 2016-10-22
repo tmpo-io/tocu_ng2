@@ -41,6 +41,9 @@ import {
   SoundFXService,
   ImageLoader } from './services';
 
+import { ViewGameGuard } from './guards/viewgame.guard';
+
+
 
 const routes: Routes = [
   {
@@ -49,11 +52,13 @@ const routes: Routes = [
   },
   {
     path: 'play/:uid/:id',
-    component: GameComponent
+    component: GameComponent,
+    canActivate: [ViewGameGuard]
   },
   {
     path: 'preview/:uid/:id',
-    component: GameComponent
+    component: GameComponent,
+    canActivate: [ViewGameGuard]
   },
   {
     path: 'activitat',
@@ -98,7 +103,8 @@ const routes: Routes = [
   providers: [
     WordsService,
     SoundFXService,
-    ImageLoader
+    ImageLoader,
+    ViewGameGuard
   ]
 })
 export class GameModule {}
