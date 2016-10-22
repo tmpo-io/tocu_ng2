@@ -14,9 +14,10 @@
   <div class="col-xs activitats ticard hover"
     *ngFor="let obj of activitats | async"
     [routerLink]="[obj.id]"
+    [ngStyle]="{'background-image': 'url(' + obj.image + ')'}"
     >
     <label>{{ obj.tipus }}</label>
-    <img [src]="obj.image" style="width:100px" />
+    <!--<img [src]="obj.image" />-->
     <span>
       {{ obj.label }}
       <br/>
