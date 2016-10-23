@@ -46,35 +46,35 @@ export function clean(obj) {
 export class JocEditComponent implements OnInit, OnDestroy {
 
   public image: ImageResult;
-  public paraula: string = "";
+  public paraula: string = '';
   public loading: boolean = false;
   public ready: boolean = false;
 
-  private jocID:string;
-  private joc$:FirebaseObjectObservable<Joc>;
-  private subscription:Subscription;
-  private wsubs:Subscription;
-  public joc:Joc = {
+  private jocID: string;
+  private joc$: FirebaseObjectObservable<Joc>;
+  private subscription: Subscription;
+  private wsubs: Subscription;
+  public joc: Joc = {
     label: '',
     words: []
   };
 
-  public uid:string;
+  public uid: string;
 
   private modified:boolean = false;
 
-  public tipusJoc:TJoc[] = tipusJoc;
+  public tipusJoc: TJoc[] = tipusJoc;
 
-  private _paraules:FirebaseListObservable<Word[]>
-  public paraules:Word[] = [];
-  public selectedWords:Word[] = []
+  private _paraules: FirebaseListObservable<Word[]>;
+  public paraules: Word[] = [];
+  public selectedWords: Word[] = [];
 
   // Suggest words
-  public suggest:string = ''
-  public showSuggest:boolean = false;
-  public selectedWord:string;
+  public suggest: string = '';
+  public showSuggest: boolean = false;
+  public selectedWord: string;
 
-  public validateMsg:string;
+  public validateMsg: string;
 
   @ViewChild(ImageFieldComponent) imgField;
   @Output() onCreate: EventEmitter<Joc> = new EventEmitter<Joc>()
@@ -82,17 +82,17 @@ export class JocEditComponent implements OnInit, OnDestroy {
   constructor(
     private af: AngularFire,
     private auth: AuthService,
-    private route:ActivatedRoute,
-    private router:Router,
-    private db:JocDb
+    private route: ActivatedRoute,
+    private router: Router,
+    private db: JocDb
     ) {
     }
 
   ngOnInit() {
     this.uid = this.auth.id;
-    this.route.params.subscribe(params=>{
-      const p = params["id"];
-      if(p == "add") {
+    this.route.params.subscribe(params => {
+      const p = params['id'];
+      if (p === 'add') {
         this.joc = {
            label: '',
            words: []
@@ -101,30 +101,30 @@ export class JocEditComponent implements OnInit, OnDestroy {
       } else {
         // @TODO convert to a route guard
         // Is edit.. load game instance
-        this.jocID = params["id"];
+        this.jocID = params['id'];
         this.db.gameExists(this.jocID).subscribe(
           res => {
-            if(res===false) {
+            if (res === false) {
               return this.router.navigate(['/creator/jocs']);
             }
             this._getGameData();
             this.ready = true;
           }
-        )
+        );
       }
-    })
+    });
     const path = `users/${this.auth.id}/words`
     this._paraules = this.af.database.list(path)
     this.wsubs = this._paraules.subscribe(w=>{
       this.paraules = w;
-    })
+    });
   }
 
   private _getGameData() {
     this.joc$ = this.db.getJoc(this.jocID);
     this.subscription = this.joc$.subscribe(o => {
       this.joc = clean(o);
-      if(!this.joc.words) {
+      if (!this.joc.words) {
         this.joc.words = [];
       }
       // console.log("the game", this.joc);
@@ -138,7 +138,7 @@ export class JocEditComponent implements OnInit, OnDestroy {
       .debounceTime(200)
       .distinctUntilChanged()
       .switchMap(term => {
-        if(term=='') {
+        if (term === '') {
           this.suggest = '';
           return Observable.of([]);
         }
@@ -148,79 +148,79 @@ export class JocEditComponent implements OnInit, OnDestroy {
           v => new RegExp(term, 'gi').test(v.label)
           ).filter(el => {
             return (
-              this.joc.words.find(k => k.id == el.id) == undefined)
-          })
+              this.joc.words.find(k => k.id === el.id) === undefined);
+          });
         // If there are no results sure is not an added word..
-        if(result.length==0) {
+        if (result.length === 0) {
           this.suggest = term;
         } else {
           this.suggest = '';
         }
         return Observable.of(result);
-      })
+      });
   }
 
   delete() {
-    let res = confirm("Estàs segur que vols esborrar el joc?")
-    if(res) {
-      this.db.remove(this.joc).subscribe(()=>{
+    let res = confirm('Estàs segur que vols esborrar el joc?');
+    if (res) {
+      this.db.remove(this.joc).subscribe(() => {
          this.router.navigate(['/creator/jocs']);
       });
     }
   }
 
-  wordFormater(result:Word):string {
+  wordFormater(result: Word): string {
     return result.label;
   }
 
-  wordSelected(event:NgbTypeaheadSelectItemEvent) {
-    this.selectedWord = "";
+  wordSelected(event: NgbTypeaheadSelectItemEvent) {
+    this.selectedWord = '';
     if(!this.joc.words) {
-      this.joc.words = []
+      this.joc.words = [];
     }
-    this.modified = true
-    this.joc.words.push(clean(event.item))
+    this.modified = true;
+    this.joc.words.push(clean(event.item));
     event.preventDefault();
   };
 
-  removeWord(w:Word) {
+  removeWord(w: Word) {
     this.modified = true;
     this.joc.words = this.joc.words.filter(el => w.id!=el.id)
   }
 
-  imageSelected(event:ImageResult) {
+  imageSelected(event: ImageResult) {
     this.image = event;
     this.modified = true;
   }
 
   save() {
     // Wait till audio is uploaded
-    if( this.ensureWordsHasAudios() == false) {
-      setTimeout(()=>{
+    if (this.ensureWordsHasAudios() === false) {
+      setTimeout(() => {
         this.save();
-      },1000);
+      }, 1000);
       return;
     }
     this.loading = true;
     // console.log(this.image);
-    let isInsert = (this.jocID==null)
-    let b:Blob = (this.image) ? this.image.resized.blob : null;
+    let isInsert = (this.jocID == null);
+    let b: Blob = (this.image) ? this.image.resized.blob : null;
     this.db.save(this.joc, b)
-      .subscribe((r)=>{
-        if(isInsert) {
-          this.router.navigate(['/creator/jocs/'+r.id]);
+      .subscribe((r) => {
+        if (isInsert) {
+          this.router.navigate(['/creator/jocs/' + r.id]);
         }
         this.loading = false;
         this.modified = false;
-    })
+    });
   }
 
-  ensureWordsHasAudios():boolean {
-    for(let i=0; i<this.joc.words.length; i++) {
-      if(this.joc.words[i].audio == "") {
-        let x = this.joc.words[i]
+  ensureWordsHasAudios(): boolean {
+    for (let i = 0; i < this.joc.words.length; i++) {
+      if (this.joc.words[i].audio === '') {
+        let x = this.joc.words[i];
         x.audio = audioForWord(x, this.paraules);
-        if(x.audio=="") {
+        if (x.audio === '') {
           return false;
         }
         this.joc.words[i] = x;
@@ -229,17 +229,17 @@ export class JocEditComponent implements OnInit, OnDestroy {
     return true;
   }
 
-  createWord(word:Word) {
-    this.joc.words.push(word)
+  createWord(word: Word) {
+    this.joc.words.push(word);
     this.modified = true;
     this.showSuggest = false;
     this.suggest = '';
-    this.selectedWord = "";
+    this.selectedWord = '';
   }
 
   publish() {
     let result = validateJoc(this.joc);
-    if(!result.status) {
+    if (!result.status) {
       this.validateMsg = result.msg;
       return;
     }
@@ -249,7 +249,7 @@ export class JocEditComponent implements OnInit, OnDestroy {
     this.db.save(this.joc, null).subscribe((r)=>{
       this.loading = false;
       this.modified = false;
-    })
+    });
 
   }
 
@@ -263,10 +263,10 @@ export class JocEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if(this.subscription) {
+    if (this.subscription) {
       this.subscription.unsubscribe();
     }
-    if(this.wsubs) {
+    if (this.wsubs) {
       this.wsubs.unsubscribe();
     }
   }

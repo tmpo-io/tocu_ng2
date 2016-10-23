@@ -81,7 +81,7 @@ export class ImageFieldComponent implements OnInit {
       this.fileToDataURL(file, result)
         .then(r => this.resize(r))
         .then((r) => {
-          this.rawImage.emit(r)
+          this.rawImage.emit(r);
           this.src = r.dataURL;
         });
     }

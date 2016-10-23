@@ -13,7 +13,7 @@ import { AuthService } from '../../auth';
 import { Joc } from '../../models/joc';
 
 
-interface uploadedFile {
+interface UploadedFile {
   file?: string;
   image?: string;
   status?: boolean;
@@ -26,7 +26,7 @@ export class JocDb {
     private auth: AuthService,
     private zone: NgZone) {}
 
-  gameExists(gameId:string):EventEmitter<boolean> {
+  gameExists(gameId: string): EventEmitter<boolean> {
     // console.log(this.getPath(authId, gameId))
     let ref = firebase.database().ref(this.getPath(gameId));
     let o = new EventEmitter<boolean>();
@@ -37,37 +37,38 @@ export class JocDb {
     return o;
   }
 
-  save(t: Joc, file?:Blob):Observable<Joc> {
-    if(!t.id) {
+  save(t: Joc, file?: Blob): Observable<Joc> {
+    if (!t.id) {
       t.id = this.getNewId();
     }
 
-    if(file) {
+    if (file) {
       return this.storeFile(t.id, file)
-        .flatMap((result:uploadedFile) => {
+        .flatMap((result: UploadedFile) => {
           t.file = result.file;
           t.image = result.image;
           return this.saveObject(t);
-        })
+        });
     }
     return this.saveObject(t);
   }
 
 
-  remove(joc:Joc):Observable<boolean> {
+  remove(joc: Joc): Observable<boolean> {
     return new Observable<boolean>((observer)=>{
-      let remove = ()=>{
-        firebase.database().ref().child(this.getPath(joc.id)).remove()
-      }
+      let remove = () => {
+        firebase.database().ref().child(this.getPath(joc.id))
+        .remove();
+      };
       // delete file
-      if(joc.file) {
-        let ref = firebase.storage().ref().child(joc.file)
-        ref.delete().then(()=>{
-          remove()
+      if (joc.file) {
+        let ref = firebase.storage().ref().child(joc.file);
+        ref.delete().then(() => {
+          remove();
           observer.next(true);
-        }, ()=>{
+        }, () => {
           observer.next(false);
-        })
+        });
       } else {
         remove();
         observer.next(true);
@@ -75,46 +76,44 @@ export class JocDb {
     });
   }
 
-  // public setState()
-
-  getJoc(gameId:string):FirebaseObjectObservable<Joc> {
+  getJoc(gameId: string): FirebaseObjectObservable<Joc> {
     return this.af.database.object(this.getPath(gameId));
   }
 
-  private storeFile(key, file):Observable<uploadedFile> {
-    let result:uploadedFile = {};
-    return new Observable<uploadedFile>(observer=>{
+  private storeFile(key, file): Observable<UploadedFile> {
+    let result: UploadedFile = {};
+    return new Observable<UploadedFile>(observer => {
       const ref = firebase.storage().ref().child(this.getPath(key) + ".png");
       result.file = ref.fullPath;
-      ref.put(file).then(()=>{
-        ref.getDownloadURL().then(s=>{
-          result.image = s
+      ref.put(file).then(() => {
+        ref.getDownloadURL().then(s => {
+          result.image = s;
           observer.next(result);
           observer.complete();
-        })
-      })
+        });
+      });
     });
   }
 
 
-  private saveObject(t:Joc):Observable<Joc> {
-    return new Observable<Joc>( (obs)=> {
+  private saveObject(t: Joc): Observable<Joc> {
+    return new Observable<Joc>( (obs) => {
       firebase.database().ref()
         .child(this.getPath(t.id))
-        .update(t, ()=> this.zone.run(()=>{
+        .update(t, () => this.zone.run(() => {
           obs.next(t);
           obs.complete();
-        }))
+        }));
     });
   }
 
-  private getNewId():string {
+  private getNewId(): string {
     return firebase.database().ref()
-      .child(this.getPath()).push().key
+      .child(this.getPath()).push().key;
   }
 
-  private getPath(id?:string):string {
-    if(!id) {
+  private getPath(id?: string): string {
+    if (!id) {
       return `users/${this.auth.id}/jocs`;
     }
     return `users/${this.auth.id}/jocs/${id}`;

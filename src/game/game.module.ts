@@ -53,7 +53,7 @@ const routes: Routes = [
   {
     path: 'play/:uid/:id',
     component: GameComponent,
-    canActivate: [ViewGameGuard]
+    canActivate: [AuthGuard, ViewGameGuard]
   },
   {
     path: 'preview/:uid/:id',
