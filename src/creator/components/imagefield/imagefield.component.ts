@@ -6,8 +6,9 @@ import {
   Output,
   NgZone } from '@angular/core';
 
-import { Headers, Http, Response,
-  ResponseContentType, RequestOptionsArgs } from '@angular/http';
+import { Http, Response,
+  ResponseContentType,
+  RequestOptionsArgs } from '@angular/http';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -16,7 +17,7 @@ import { createImage,
   resizeImage, dataURItoBlob } from './utils';
 
 @Component({
-  selector: 'image-field',
+  selector: 'app-image-field',
   templateUrl: './imagefield.component.html',
   styleUrls: ['./imagefield.component.scss']
 })
@@ -26,17 +27,15 @@ export class ImageFieldComponent implements OnInit {
   @Input() resizeOptions: ResizeOptions = {
     resizeMaxWidth: 600
   };
-  @Input() word:string;
-  @Input() src:string;
+  @Input() word: string;
+  @Input() src: string;
 
-  public loadingImage:boolean = false;
-
-  // public src:string;
+  public loadingImage: boolean = false;
 
   constructor(
-    private modal:NgbModal,
-    private http:Http,
-    private zone:NgZone
+    private modal: NgbModal,
+    private http: Http,
+    private zone: NgZone
     ) { }
 
   ngOnInit() { }
@@ -47,27 +46,25 @@ export class ImageFieldComponent implements OnInit {
 
   public selectFromLibrary(item) {
     let img = item.url;
-    const params: RequestOptionsArgs = {responseType: ResponseContentType.Blob}
+    const params: RequestOptionsArgs = {responseType: ResponseContentType.Blob};
     this.loadingImage = true;
     this.http.get(img, params).subscribe(
-      (r:Response) => {
-          let file = r.blob();
-          let result: ImageResult = {
-             file: file,
-             url: URL.createObjectURL(r.blob())
-          }
-          this.fileToDataURL(file, result)
-            .then(r => this.resize(r))
-            .then(r => {
-              this.zone.run(()=> {
-                this.loadingImage = false;
-                this.rawImage.emit(r)
-                this.src = r.dataURL;
-              })
-              // console.log()
+      (r: Response) => {
+        let file = r.blob();
+        let result: ImageResult = {
+            file: file,
+            url: URL.createObjectURL(r.blob())
+        };
+        this.fileToDataURL(file, result)
+          .then(ra => this.resize(ra))
+          .then(rz => {
+            this.zone.run(() => {
+              this.loadingImage = false;
+              this.rawImage.emit(rz);
+              this.src = rz.dataURL;
             });
-
-      })
+          });
+      });
   }
 
 
@@ -80,7 +77,7 @@ export class ImageFieldComponent implements OnInit {
       let result: ImageResult = {
         file: file,
         url: URL.createObjectURL(file)
-      }
+      };
       this.fileToDataURL(file, result)
         .then(r => this.resize(r))
         .then((r) => {
@@ -101,7 +98,6 @@ export class ImageFieldComponent implements OnInit {
             blob: dataURItoBlob(dataUrl, dataUrl.match(/:(.+\/.+;)/)[1]),
             type: dataUrl.match(/:(.+\/.+;)/)[1]
           };
-          // console.log("Resized in: " + (performance.now()-tim) );
           resolve(result);
         });
       } else {

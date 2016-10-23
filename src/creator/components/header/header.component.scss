@@ -1,9 +1,10 @@
 @import '../../../styles_shared';
 
 nav {
-  background-color: $gris_fosc;
+  padding: 20px;
+
   font-family: 'Open Sans', sans-serif;
-  color: $blanc;
+  color: $gris_fosc;
   display: flex;
   align-items: center;
   padding-bottom: 10px;
@@ -26,6 +27,7 @@ ul {
   width: 60%;
   display: flex;
   margin-bottom: 0px;
+  padding-left: 30px;
 }
 
 ul li {
@@ -34,11 +36,23 @@ ul li {
 }
 
 ul.right {
-  width: 20%;
+  width: 30%;
   justify-content: flex-end;
+  a {
+    font-size: 24px;
+    background-color: $blanc;
+  }
 }
 
 
 a {
-  color: $blanc;
+  border-radius: 5px;
+  color: $gris_fosc;
+  background-color: $blau;
+  padding: 5px;
+}
+
+a.active {
+  background-color: $ocre_fosc;
+  color: #fff;
 }

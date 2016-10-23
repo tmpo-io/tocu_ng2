@@ -2,8 +2,27 @@
 
 :host {
   display: block;
-  padding: 40px 0;
+  padding: 0px 0;
 }
+
+.header {
+  width: 100%;
+  position:relative;
+  padding: 20px;
+  padding-bottom: 30px;
+  text-align: left;
+
+  a {
+    display: block;
+    position: absolute;
+    color: $marro_fosc;
+    top: 30px;
+    right: 30px;
+    font-size: 40px;
+  }
+
+}
+
 .list {
   display: flex;
   flex-wrap: wrap;
@@ -22,15 +41,16 @@
     padding-top: 80%;
   }
   h2 {
-    font-size: 28px;
-    color: $gris_fosc;
+    font-size: 20px;
+    line-height: 22px;
+    color: $blau_fosc;
     @include position(absolute, 20px auto auto 20px);
     text-transform: uppercase;
   }
   div {
     @include position(absolute, 70px 20px 20px 20px);
     background-repeat: no-repeat;
-    background-size: 65%;
+    background-size: 60%;
     background-position: center center;
   }
 

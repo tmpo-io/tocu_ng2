@@ -1,7 +1,8 @@
 export const environment = {
-  production: true,
-  wordsEndpoint: "",
-  clipArtEndpoint: "https://openclipart.org/search/json/?amount=40&query=",
-  translatorEndpoint: "http://localhost:8080/translate",
-  audioEndpoint: "http://localhost:8080/audio"
+  production: false,
+  wordsEndpoint: "/assets/animals.json",
+  translatorEndpoint: "http://apijocs.tmpo.io/translate",
+  clipArtEndpoint: "https://openclipart.org/search/json/?amount=40&sort=downloads&query=",
+  audioEndpoint: "http://apijocs.tmpo.io/audio"
+
 };
