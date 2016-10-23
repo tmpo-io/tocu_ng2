@@ -42,7 +42,7 @@ import {
   ImageLoader } from './services';
 
 import { ViewGameGuard } from './guards/viewgame.guard';
-
+import { AuthGuard, AuthService } from '../auth';
 
 
 const routes: Routes = [
@@ -62,7 +62,8 @@ const routes: Routes = [
   },
   {
     path: 'activitat',
-    component: ActivitatComponent
+    component: ActivitatComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: '',
@@ -104,7 +105,8 @@ const routes: Routes = [
     WordsService,
     SoundFXService,
     ImageLoader,
-    ViewGameGuard
+    ViewGameGuard,
+    AuthService
   ]
 })
 export class GameModule {}

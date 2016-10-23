@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { WordsService } from '../services/words.service';
 import { Observable } from 'rxjs';
 import { Joc } from '../../models/joc';
+import { AuthService } from '../../auth/services/auth-service';
 
 
 
@@ -16,8 +17,10 @@ export class ActivitatComponent {
 
   public data$: Observable<Joc[]>;
 
-  constructor(private ws: WordsService) {
-
+  constructor(
+    public auth: AuthService,
+    private ws: WordsService) {
+    this.data$ = ws.loadGames(auth.id);
   }
 
 

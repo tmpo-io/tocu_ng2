@@ -1,11 +1,14 @@
 <div class="list">
-  <a class="item" [routerLink]="'/game/memory'">
+  <a *ngFor="let item of data$|async" class="item"
+    [routerLink]="['/play/', auth.id, item.id]">
     <span>
-      <h2>Memory</h2>
-      <div style="background-image:url('/assets/img/cocodril.png');"></div>
+      <h2>{{ item.label }}</h2>
+      <div
+      [ngStyle]="{'background-image': 'url(' + item.image +')'}">
+      </div>
     </span>
   </a>
-  <a class="item" [routerLink]="'/game/sequencing'">
+  <!--<a class="item" [routerLink]="'/game/sequencing'">
     <span>
       <h2>Sequencing</h2>
       <div style="background-image:url('/assets/img/elefant.png');"></div>
@@ -22,5 +25,5 @@
       <h2>Mixed</h2>
       <div style="background-image:url('/assets/img/porc.png');"></div>
     </span>
-  </a>
+  </a>-->
 </div>

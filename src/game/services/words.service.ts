@@ -9,8 +9,7 @@ import { environment } from '../../environments/environment';
 import * as firebase from 'firebase';
 
 import { Word } from '../../models/word';
-
-
+import { Joc } from '../../models/joc';
 
 @Injectable()
 export class WordsService {
@@ -49,6 +48,21 @@ export class WordsService {
       });
   }
 
+  loadGames(uid: string): Observable<Joc[]> {
+    return new Observable<Joc[]>((observer) => {
+      const path = `users/${uid}/jocs/`;
+      // console.log(path);
+      firebase.database().ref(path)
+        .orderByChild('published')
+        .equalTo(true)
+        .once('value', (snap) => {
+          let vals = snap.val();
+          let arr = Object.keys(vals)
+            .map((k) => vals[k]);
+          observer.next(arr);
+      });
+    });
+  }
 
   gamePath(uid: string, id: string): string {
     return `users/${uid}/jocs/${id}`;
