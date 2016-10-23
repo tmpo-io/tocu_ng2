@@ -1,6 +1,8 @@
 [
     {
-      "origin": ["http://localhost:4200"],
+      "origin": [
+        "http://localhost:4200",
+        "https://jocs-cc8cc.firebaseapp.com"],
       "responseHeader": ["Content-Type"],
       "method": ["GET", "HEAD", "DELETE"],
       "maxAgeSeconds": 3600
