@@ -10,7 +10,7 @@ import { AngularFire,
 import * as firebase from 'firebase';
 
 import { AuthService } from '../../auth';
-import { Joc } from '../components/jocs/models';
+import { Joc } from '../../models/joc';
 
 
 interface uploadedFile {

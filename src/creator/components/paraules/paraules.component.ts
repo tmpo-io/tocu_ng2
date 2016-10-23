@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { Subscription } from 'rxjs/Subscription';
 
 import { AuthService } from '../../../auth';
-import { Word } from '../../../models';
+import { Word } from '../../../models/word';
 
 import { staggered$ } from '../../../shared';
 

@@ -2,7 +2,6 @@
 export * from './creator/creator.component';
 export * from './header/header.component';
 
-export * from './jocs/models';
 export * from './jocs/jocslist.component';
 export * from './jocs/jocedit.component';
 

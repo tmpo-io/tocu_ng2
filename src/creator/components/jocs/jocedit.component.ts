@@ -12,10 +12,11 @@ import 'rxjs/add/operator/delay';
 
 
 
-import { AngularFire,
-  FirebaseObjectObservable,
-  FirebaseListObservable } from 'angularfire2';
-import * as firebase from 'firebase';
+import {
+    AngularFire,
+    FirebaseObjectObservable,
+    FirebaseListObservable }
+  from 'angularfire2';
 import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -23,9 +24,12 @@ import { JocDb } from '../../services';
 import { AuthService } from '../../../auth';
 import { ImageResult } from '../imagefield/interfaces';
 import { ImageFieldComponent } from '../imagefield/imagefield.component';
-import { Joc, tipusJoc,
-  TJoc, validateJoc, audioForWord  } from './models'
-import { Word } from '../../../models';
+import { validateJoc, audioForWord  } from './utils';
+
+import { TJoc } from '../../../models/tjoc';
+import { Joc } from '../../../models/joc';
+import { tipusJoc } from '../../../models/tipusjoc';
+import { Word } from '../../../models/word';
 
 
 export function clean(obj) {
