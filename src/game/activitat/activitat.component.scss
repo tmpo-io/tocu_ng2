@@ -25,11 +25,13 @@
     font-size: 28px;
     color: $gris_fosc;
     @include position(absolute, 20px auto auto 20px);
+    text-transform: uppercase;
   }
   div {
     @include position(absolute, 70px 20px 20px 20px);
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: 65%;
+    background-position: center center;
   }
 
   &:hover {
