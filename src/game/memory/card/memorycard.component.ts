@@ -3,7 +3,7 @@ import {
   style, transition, animate, trigger
  } from '@angular/core';
 import { CardState } from './card';
-import { Word } from '../../services';
+import { Word } from '../../../models/word';
 
 
 @Component({

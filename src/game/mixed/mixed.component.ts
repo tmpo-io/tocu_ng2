@@ -1,23 +1,19 @@
-import { Observable } from 'rxjs/Rx';
 import {
   Component, OnInit, Input, EventEmitter, Output,
 } from '@angular/core';
 
-import {state,
-  style, transition, animate, trigger,
-  AnimationEntryMetadata
- } from '@angular/core';
 
-import { Word, WordsService, SoundFXService } from '../services';
+import { Word } from '../../models/word';
+import { WordsService, SoundFXService } from '../services';
 import { Shuffle } from '../helpers';
-import { WordState } from "./word/word";
-import { MixedAnimation } from "./mixed.animations";
+import { WordState } from './word/word';
+import { MixedAnimation } from './mixed.animations';
 
 
 @Component({
-  selector: "mixed-game",
-  templateUrl:"./mixed.component.html",
-  styleUrls: ["./mixed.component.scss"],
+  selector: 'mixed-game',
+  templateUrl: './mixed.component.html',
+  styleUrls: ['./mixed.component.scss'],
   animations: MixedAnimation
 })
 export class MixedComponent implements OnInit {
@@ -27,32 +23,32 @@ export class MixedComponent implements OnInit {
   @Output() onFail = new EventEmitter<number>();
   @Output() onFinish = new EventEmitter<number>();
 
-  private wins:number = 0;
-  private fails:number = 0;
-  private total:number = 0;
-  private current:number = 0;
-  private word:Word;
-  private goingNext:boolean = false;
+  private wins: number = 0;
+  private fails: number = 0;
+  private total: number = 0;
+  private current: number = 0;
+  private word: Word;
+  private goingNext: boolean = false;
 
-  private options:Array<string> = [];
-  private optionsState:Array<string> = [];
+  private options: Array<string> = [];
+  private optionsState: Array<string> = [];
 
-  private wordVisible:string = "out";
-  private lettersVisible:string = "out";
+  private wordVisible: string = 'out';
+  private lettersVisible: string = 'out';
 
   constructor(
-    private srv:WordsService,
-    private fx:SoundFXService
+    private srv: WordsService,
+    private fx: SoundFXService
   ) {}
 
-  private playSound(ind:number):void {
-    let audio:string;
+  private playSound(ind: string): void {
+    let audio: string;
     this.words.forEach((el, i) => {
-      if(el.id==ind) {
-        audio = el.audio
+      if (el.id === ind) {
+        audio = el.audio;
       }
     });
-    setTimeout(()=> this.fx.play(audio), 300);
+    setTimeout(() => this.fx.play(audio), 300);
   }
 
   private buildWord():void {

@@ -6,7 +6,9 @@ import {state,
   AnimationEntryMetadata
  } from '@angular/core';
 
-import { Word } from '../../services';
+// import { Word } from '../../services';
+import { Word } from '../../../models/word';
+
 import { WordState } from "./word";
 // import { WordAnimation } from "./word.animations";
 
@@ -37,7 +39,7 @@ export type wordType = 'image' | 'text';
   ]
 })
 export class RelacionaWordComponent {
-  @Input() word:Word;
-  @Input() status:WordState;
-  @Input() type:wordType;
+  @Input() word: Word;
+  @Input() status: WordState;
+  @Input() type: wordType;
 }

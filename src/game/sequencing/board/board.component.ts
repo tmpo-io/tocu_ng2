@@ -3,7 +3,8 @@ import {
   style, transition, animate, trigger
  } from '@angular/core';
 
-import { Word, WordsService, SoundFXService } from '../../services';
+import { Word } from '../../../models/word';
+import { WordsService, SoundFXService } from '../../services';
 import { Shuffle } from '../../helpers';
 import { LetterState } from '../letter/letter';
 import { SequencingAnimation } from "./board.animations";

@@ -8,12 +8,8 @@ import { environment } from '../../environments/environment';
 
 import * as firebase from 'firebase';
 
-export class Word {
-  public id: number;
-  public label: string;
-  public image: string;
-  public audio: string;
-}
+import { Word } from '../../models/word';
+
 
 
 @Injectable()

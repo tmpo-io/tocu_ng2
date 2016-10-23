@@ -8,7 +8,7 @@ import {state,
   AnimationEntryMetadata
  } from '@angular/core';
 
-import { Word, WordsService, SoundFXService } from '../services';
+import { WordsService, SoundFXService } from '../services';
 import { Shuffle } from '../helpers';
 
 import { WordState } from "./word/word";

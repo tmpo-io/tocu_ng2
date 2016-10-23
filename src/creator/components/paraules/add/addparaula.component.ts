@@ -5,7 +5,7 @@ import { AngularFire } from 'angularfire2';
 import * as firebase from 'firebase';
 
 import { AuthService } from '../../../../auth';
-import { Word } from '../../../../models';
+import { Word } from '../../../../models/word';
 import { ImageFieldComponent } from '../../imagefield/imagefield.component';
 import { AudioGenService } from '../../../services';
 
