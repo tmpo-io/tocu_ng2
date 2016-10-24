@@ -55,7 +55,7 @@ export class JocDb {
 
 
   remove(joc: Joc): Observable<boolean> {
-    return new Observable<boolean>((observer)=>{
+    return new Observable<boolean>((observer) => {
       let remove = () => {
         firebase.database().ref().child(this.getPath(joc.id))
         .remove();
