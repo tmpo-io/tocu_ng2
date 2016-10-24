@@ -17,3 +17,6 @@ ISSUES:
 [] Veure que passa amb el tema dels audios... 
    (Si ja estan carregats no cal tornar a carregar-los).
 
+[] Als jocs on surt una fitxa tipus carta treure, 
+   amagar la imatge en entrar. 
+[] Que passa quan intentes pujar una imatge jpg.
