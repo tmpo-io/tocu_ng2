@@ -69,7 +69,7 @@
 
      <div *ngIf="showSuggest" class="suggest">
         <span class="close" (click)="showSuggest=false">&times;</span>
-        <add-paraula [paraula]="suggest" (onCreate)="createWord($event)"></add-paraula>
+        <app-add-paraula [paraula]="suggest" (onCreate)="createWord($event)"></app-add-paraula>
       </div>
 
   </div>

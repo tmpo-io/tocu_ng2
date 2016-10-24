@@ -139,7 +139,7 @@ export class JocEditComponent implements OnInit, OnDestroy {
 
   // aquesta funcio ha de ser una arrow, pq conservi el this
   // de la clase.
-  searchWords = (text$:Observable<string>) => {
+  searchWords = (text$: Observable<string>) => {
     return text$
       .debounceTime(200)
       .distinctUntilChanged()
@@ -252,7 +252,7 @@ export class JocEditComponent implements OnInit, OnDestroy {
 
     this.joc.published = true;
     this.loading = true;
-    this.db.save(this.joc, null).subscribe((r)=>{
+    this.db.save(this.joc, null).subscribe((r) => {
       this.loading = false;
       this.modified = false;
     });
@@ -262,10 +262,10 @@ export class JocEditComponent implements OnInit, OnDestroy {
   unpublish() {
     this.joc.published = false;
     this.loading = true;
-    this.db.save(this.joc, null).subscribe((r)=>{
+    this.db.save(this.joc, null).subscribe((r) => {
       this.loading = false;
       this.modified = false;
-    })
+    });
   }
 
   ngOnDestroy() {

@@ -14,7 +14,6 @@ import {
   HeaderComponent,
   JocsListComponent,
   JocEditComponent,
-  ActivitatEditorComponent,
   ParaulesComponent,
   ClipartComponent,
   AddParaulaComponent,
@@ -97,7 +96,6 @@ const routes: Routes = [
     ImageFieldComponent,
     TiPreloadComponent,
     TiAudioPlayerComponent,
-    ActivitatEditorComponent,
     Autofocus
   ],
   // exports: [

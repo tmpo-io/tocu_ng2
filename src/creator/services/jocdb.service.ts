@@ -83,7 +83,7 @@ export class JocDb {
   private storeFile(key, file): Observable<UploadedFile> {
     let result: UploadedFile = {};
     return new Observable<UploadedFile>(observer => {
-      const ref = firebase.storage().ref().child(this.getPath(key) + ".png");
+      const ref = firebase.storage().ref().child(this.getPath(key) + '.png');
       result.file = ref.fullPath;
       ref.put(file).then(() => {
         ref.getDownloadURL().then(s => {
