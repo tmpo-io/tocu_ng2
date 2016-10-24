@@ -1,6 +1,7 @@
 [
     {
       "origin": [
+	"https://www.tocu.io",
         "http://192.168.1.44:4200",
         "http://localhost:4200",
         "https://jocs-cc8cc.firebaseapp.com"],
