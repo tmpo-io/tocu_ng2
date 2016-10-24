@@ -3,7 +3,7 @@
 :host {
   display: block;
   position: relative;
-  z-index: 1001;
+  z-index: 999;
 }
 .balloon {
   $size: 80px;
