@@ -1,89 +1,94 @@
 import {
-  Component, OnInit, Input, state, EventEmitter, Output,
-  style, transition, animate, trigger
+  Component, OnInit, Input, EventEmitter, Output,
  } from '@angular/core';
 
 import { Word } from '../../../models/word';
 import { WordsService, SoundFXService } from '../../services';
 import { Shuffle } from '../../helpers';
 import { LetterState } from '../letter/letter';
-import { SequencingAnimation } from "./board.animations";
+import { SequencingAnimation } from './board.animations';
 
 @Component({
-  selector: "sequencing-board",
-  templateUrl:"./board.component.html",
-  styleUrls: ["./board.component.scss"],
+  selector: 'app-sequencing-board',
+  templateUrl: './board.component.html',
+  styleUrls: ['./board.component.scss'],
   animations: SequencingAnimation
 })
 export class SequencingBoardComponent implements OnInit {
-  @Input()  words;
+  @Input() words;
   @Output() onWin = new EventEmitter<number>();
   @Output() onFail = new EventEmitter<number>();
   @Output() onFinish = new EventEmitter<number>();
 
-  private wordVisible:string = "out";
-  private lettersVisible:string = "out";
-  private goingNext:boolean = false;
+  private wordVisible: string = 'out';
+  private lettersVisible: string = 'out';
+  private goingNext: boolean = false;
 
-  private currentWord:number = 0;
-  private word:Word;
-  private splittedWord:string[];
-  private mixedWord:string[];
-  private statusWord:Array<string>;
+  private currentWord: number = 0;
+  private word: Word;
+  private splittedWord: string[];
+  private mixedWord: string[];
+  private statusWord: Array<string>;
 
-  private currentLetter:number = 0;
+  private currentLetter: number = 0;
 
-  private wins:number = 0;
-  private fails:number = 0;
+  private wins: number = 0;
+  private fails: number = 0;
 
   constructor(
-    private srv:WordsService,
-    private fx:SoundFXService
+    private srv: WordsService,
+    private fx: SoundFXService
   ) {}
 
+  public ngOnInit() {
+    this.words = Shuffle(this.words);
+    this.buildWord();
+  }
+
   private buildWord() {
+    // this.words = Shuffle(this.words);
     this.word = this.words[this.currentWord];
-    this.splittedWord = this.word.label.toUpperCase().split("");
+    this.splittedWord = this.word.label.toUpperCase().split('');
     this.mixedWord = Shuffle(Array.from(this.splittedWord));
     this.statusWord = [];
     this.mixedWord.forEach(letter => this.statusWord.push(LetterState.Active));
-    setTimeout(()=> {
-      this.wordVisible = "in";
+    setTimeout(() => {
+      this.wordVisible = 'in';
     }, 100);
-    setTimeout(()=> {
-      this.lettersVisible = "in";
+    setTimeout(() => {
+      this.lettersVisible = 'in';
       this.clickSound();
     }, 300);
   }
 
-  private clickLetter(indx:number):void {
-    if(this.statusWord[indx]!=LetterState.Active) {
+  private clickLetter(indx: number): void {
+    if (this.statusWord[indx] !== LetterState.Active) {
       return;
     }
-    if(this.splittedWord[this.currentLetter]==this.mixedWord[indx]) {
+    if (this.splittedWord[this.currentLetter] === this.mixedWord[indx]) {
       this.processGood(indx);
     } else {
       this.processBad(indx);
     }
   }
 
-  private processGood(indx:number) {
+  private processGood(indx: number) {
     this.statusWord[indx] = LetterState.Played;
     this.nextLetter();
   }
 
-  private processBad(indx:number) {
+  private processBad(indx: number) {
     this.fails++;
     this.onFail.emit(this.fails);
     this.statusWord[indx] = LetterState.Error;
-    setTimeout(()=> {
+    setTimeout(() => {
       this.statusWord[indx] = LetterState.Active;
-    }, 500)
+    }, 500);
   }
 
   private nextLetter() {
     this.currentLetter++;
-    if(this.currentLetter == this.splittedWord.length) {
+    if(this.currentLetter === this.splittedWord.length) {
       this.wins++;
       this.onWin.emit(this.wins);
       this.resultWord();
@@ -92,20 +97,20 @@ export class SequencingBoardComponent implements OnInit {
 
   private resultWord() {
     this.goingNext = true;
-    this.lettersVisible = "out";
-    let audio:string = this.word.audio;
-    setTimeout(()=>{
+    this.lettersVisible = 'out';
+    let audio: string = this.word.audio;
+    setTimeout(() => {
       this.fx.play(audio);
     }, 300);
   }
 
   private clickNextWord() {
-    if(this.currentWord < this.words.length-1) {
-      this.wordVisible = "out";
-      setTimeout(()=> {
+    if(this.currentWord < this.words.length - 1) {
+      this.wordVisible = 'out';
+      setTimeout(() => {
         this.goingNext = false;
         this.currentWord++;
-        this.currentLetter=0;
+        this.currentLetter = 0;
         this.buildWord();
       }, 300);
     } else {
@@ -114,13 +119,9 @@ export class SequencingBoardComponent implements OnInit {
   }
 
   private clickSound() {
-    let audio:string = this.word.audio;
-    setTimeout(()=>{
+    let audio: string = this.word.audio;
+    setTimeout(() => {
       this.fx.play(audio);
     }, 300);
-  }
-
-  public ngOnInit() {
-    this.buildWord();
   }
 }

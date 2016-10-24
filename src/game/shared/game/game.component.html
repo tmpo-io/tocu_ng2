@@ -47,13 +47,13 @@
     (onFail)="onFail($event)"
     (onFinish)="onFinish($event)"
   ></memory-board>
-  <sequencing-board
+  <app-sequencing-board
     *ngSwitchCase="'sequencing'"
     [words]="cards"
     (onWin)="onWin($event)"
     (onFail)="onFail($event)"
     (onFinish)="onFinish($event)"
-  ></sequencing-board>
+  ></app-sequencing-board>
   <app-relaciona-game
     *ngSwitchCase="'relaciona'"
     [words]="cards"
