@@ -155,6 +155,9 @@ export class GameComponent implements OnInit, OnDestroy {
     if (this.sub) {
       this.sub.unsubscribe();
     }
+    this.cards.map(w => {
+      this.fx.delete(w.audio);
+    });
   }
 
 }

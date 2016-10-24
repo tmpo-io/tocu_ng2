@@ -47,6 +47,7 @@ export class MixedComponent implements OnInit {
     this.buildWord();
   }
 
+
   private playSound(ind: string): void {
     let audio: string;
     this.words.forEach((el, i) => {

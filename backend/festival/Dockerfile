@@ -11,7 +11,7 @@ RUN apt-get update && \
     festvox-ca-ona-hts ffmpeg && \
   apt-get install -y apertium apertium-ca-en apertium-ca-es
 
-
+# libmp3lame0 libmpg123-0
 COPY read.sh read.sh
 COPY api /api
 
