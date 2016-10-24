@@ -24,15 +24,13 @@
     right: 10px;
     cursor: pointer;
   }
-
 }
 
-.link {
-  cursor: pointer;
-  color:#5bc0de;
-  text-decoration:underline;
+span.link {
+  cursor: pointer !important;
+  color:#5bc0de !important;
+  text-decoration:underline !important;
 }
-
 
 p {
   font-family: 'Open Sans';

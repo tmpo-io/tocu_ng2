@@ -59,7 +59,10 @@
       (selectItem)="wordSelected($event)"
       placeholder="Selecciona les paraules"><br />
 
-      <ngb-alert *ngIf="suggest!=''" type="success" (close)="suggest=''">No disposes de la paraula <strong>{{ suggest }}</strong> <a (click)="showSuggest=true" class="link">vols afegir-la?</a> </ngb-alert>
+      <ngb-alert *ngIf="suggest!=''"
+        type="success"
+        (close)="suggest=''">No disposes de la paraula <strong>{{ suggest }}</strong> <a (click)="showSuggest=true">
+          <span class="link">vols afegir-la?</span></a> </ngb-alert>
 
      <div class="paraules">
       <span class="tag tag-success tag-pill"

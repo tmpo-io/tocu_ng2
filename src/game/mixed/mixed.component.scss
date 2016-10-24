@@ -39,6 +39,7 @@
   @include box($gris);
   img {
     padding-bottom: 40px;
+    max-height:200px;
   }
   .bt-sound {
     @include position(absolute, 20px 20px auto auto);

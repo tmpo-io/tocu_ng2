@@ -56,8 +56,8 @@ export class AddParaulaComponent implements OnInit {
       file: storageRef.child(`${path}/${key}.jpg`).fullPath
     };
 
-    file.put(this.image.resized.blob).then(() => this.zone.run(() => {
-      file.getDownloadURL().then(s => {
+    file.put(this.image.resized.blob).then(() => {
+      file.getDownloadURL().then(s => this.zone.run(() => {
         w.image = s;
         db.ref().child(path + '/' + key).update(w)
           .then((m) => {
@@ -66,8 +66,8 @@ export class AddParaulaComponent implements OnInit {
         this.loading = false;
         this.onCreate.next(w);
         this.resetForm();
-      });
-    }));
+      }));
+    });
   }
 
   resetForm() {
