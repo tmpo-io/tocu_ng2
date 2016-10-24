@@ -12,15 +12,15 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/common": "^2.1.0",
-    "@angular/compiler": "^2.1.0",
-    "@angular/core": "^2.1.0",
-    "@angular/forms": "^2.1.0",
-    "@angular/http": "^2.1.0",
-    "@angular/platform-browser": "^2.1.0",
-    "@angular/platform-browser-dynamic": "^2.1.0",
-    "@angular/router": "^3.0.0",
-    "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.7",
+    "@angular/common": "^2.1.1",
+    "@angular/compiler": "^2.1.1",
+    "@angular/core": "^2.1.1",
+    "@angular/forms": "^2.1.1",
+    "@angular/http": "^2.1.1",
+    "@angular/platform-browser": "^2.1.1",
+    "@angular/platform-browser-dynamic": "^2.1.1",
+    "@angular/router": "^3.1.1",
+    "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.9",
     "@types/request": "0.0.30",
     "angularfire2": "^2.0.0-beta.5",
     "bootstrap": "4.0.0-alpha.4",
@@ -31,11 +31,11 @@
     "rxjs": "5.0.0-beta.12",
     "ts-helpers": "^1.1.1",
     "web-animations-js": "^2.2.2",
-    "zone.js": "^0.6.23"
+    "zone.js": "^0.6.26"
   },
   "devDependencies": {
     "@types/jasmine": "^2.2.30",
-    "angular-cli": "1.0.0-beta.17",
+    "angular-cli": "1.0.0-beta.18",
     "codelyzer": "^1.0.0-beta.2",
     "firebase-tools": "3.0.7",
     "jasmine-core": "2.4.1",
@@ -45,9 +45,9 @@
     "karma-cli": "^1.0.1",
     "karma-jasmine": "^1.0.2",
     "karma-remap-istanbul": "^0.2.1",
-    "protractor": "4.0.5",
+    "protractor": "4.0.9",
     "ts-node": "1.2.1",
     "tslint": "3.13.0",
-    "typescript": "2.0.2"
+    "typescript": "2.0.3"
   }
 }

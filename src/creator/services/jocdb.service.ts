@@ -30,10 +30,10 @@ export class JocDb {
     // console.log(this.getPath(authId, gameId))
     let ref = firebase.database().ref(this.getPath(gameId));
     let o = new EventEmitter<boolean>();
-    ref.once('value', function(snapshot) {
+    ref.once('value', (snapshot) => this.zone.run(() => {
       let exists = (snapshot.val() !== null);
       o.next(exists);
-    });
+    }));
     return o;
   }
 

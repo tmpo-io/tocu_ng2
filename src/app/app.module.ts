@@ -9,13 +9,13 @@ import { AppComponent } from './app.component';
 
 import { AuthModule } from '../auth';
 import { CreatorModule } from '../creator';
-import { FirebaseModule, firebaseConfig } from '../firebase';
-import * as firebase from 'firebase';
+import { FirebaseModule } from '../firebase';
+// import * as firebase from 'firebase'; firebaseConfig
 
 import { GameModule } from '../game';
 
 
-firebase.initializeApp(firebaseConfig);
+// firebase.initializeApp(firebaseConfig);
 
 
 @NgModule({

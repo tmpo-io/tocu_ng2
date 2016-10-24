@@ -1,5 +1,5 @@
 import { Component, Output, OnInit, OnDestroy,
-    ViewChild, EventEmitter } from '@angular/core';
+    ViewChild, EventEmitter, NgZone } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
@@ -32,6 +32,9 @@ import { tipusJoc } from '../../../models/tipusjoc';
 import { Word } from '../../../models/word';
 
 
+declare var Zone: any;
+
+
 export function clean(obj) {
   delete obj.$key;
   delete obj.$exists;
@@ -39,7 +42,7 @@ export function clean(obj) {
 }
 
 @Component({
-  selector: 'creator-jocs-edit',
+  selector: 'app-creator-jocs-edit',
   templateUrl: './jocedit.component.html',
   styleUrls: ['./jocedit.component.scss']
 })
@@ -61,7 +64,7 @@ export class JocEditComponent implements OnInit, OnDestroy {
 
   public uid: string;
 
-  private modified:boolean = false;
+  private modified: boolean = false;
 
   public tipusJoc: TJoc[] = tipusJoc;
 
@@ -84,7 +87,8 @@ export class JocEditComponent implements OnInit, OnDestroy {
     private auth: AuthService,
     private route: ActivatedRoute,
     private router: Router,
-    private db: JocDb
+    private db: JocDb,
+    private zone: NgZone
     ) {
     }
 
@@ -121,14 +125,16 @@ export class JocEditComponent implements OnInit, OnDestroy {
   }
 
   private _getGameData() {
+    // console.log("1", Zone.current.name);
     this.joc$ = this.db.getJoc(this.jocID);
-    this.subscription = this.joc$.subscribe(o => {
+    this.subscription = this.joc$.subscribe(o => this.zone.run(() => {
+    // console.log("2", Zone.current.name);
       this.joc = clean(o);
       if (!this.joc.words) {
         this.joc.words = [];
       }
       // console.log("the game", this.joc);
-    });
+    }));
   }
 
   // aquesta funcio ha de ser una arrow, pq conservi el this
