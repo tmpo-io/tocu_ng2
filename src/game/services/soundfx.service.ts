@@ -41,7 +41,7 @@ export class SoundFXService {
         });
       });
       return () => {
-        console.log("[SNDFX] observer callback called");
+        // console.log("[SNDFX] observer callback called");
        };
     });
   }
