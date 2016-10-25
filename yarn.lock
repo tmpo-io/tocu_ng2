@@ -68,6 +68,18 @@
   version "1.0.0-alpha.9"
   resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-1.0.0-alpha.9.tgz#ae9863d6340fe22dd6b8ed7310039693507c2b61"
 
+"@ngrx/core":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/core/-/core-1.2.0.tgz#882b46abafa2e0e6d887cb71a1b2c2fa3e6d0dc6"
+
+"@ngrx/effects":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-2.0.0.tgz#db4c3e1b69030229cb6b908477115b3479e4c4e0"
+
+"@ngrx/store":
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/@ngrx/store/-/store-2.2.1.tgz#316ec1e43aa5a0166e5e6e1aa2c34a4049386510"
+
 "@ngtools/webpack@latest":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-1.1.0.tgz#89d8d5b7614babb0015992ec7123dceb2e189357"
