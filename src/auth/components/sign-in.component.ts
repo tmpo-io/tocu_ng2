@@ -13,15 +13,15 @@ import { AuthService } from '../services/auth-service';
 export class SignInComponent {
   constructor(
     private auth: AuthService,
-    private router:Router) { }
+    private router: Router) { }
 
-    signInWithCoogle():void {
+    signInWithCoogle(): void {
       this.auth.signInWithGoogle()
-        .then(() => this.postSignIn())
+        .then(() => this.postSignIn());
     }
 
     postSignIn() {
-      this.router.navigate(['/activitat'])
+      this.router.navigate(['/activitat']);
     }
 
 }
