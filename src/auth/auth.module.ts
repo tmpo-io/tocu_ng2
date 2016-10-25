@@ -2,11 +2,14 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { EffectsModule } from '@ngrx/effects';
+
 import { SignInComponent } from './components/sign-in.component';
 import { AuthGuard } from './guards/auth-guard';
 import { UnauthGuard } from './guards/unauth-guard';
-import { AuthService } from './services/auth-service'
+import { AuthService } from './services/auth-service';
 
+import { AuthEffects } from './effects';
 
 const routes: Routes = [
   {path: '', component: SignInComponent, canActivate: [UnauthGuard]}
@@ -19,7 +22,8 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    EffectsModule.run(AuthEffects)
   ],
   providers: [
     AuthGuard,

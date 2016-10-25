@@ -7,7 +7,7 @@ import {
 
 export class AuthActions {
 
-  static AUTH_LOGIN = 'AUTH_LOGINUSER';
+  static AUTH_LOGIN = 'AUTH_LOGIN';
   static AUTH_LOGINOK = 'AUTH_LOGINOK';
   static AUTH_LOGINKO = 'AUTHL_LOGINKO';
 
@@ -30,5 +30,10 @@ export class AuthActions {
     };
   }
 
+  static actionLogin(): Action {
+    return {
+      type: AuthActions.AUTH_LOGIN
+    };
+  }
 
 }

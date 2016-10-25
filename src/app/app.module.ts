@@ -5,6 +5,8 @@ import { RouterModule } from '@angular/router';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { StoreModule } from '@ngrx/store';
+
 import { AppComponent } from './app.component';
 
 import { AuthModule } from '../auth';
@@ -14,8 +16,7 @@ import { FirebaseModule } from '../firebase';
 
 import { GameModule } from '../game';
 
-
-// firebase.initializeApp(firebaseConfig);
+import { authReducer } from '../auth/reducers/login';
 
 
 @NgModule({
@@ -29,7 +30,10 @@ import { GameModule } from '../game';
     GameModule,
     CreatorModule,
     FirebaseModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    StoreModule.provideStore({
+      auth: authReducer
+    })
   ],
   bootstrap: [AppComponent]
 })
