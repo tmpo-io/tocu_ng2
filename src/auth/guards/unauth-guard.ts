@@ -22,7 +22,7 @@ export class UnauthGuard implements CanActivate {
         if (c.isLogged) {
           this.router.navigate(['/activitat']);
         }
-        return c.isLogged;
+        return !c.isLogged;
       }).take(1);
   }
 }

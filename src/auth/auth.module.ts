@@ -4,6 +4,9 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { EffectsModule } from '@ngrx/effects';
 
+
+import { SharedModule } from '../shared/shared.module';
+
 import { SignInComponent } from './components/sign-in.component';
 import { LoginComponent } from './components/login.component';
 import { AuthGuard } from './guards/auth-guard';
@@ -25,6 +28,7 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
+    SharedModule,
     RouterModule.forChild(routes),
     EffectsModule.run(AuthEffects),
   ],

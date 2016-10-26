@@ -1,9 +1,8 @@
 
-{{ auth | json }}
-
 <button
     class="google btn btn-success"
     (click)="loginAction.next($event)">
       <i class="fa fa-google-plus"></i>
       Accedir/Registrar
+      <ti-preload *ngIf="auth?.isLogging"></ti-preload>
 </button>

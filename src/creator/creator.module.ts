@@ -21,12 +21,8 @@ import {
   TiAudioPlayerComponent
 } from './components';
 
-import {
-  Autofocus
-} from './directives';
-
+import { Autofocus } from './directives';
 import { SharedModule } from '../shared/shared.module';
-
 
 import {
   OpenClipartService,
