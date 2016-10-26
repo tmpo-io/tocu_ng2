@@ -1,17 +1,14 @@
 
 
 
-
 export interface User {
 
-  email: string;
-  id: string;
+  email?: string;
+  id?: string;
   photo?: string;
-  name: string;
-
+  name?: string;
   welcome?: boolean;
 
 }
-
 
 

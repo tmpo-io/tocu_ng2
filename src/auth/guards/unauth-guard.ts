@@ -4,21 +4,25 @@ import 'rxjs/add/operator/take';
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { AuthService } from '../services/auth-service';
+import { Store } from '@ngrx/store';
+
+import { Auth } from '../../models/auth';
+import { getRetryLogged } from '../reducers/login';
 
 
 @Injectable()
 export class UnauthGuard implements CanActivate {
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(private store$: Store<Auth>, private router: Router) {}
 
   canActivate(): Observable<boolean> {
-    return this.auth.auth$
-      .take(1)
-      .map(authState => !authState)
-      .do(unauthenticated => {
-        if (!unauthenticated) {
+    return this.store$
+      .select('auth')
+      .let(getRetryLogged())
+      .map((c: Auth) => {
+        if (c.isLogged) {
           this.router.navigate(['/activitat']);
         }
+        return c.isLogged;
       });
   }
 }

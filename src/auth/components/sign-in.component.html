@@ -16,12 +16,17 @@
     <p>Per accedir t'has de registrar fent servir la teva
   compte de Google:</p>
 
-  <button
+  <!--<button
     class="google btn btn-success"
     (click)="signInWithCoogle()">
       <i class="fa fa-google-plus"></i>
       Accedir/Registrar
-    </button>
+    </button>-->
+
+    <app-login
+      [auth]="auth$ | async"
+      (loginAction)="signInWithGoogle()"
+      ></app-login>
 
   </div>
 

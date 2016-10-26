@@ -1,21 +1,26 @@
-import * as firebase from 'firebase';
+// import * as firebase from 'firebase';
 
 import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
+// import { FirebaseAuth } from 'angularfire2';
 
+// import { AuthActions } from '../auth.actions';
+import { getRetryLogged } from '../reducers/login';
+import { Auth } from '../../models/auth';
 
-import {
-  AuthProviders,
-  FirebaseAuth,
-  FirebaseAuthState } from 'angularfire2';
 
 @Injectable()
 export class AuthService {
-  private authState: FirebaseAuthState = null;
+  private authState: Auth = null;
 
-  constructor(public auth$: FirebaseAuth) {
-    auth$.subscribe((state: FirebaseAuthState) => {
-      this.authState = state;
-    });
+  constructor(
+    private store$: Store<Auth>) {
+    store$.select('auth')
+      .let(getRetryLogged())
+      .subscribe(state => {
+        // console.log('[AuthService] const', state);
+        this.authState = state as Auth;
+      });
   }
 
   get authenticated(): boolean {
@@ -23,27 +28,14 @@ export class AuthService {
   }
 
   get id(): string {
-    return this.authenticated ? this.authState.uid : '';
+    return this.authenticated ? this.authState.user.id : '';
   }
 
-  signIn(provider: number): firebase.Promise<FirebaseAuthState> {
-    return this.auth$.login({provider})
-      .catch(error => console.log('ERROR @ AuthService#signIn() :', error));
-  }
-
-  signInWithGithub(): firebase.Promise<FirebaseAuthState> {
-    return this.signIn(AuthProviders.Github);
-  }
-
-  signInWithGoogle(): firebase.Promise<FirebaseAuthState> {
-    return this.signIn(AuthProviders.Google);
-  }
-
-  signInWithTwitter(): firebase.Promise<FirebaseAuthState> {
-    return this.signIn(AuthProviders.Twitter);
-  }
 
   signOut(): void {
-    this.auth$.logout();
+    // this.auth$.logout();
   }
 }
+
+
+

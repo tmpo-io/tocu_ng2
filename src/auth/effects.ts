@@ -2,52 +2,70 @@
 import { Injectable } from '@angular/core';
 
 import { Actions, Effect } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+
 import {
-  AuthProviders,
-  FirebaseAuth
+  AngularFire, AuthProviders, FirebaseAuth
 } from 'angularfire2';
 
 
 import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/switchMap';
-import 'rxjs/observable/of';
+// import 'rxjs/observable/of';
 import 'rxjs/observable/fromPromise';
 
 import { AuthActions } from './auth.actions';
-
+import { Auth } from '../models/auth';
 
 
 @Injectable()
 export class AuthEffects {
 
-
   @Effect()
   login$ = this.actions$
       .ofType(AuthActions.AUTH_LOGIN)
-      .switchMap((d) => {
-        return Observable.fromPromise(
-          this.auth$
-            .login(AuthProviders.Google) as Promise<any>)
-            .map(res => AuthActions.actionLoginOk(res))
-            .catch(
-              () => Observable.of(AuthActions.actionLoginKo())
-            );
+      .switchMap(action => {
+          // console.log('action');
+          return this.login()
+          .map(res => AuthActions.actionLoginOk(res))
+          .catch(err => of.call(
+              AuthActions.actionLoginKo(err)));
       });
 
 
+
+  @Effect()
+  restore$ = this.actions$
+      .ofType(AuthActions.AUTH_LOGINRESTORE)
+      .switchMap(action => {
+        console.log('Autenticating');
+        return this.af.auth
+          .take(1)
+          .map(state => {
+            console.log('[Effect] login restore:', state);
+            if (state) {
+              // console.log("state")
+              return AuthActions.actionLoginOk(state);
+            }
+            return AuthActions.actionLoginRestoreKo()
+          });
+      });
+
+
+  login(): Observable<any> {
+    return Observable.fromPromise(
+      this.af.auth
+        .login({provider: AuthProviders.Google}) as Promise<any>
+    );
+  }
+
   constructor(
     private actions$: Actions,
-    public auth$: FirebaseAuth) {}
-
-  // login(a): Observable<FirebaseAuthState> {
-  //   return fromPromise.call(this.auth$
-  //     .login(AuthProviders.Google))
-  //     .map(res => AuthActions.actionLoginOk(res))
-  //     .catch(
-  //       () => Observable.of(AuthActions.actionLoginKo())
-  //     );
-  // }
-
+    public af: AngularFire,
+    private store: Store<Auth>) {
+      this.store.dispatch(AuthActions.actionLoginRestore());
+    }
 
 
 }

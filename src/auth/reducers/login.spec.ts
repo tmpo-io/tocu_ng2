@@ -1,17 +1,19 @@
 
 import { AuthActions } from '../auth.actions';
-import { State, authReducer } from './login';
+import { authReducer } from './login';
+import { Auth } from '../../models/auth';
 
 
 describe('login', () => {
   describe('actions', () => {
   let actions = AuthActions;
-  let initialState: State;
+  let initialState: Auth;
 
   beforeEach(() => {
     initialState = {
       isLogged: false,
-      isLogging: false
+      isLogging: false,
+      hasTryRestore: false
     };
   });
 
@@ -33,9 +35,10 @@ describe('login', () => {
 
   describe('aut_loginko', () => {
     it('should return logged false', () => {
-      let res = authReducer(initialState, actions.actionLoginKo());
+      let res = authReducer(initialState, actions.actionLoginKo('err'));
       expect(res.isLogging).toBe(false);
       expect(res.isLogged).toBe(false);
+      expect(res.error).toEqual('err');
     });
   });
 

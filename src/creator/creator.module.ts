@@ -98,9 +98,9 @@ const routes: Routes = [
     TiAudioPlayerComponent,
     Autofocus
   ],
-  // exports: [
-  //   CreatorComponent
-  // ],
+  exports: [
+    TiPreloadComponent
+  ],
   providers: [
     AuthService,
     OpenClipartService,

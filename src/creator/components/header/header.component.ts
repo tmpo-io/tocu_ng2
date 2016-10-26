@@ -11,23 +11,23 @@ import { AngularFire } from 'angularfire2';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+
+
+  public name: string;
+
   constructor(
-    private auth:AuthService,
-    public af:AngularFire,
-    private router:Router
+    private auth: AuthService,
+    public af: AngularFire,
+    private router: Router
     ) { }
 
-  public name:string
-
   ngOnInit() {
-    //console.log("Auth", this.auth, this.af);
-    // this.name = this.auth.authState.auth.displayName;
   }
 
-  signOut():void {
+  signOut(): void {
     this.auth.signOut();
     //@TODO Check why is not refreshing page...
-    this.router.navigate(["/"])
+    this.router.navigate(['/']);
   }
 
 }
