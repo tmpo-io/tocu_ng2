@@ -18,7 +18,6 @@ import {
   ClipartComponent,
   AddParaulaComponent,
   ImageFieldComponent,
-  TiPreloadComponent,
   TiAudioPlayerComponent
 } from './components';
 
@@ -26,11 +25,16 @@ import {
   Autofocus
 } from './directives';
 
+import { SharedModule } from '../shared/shared.module';
+
+
 import {
   OpenClipartService,
   AudioGenService,
   JocDb
 } from './services';
+
+
 
 import { AuthGuard, AuthService } from '../auth';
 
@@ -83,7 +87,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     NgbTypeaheadModule,
     NgbAlertModule,
-    NgbPaginationModule
+    NgbPaginationModule,
+    SharedModule
   ],
   declarations: [
     CreatorComponent,
@@ -94,12 +99,10 @@ const routes: Routes = [
     ClipartComponent,
     AddParaulaComponent,
     ImageFieldComponent,
-    TiPreloadComponent,
     TiAudioPlayerComponent,
     Autofocus
   ],
   exports: [
-    TiPreloadComponent
   ],
   providers: [
     AuthService,

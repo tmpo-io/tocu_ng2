@@ -12,7 +12,6 @@ import { AuthModule } from '../auth';
 import { CreatorModule } from '../creator';
 import { FirebaseModule } from '../firebase';
 import { GameModule } from '../game';
-
 import { authReducer } from '../auth/reducers/login';
 
 
@@ -22,7 +21,7 @@ import { authReducer } from '../auth/reducers/login';
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot([], {useHash:false}),
+    RouterModule.forRoot([], {useHash: false}),
     AuthModule,
     GameModule,
     CreatorModule,
