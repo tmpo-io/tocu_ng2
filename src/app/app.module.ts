@@ -12,8 +12,11 @@ import { AuthModule } from '../auth';
 import { CreatorModule } from '../creator';
 import { FirebaseModule } from '../firebase';
 import { GameModule } from '../game';
-import { authReducer } from '../auth/reducers/login';
 
+
+// Reducers
+import { authReducer } from '../auth/reducers/login';
+import { dashboardReducer } from '../game/dashboard.reducers';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,8 @@ import { authReducer } from '../auth/reducers/login';
     FirebaseModule,
     NgbModule.forRoot(),
     StoreModule.provideStore({
-      auth: authReducer
+      auth: authReducer,
+      dashboard: dashboardReducer
     }),
     StoreDevtoolsModule.instrumentOnlyWithExtension()
   ],

@@ -1,0 +1,45 @@
+@import '../../styles_shared';
+
+
+
+:host, p {
+  font-family: 'Open Sans';
+}
+
+strong {
+  color: $verd_fosc;
+}
+
+ul {
+  list-style: none;
+  li {
+    line-height: 24px;
+  }
+}
+
+h3 {
+  margin-top: 25px;
+  color: $verd_fosc;
+}
+
+.ti-dialog {
+
+  width: 80%;
+
+  .content {
+    padding-top: 50px;
+  }
+}
+
+.start {
+  padding: 0px 20% 0px 20%;
+  margin-top: 40px;
+}
+
+
+.btn-success {
+  margin-top: 30px;
+  margin-bottom: 20px;
+  background-color: $verd_fosc;
+  border-color: $verd_fosc;
+}

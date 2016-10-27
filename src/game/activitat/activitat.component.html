@@ -1,3 +1,4 @@
+
 <div class="header">
   <img src="/assets/img/tocu.svg" width="200" />
 
@@ -6,6 +7,10 @@
   </a>
 
 </div>
+
+<app-dash-welcome
+  [user]="user$|async"
+  (subscribe)="start()"></app-dash-welcome>
 
 <div class="list">
   <a *ngFor="let item of data$|async" class="item"
@@ -17,22 +22,4 @@
       </div>
     </span>
   </a>
-  <!--<a class="item" [routerLink]="'/game/sequencing'">
-    <span>
-      <h2>Sequencing</h2>
-      <div style="background-image:url('/assets/img/elefant.png');"></div>
-    </span>
-  </a>
-  <a class="item" [routerLink]="'/game/relaciona'">
-    <span>
-      <h2>Relaciona</h2>
-      <div style="background-image:url('/assets/img/gat.png');"></div>
-    </span>
-  </a>
-  <a class="item" [routerLink]="'/game/mixed'">
-    <span>
-      <h2>Mixed</h2>
-      <div style="background-image:url('/assets/img/porc.png');"></div>
-    </span>
-  </a>-->
 </div>

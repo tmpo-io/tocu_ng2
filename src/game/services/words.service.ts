@@ -7,6 +7,8 @@ import { of } from 'rxjs/observable/of';
 import { environment } from '../../environments/environment';
 
 import * as firebase from 'firebase';
+import { AngularFire } from 'angularfire2';
+
 
 import { Word } from '../../models/word';
 import { Joc } from '../../models/joc';
@@ -16,7 +18,7 @@ export class WordsService {
 
   private endpoint: string;
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private af: AngularFire) {
     // console.log(environment);
     this.endpoint = environment.wordsEndpoint;
   }
@@ -49,20 +51,32 @@ export class WordsService {
   }
 
   loadGames(uid: string): Observable<Joc[]> {
-    return new Observable<Joc[]>((observer) => {
-      const path = `users/${uid}/jocs/`;
-      // console.log(path);
-      firebase.database().ref(path)
-        .orderByChild('published')
-        .equalTo(true)
-        .once('value', (snap) => {
-          let vals = snap.val();
-          let arr = Object.keys(vals)
-            .map((k) => vals[k]);
-          observer.next(arr);
-      });
-    });
+    const path = `users/${uid}/jocs/`;
+    return this.af.database.list(path, {
+      query: {
+        orderByChild: 'published',
+        equalTo: true
+      }
+    }).take(1);
   }
+
+
+  // loadGames2(uid: string): Observable<Joc[]> {
+  //   return new Observable<Joc[]>((observer) => {
+  //     const path = `users/${uid}/jocs/`;
+  //     // console.log(path);
+  //     firebase.database().ref(path)
+  //       .orderByChild('published')
+  //       .equalTo(true)
+  //       .once('value', (snap) => {
+  //         let vals = snap.val();
+  //         let arr = Object.keys(vals)
+  //           .map((k) => vals[k]);
+  //         observer.next(arr);
+  //     });
+  //   });
+  // }
+
 
   gamePath(uid: string, id: string): string {
     return `users/${uid}/jocs/${id}`;

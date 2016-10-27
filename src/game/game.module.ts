@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { Routes, RouterModule } from '@angular/router';
 
+import { EffectsModule } from '@ngrx/effects';
 
 import {
   ButtonComponent,
@@ -15,7 +16,8 @@ import {
   TimerComponent
   } from './shared';
 
-import { ActivitatComponent } from './activitat';
+import { ActivitatComponent } from './activitat/activitat.component';
+import { DashWelcomeComponent } from './activitat/welcome.component';
 import {
   MemoryCardComponent,
   MemoryBoardComponent
@@ -40,6 +42,8 @@ import {
   WordsService,
   SoundFXService,
   ImageLoader } from './services';
+
+import { DashboardEffects } from './dashboard.effects';
 
 import { ViewGameGuard } from './guards/viewgame.guard';
 import { AuthGuard, AuthService } from '../auth';
@@ -77,10 +81,12 @@ const routes: Routes = [
     CommonModule,
     HttpModule,
     FormsModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    EffectsModule.run(DashboardEffects)
   ],
   declarations: [
     ActivitatComponent,
+    DashWelcomeComponent,
     GameComponent,
     MemoryCardComponent,
     MemoryBoardComponent,

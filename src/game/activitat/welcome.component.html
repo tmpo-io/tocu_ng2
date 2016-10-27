@@ -1,0 +1,30 @@
+
+
+<div class="ti-dialog">
+  <div class="content">
+    <h2>Hola <strong>{{ user.name }}</strong>!</h2>
+    <p><b>Tocu</b> es una plataforma perquè els més petits
+      de la casa puguin jugar i aprendre.</p>
+
+    <h3>A <b>Tocu</b>:</h3>
+    <ul>
+      <li>Pots crear jocs nous a partir dels conceptes
+          que el nen/a està treballant.</li>
+      <li>L'adult pot accedir a una part privada, on pot,
+        crear i modificar els jocs existents.</li>
+      <li>Per accedir a la part privada,
+        fes-ho des de l'icona <i class="fa fa-bars"></i>
+        de la part superior.</li>
+    </ul>
+
+    <p class="start">Per començar t'instalarem 4 jocs d'exemple que pots
+      fer servir per jugar o els pots modificar.</p>
+
+    <button
+      (click)="subscribe.next()"
+      class="btn btn-success">
+      CONTINUAR
+    </button>
+
+  </div>
+</div>

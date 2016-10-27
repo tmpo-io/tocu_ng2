@@ -5,7 +5,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 
 import {
-  AngularFire, AuthProviders, FirebaseAuth
+  AngularFire, AuthProviders,
 } from 'angularfire2';
 
 
