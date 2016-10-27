@@ -62,7 +62,7 @@ export class DashboardEffects {
         return this.getStarterDb()
           .map(item => this.updateGames(item, user));
       })
-      .switchMap((a) => {
+      .switchMap(() => {
         this.getSetupObject().set(true);
         return Observable.of(
           DashboardActions.updateBoardOk(),
