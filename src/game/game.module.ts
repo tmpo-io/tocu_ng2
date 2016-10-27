@@ -5,6 +5,8 @@ import { HttpModule } from '@angular/http';
 import { Routes, RouterModule } from '@angular/router';
 
 import { EffectsModule } from '@ngrx/effects';
+import { SharedModule } from '../shared/shared.module';
+
 
 import {
   ButtonComponent,
@@ -16,8 +18,9 @@ import {
   TimerComponent
   } from './shared';
 
-import { ActivitatComponent } from './activitat/activitat.component';
-import { DashWelcomeComponent } from './activitat/welcome.component';
+import { ActivitatComponent } from './dashboard/activitat.component';
+import { DashWelcomeComponent } from './dashboard/welcome.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 import {
   MemoryCardComponent,
   MemoryBoardComponent
@@ -66,7 +69,7 @@ const routes: Routes = [
   },
   {
     path: 'activitat',
-    component: ActivitatComponent,
+    component: DashboardComponent,
     canActivate: [AuthGuard]
   },
   {
@@ -81,12 +84,14 @@ const routes: Routes = [
     CommonModule,
     HttpModule,
     FormsModule,
+    SharedModule,
     RouterModule.forChild(routes),
     EffectsModule.run(DashboardEffects)
   ],
   declarations: [
     ActivitatComponent,
     DashWelcomeComponent,
+    DashboardComponent,
     GameComponent,
     MemoryCardComponent,
     MemoryBoardComponent,

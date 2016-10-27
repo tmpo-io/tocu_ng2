@@ -1,11 +1,9 @@
 
-import { Observable } from 'rxjs/Observable';
 
 import { Action } from '@ngrx/store';
 
 import { DashboardActions } from './dashboard.actions';
 import { Dashboard } from '../models/dashboard';
-import { validateJoc } from '../creator/components/jocs/utils';
 
 
 export const initial: Dashboard = {
@@ -35,6 +33,15 @@ export function dashboardReducer(state = initial, action: Action): Dashboard {
       return Object.assign({}, state, {
         setup: false,
         setupTask: 'ready'
+      });
+    case DashboardActions.DASH_UPDATE:
+      return Object.assign({}, state, {
+        updateBoardTask: 'waiting'
+      });
+    case DashboardActions.DASH_UPDATE_OK:
+      return Object.assign({}, state, {
+        updateBoardTask: 'ready',
+        setup: true
       });
   default:
     return state;

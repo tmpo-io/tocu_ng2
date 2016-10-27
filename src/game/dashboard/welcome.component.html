@@ -22,8 +22,10 @@
 
     <button
       (click)="subscribe.next()"
+      [disabled]="state.updateBoardTask=='waiting'"
       class="btn btn-success">
       CONTINUAR
+      <ti-preload *ngIf="state.updateBoardTask=='waiting'"></ti-preload>
     </button>
 
   </div>

@@ -2,7 +2,10 @@ import { Injectable } from '@angular/core';
 
 import { Actions, Effect } from '@ngrx/effects';
 import { Store, Action } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+
 import { AngularFire } from 'angularfire2';
+
 
 import { AuthService } from  '../auth/services/auth-service';
 
@@ -49,9 +52,20 @@ export class DashboardEffects {
       );
   }
 
-  // @Effect()
-  // complete$ = this.a$
-  //   .ofType(DashboardActions.DASHBOARD_SETUP_COMPLETE)
+  @Effect()
+  updateDashboard$() {
+    return this.a$
+      .ofType(DashboardActions.DASH_UPDATE)
+      .delay(2000)
+      .switchMap(() => {
+        this.getSetupObject().set(true);
+        //@TODO Copy available games...
+        return Observable.of(
+          DashboardActions.updateBoardOk(),
+          DashboardActions.loadData()
+        );
+      });
+  }
 
 
   get db() {
@@ -62,9 +76,14 @@ export class DashboardEffects {
     return this.auth.id;
   }
 
+  getSetupObject() {
+    return this
+      .db.object(`users/${this.uid}/setup`);
+  }
+
   getSetupStatus() {
     return this
-      .db.object(`users/${this.uid}/setup`)
+      .getSetupObject()
       .take(1);
   }
 

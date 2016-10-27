@@ -5,16 +5,17 @@
   <a [routerLink]="['/creator/jocs']">
     <i class="fa fa-bars"></i>
   </a>
-
 </div>
 
 <app-dash-welcome
-  [user]="user$|async"
-  (subscribe)="start()"></app-dash-welcome>
+  *ngIf="!dashboard.setup && dashboard.setupTask == 'ready'"
+  [user]="user"
+  [state]="dashboard"
+  (subscribe)="dashClick.next()"></app-dash-welcome>
 
-<div class="list">
-  <a *ngFor="let item of data$|async" class="item"
-    [routerLink]="['/play/', auth.id, item.id]">
+<div class="list" *ngIf="dashboard.setup">
+  <a *ngFor="let item of dashboard.jocs" class="item"
+    [routerLink]="['/play/', user.id, item.id]">
     <span>
       <h2>{{ item.label }}</h2>
       <div

@@ -47,4 +47,10 @@ export class DashboardActions {
     };
   }
 
+  static updateBoardOk(): Action {
+    return {
+      type: DashboardActions.DASH_UPDATE_OK
+    };
+  }
+
 }
