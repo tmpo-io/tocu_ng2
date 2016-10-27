@@ -57,20 +57,17 @@ export class DashboardEffects {
     return this.a$
       .ofType(DashboardActions.DASH_UPDATE)
       .delay(500)
-      .do(() => {
+      .switchMap(() => {
         let user = this.getGames();
-        this.getStarterDb()
-          .map((item) => {
-            item.map((a) => {
-              user.push(cleanObject(a));
-            });
-          });
-      }).map((a) => {
-          this.getSetupObject().set(true);
-          return Observable.of(
-            DashboardActions.updateBoardOk(),
-            DashboardActions.loadData()
-          );
+        return this.getStarterDb()
+          .map(item => this.updateGames(item, user));
+      })
+      .switchMap((a) => {
+        this.getSetupObject().set(true);
+        return Observable.of(
+          DashboardActions.updateBoardOk(),
+          DashboardActions.loadData()
+        );
       });
   }
 
@@ -81,6 +78,16 @@ export class DashboardEffects {
 
   get uid(): string {
     return this.auth.id;
+  }
+
+  updateGames(items, user) {
+    return Observable.merge(
+      items.map(i =>
+        Observable.fromPromise(
+          user.push(cleanObject(i))
+        )
+      )
+    );
   }
 
   getStarterDb() {
