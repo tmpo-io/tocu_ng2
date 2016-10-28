@@ -4,7 +4,6 @@ import { Action } from '@ngrx/store';
 
 import { DashboardActions } from './dashboard.actions';
 import { Dashboard } from '../models/dashboard';
-import { state } from '@angular/core';
 
 
 export const initial: Dashboard = {
@@ -52,7 +51,7 @@ export function dashboardReducer(state = initial, action: Action): Dashboard {
       let messages = [
         ...state.messages.slice(0, index),
         ...state.messages.slice(index + 1)
-      ]
+      ];
       return Object.assign({}, state, {
         messages: messages
       });
@@ -72,3 +71,11 @@ export function getMessages() {
   return $state =>
     $state.map((das: Dashboard) => das.messages);
 }
+
+export function getPublishedJocs() {
+  return $state =>
+    $state.map((a: Dashboard) => {
+      a.jocs = a.jocs.filter(j => j.published);
+      return a;
+    });
+};

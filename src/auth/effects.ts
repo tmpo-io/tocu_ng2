@@ -48,7 +48,7 @@ export class AuthEffects {
               // console.log("state")
               return AuthActions.actionLoginOk(state);
             }
-            return AuthActions.actionLoginRestoreKo()
+            return AuthActions.actionLoginRestoreKo();
           });
       });
 

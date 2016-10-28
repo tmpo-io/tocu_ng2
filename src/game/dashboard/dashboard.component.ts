@@ -7,7 +7,7 @@ import { Dashboard } from '../../models/dashboard';
 import { User } from '../../models/user';
 import { Message } from '../../models/message';
 import { DashboardActions } from '../dashboard.actions';
-
+import { getPublishedJocs } from '../dashboard.reducers';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,7 +21,10 @@ export class DashboardComponent {
 
   constructor(private store: Store<Dashboard>) {
 
-    this.state$ = this.store.select('dashboard');
+    this.state$ = this.store
+      .select('dashboard')
+      .let(getPublishedJocs());
+
     this.user$ = this.store.select('auth').map(a => a['user']);
     this.store.dispatch(DashboardActions.checkSetup());
 
