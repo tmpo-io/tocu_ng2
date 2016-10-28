@@ -5,7 +5,9 @@ import { Observable } from 'rxjs/Observable';
 
 import { Dashboard } from '../../models/dashboard';
 import { User } from '../../models/user';
+import { Message } from '../../models/message';
 import { DashboardActions } from '../dashboard.actions';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -29,8 +31,11 @@ export class DashboardComponent {
     this.store.dispatch(DashboardActions.updateBoard());
   }
 
-  deleteMessage(event) {
-    console.log("delete message", event);
+  deleteMessage(msg: Message) {
+    // console.log("delete message", event);
+    this.store.dispatch(
+      DashboardActions.deleteMessage(msg)
+    );
   }
 
 }

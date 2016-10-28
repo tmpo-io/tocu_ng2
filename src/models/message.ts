@@ -1,6 +1,7 @@
 
 
 export interface Message {
+  $key?: string;
   message: string;
   class?: string;
   viewed: boolean;

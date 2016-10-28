@@ -9,7 +9,8 @@ import { Message } from '../../models/message';
 export class DashMessagesComponent {
 
   @Input() messages;
-  @Output() deleteMessage: EventEmitter<number> = new EventEmitter<number>();
+  @Output()
+  deleteMessage: EventEmitter<Message> = new EventEmitter<Message>();
 
   constructor() { }
 

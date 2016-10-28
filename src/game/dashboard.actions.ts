@@ -55,7 +55,7 @@ export class DashboardActions {
     };
   }
 
-  static deleteMessage(msg): Action {
+  static deleteMessage(msg: Message): Action {
     return {
       type: DashboardActions.DASH_DEL_MSG,
       payload: msg

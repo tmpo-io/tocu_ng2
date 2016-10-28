@@ -75,6 +75,16 @@ export class DashboardEffects {
       });
   }
 
+  @Effect({ dispatch: false })
+  removeMessage$() {
+    return this.a$
+      .ofType(DashboardActions.DASH_DEL_MSG)
+      .map(action =>
+        this.getMessage(action.payload.$key)
+        .remove()
+      );
+
+  }
 
   get db() {
     return this.af.database;
@@ -83,8 +93,6 @@ export class DashboardEffects {
   get uid(): string {
     return this.auth.id;
   }
-
-
 
   updateGames(items) {
     return Observable.merge(
@@ -132,6 +140,11 @@ export class DashboardEffects {
   getMessages() {
     return this.db
       .list(`users/${this.uid}/messages/`);
+  }
+
+  getMessage(id: string) {
+    return this.db
+      .object(`users/${this.uid}/messages/${id}`);
   }
 
 }

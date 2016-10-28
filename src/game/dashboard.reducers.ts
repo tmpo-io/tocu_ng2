@@ -4,6 +4,7 @@ import { Action } from '@ngrx/store';
 
 import { DashboardActions } from './dashboard.actions';
 import { Dashboard } from '../models/dashboard';
+import { state } from '@angular/core';
 
 
 export const initial: Dashboard = {
@@ -44,6 +45,16 @@ export function dashboardReducer(state = initial, action: Action): Dashboard {
       return Object.assign({}, state, {
         updateBoardTask: 'ready',
         setup: true
+      });
+    case DashboardActions.DASH_DEL_MSG:
+      let index = state.messages
+        .findIndex(m => m.$key === action.payload.$key);
+      let messages = [
+        ...state.messages.slice(0, index),
+        ...state.messages.slice(index + 1)
+      ]
+      return Object.assign({}, state, {
+        messages: messages
       });
   default:
     return state;
