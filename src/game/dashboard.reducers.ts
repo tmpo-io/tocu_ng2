@@ -45,6 +45,15 @@ export function dashboardReducer(state = initial, action: Action): Dashboard {
         updateBoardTask: 'ready',
         setup: true
       });
+    case DashboardActions.DASH_PUBLICNAME:
+      return Object.assign({}, state, {
+        publicBoardTask: 'waiting'
+      });
+    case DashboardActions.DASH_PUBLICNAME_OK:
+      return Object.assign({}, state, {
+        publicBoardTask: 'ready',
+        publicBoard: action.payload
+      });
     case DashboardActions.DASH_DEL_MSG:
       let index = state.messages
         .findIndex(m => m.$key === action.payload.$key);
@@ -79,3 +88,5 @@ export function getPublishedJocs() {
       return a;
     });
 };
+
+

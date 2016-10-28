@@ -61,7 +61,6 @@ export class DashboardEffects {
       .ofType(DashboardActions.DASH_UPDATE)
       .delay(500)
       .switchMap(() => {
-        // let user = this.getGames();
         return this.getStarterDb()
           .map(item => this.updateGames(item));
       })
@@ -69,10 +68,20 @@ export class DashboardEffects {
         this.getSetupObject().set(true);
         this.addWelcomeMessage();
         return Observable.of(
+          DashboardActions.setPublicName(),
           DashboardActions.updateBoardOk(),
           DashboardActions.loadData()
         );
       });
+  }
+
+  @Effect()
+  publicName$() {
+    return this.a$
+      .ofType(DashboardActions.DASH_PUBLICNAME)
+      .switchMap(ac => {
+
+      })
   }
 
   @Effect({ dispatch: false })
@@ -83,7 +92,6 @@ export class DashboardEffects {
         this.getMessage(action.payload.$key)
         .remove()
       );
-
   }
 
   get db() {
@@ -114,6 +122,15 @@ export class DashboardEffects {
   getStarterDb() {
     return this
       .db.list('starter');
+  }
+
+  generatePublicName(name:string) {
+    return this.db.object('keys/${}')
+  }
+
+  getPublicBoard() {
+    return this
+      .db.object(`users/${this.uid}/public`);
   }
 
   getSetupObject() {

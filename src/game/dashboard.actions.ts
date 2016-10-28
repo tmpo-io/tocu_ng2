@@ -14,6 +14,8 @@ export class DashboardActions {
   static DASH_DATALOAD = 'DASH_DATALOAD';
   static DASH_DATALOAD_OK = 'DASH_DATALOAD_OK';
   static DASH_DEL_MSG = 'DASH_DEL_MSG';
+  static DASH_PUBLICNAME = 'DASH_PUBLICNAME';
+  static DASH_PUBLICNAME_OK = 'DASH_PUBLICNAME_OK';
 
   static checkSetup(): Action {
     return {
@@ -59,6 +61,19 @@ export class DashboardActions {
     return {
       type: DashboardActions.DASH_DEL_MSG,
       payload: msg
+    };
+  }
+
+  static setPublicName(): Action {
+    return {
+      type: DashboardActions.DASH_PUBLICNAME
+    };
+  }
+
+  static setPublicNameOk(name: string): Action {
+    return {
+      type: DashboardActions.DASH_PUBLICNAME_OK,
+      payload: name
     };
   }
 

@@ -16,6 +16,10 @@ export interface Dashboard {
   setup?: boolean;
   setupTask?: AsyncTask;
 
+  // Public board ID
+  publicBoard?: string;
+  publicBoardTask?: AsyncTask;
+
   // TASK UPDATING BOARD
   updateBoard?: boolean;
   updateBoardTask?: AsyncTask;
