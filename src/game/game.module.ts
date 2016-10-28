@@ -6,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { EffectsModule } from '@ngrx/effects';
 import { SharedModule } from '../shared/shared.module';
-
+import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 
 import {
   ButtonComponent,
@@ -21,6 +21,8 @@ import {
 import { ActivitatComponent } from './dashboard/activitat.component';
 import { DashWelcomeComponent } from './dashboard/welcome.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashMessagesComponent } from './dashboard/messages.component';
+
 import {
   MemoryCardComponent,
   MemoryBoardComponent
@@ -85,12 +87,14 @@ const routes: Routes = [
     HttpModule,
     FormsModule,
     SharedModule,
+    NgbAlertModule,
     RouterModule.forChild(routes),
     EffectsModule.run(DashboardEffects)
   ],
   declarations: [
     ActivitatComponent,
     DashWelcomeComponent,
+    DashMessagesComponent,
     DashboardComponent,
     GameComponent,
     MemoryCardComponent,
@@ -107,7 +111,7 @@ const routes: Routes = [
     TiDialogComponent,
     PointsComponent,
     TimerComponent,
-    ButtonComponent,
+    ButtonComponent
   ],
   exports: [
     GameComponent

@@ -19,7 +19,9 @@ export class ViewGameGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> {
       let p = route.params;
-      return this.game.gameExists(p['uid'], p['id']);
+      return this.game
+        .gameExists(p['uid'], p['id'])
+        .take(1);
   }
 
 

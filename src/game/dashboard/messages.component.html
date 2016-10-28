@@ -1,0 +1,8 @@
+
+
+
+<ngb-alert *ngFor="let msg of messages"
+  [type]="msg.class ? msg.class : 'info'"
+  (close)="deleteMessage.next(msg)">
+  {{ msg.message }}</ngb-alert>
+

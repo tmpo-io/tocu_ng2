@@ -8,6 +8,7 @@ import { AngularFire } from 'angularfire2';
 import { AuthService } from  '../auth/services/auth-service';
 
 import { Dashboard } from '../models/dashboard';
+import { welcomeMessage } from '../models/message';
 import { DashboardActions } from './dashboard.actions';
 
 import { cleanObject } from '../shared/utils';
@@ -44,11 +45,13 @@ export class DashboardEffects {
 
   @Effect()
   loadData$() {
+    const combine = (x, y) => ({j: x, m: y});
     return this.a$
       .ofType(DashboardActions.DASH_DATALOAD)
       .switchMap(() =>
         this.getGames().take(1)
-        .map(g => DashboardActions.loadDataOk(g))
+          .combineLatest(this.getMessages().take(1), combine)
+          .map(g => DashboardActions.loadDataOk(g.j, g.m))
       );
   }
 
@@ -58,12 +61,13 @@ export class DashboardEffects {
       .ofType(DashboardActions.DASH_UPDATE)
       .delay(500)
       .switchMap(() => {
-        let user = this.getGames();
+        // let user = this.getGames();
         return this.getStarterDb()
-          .map(item => this.updateGames(item, user));
+          .map(item => this.updateGames(item));
       })
       .switchMap(() => {
         this.getSetupObject().set(true);
+        this.addWelcomeMessage();
         return Observable.of(
           DashboardActions.updateBoardOk(),
           DashboardActions.loadData()
@@ -80,14 +84,23 @@ export class DashboardEffects {
     return this.auth.id;
   }
 
-  updateGames(items, user) {
+
+
+  updateGames(items) {
     return Observable.merge(
       items.map(i =>
         Observable.fromPromise(
-          user.push(cleanObject(i))
+          this.getGameObject(i.id)
+            .set(cleanObject(i)) as Promise<any>
         )
       )
     );
+  }
+
+  addWelcomeMessage() {
+    this.db
+      .list(`users/${this.uid}/messages/`)
+      .push(welcomeMessage());
   }
 
   getStarterDb() {
@@ -106,9 +119,19 @@ export class DashboardEffects {
       .take(1);
   }
 
+  getGameObject(id: string) {
+    return this.db
+      .object(`users/${this.uid}/jocs/${id}/`);
+  }
+
   getGames() {
     return this.db
       .list(`users/${this.uid}/jocs/`);
+  }
+
+  getMessages() {
+    return this.db
+      .list(`users/${this.uid}/messages/`);
   }
 
 }

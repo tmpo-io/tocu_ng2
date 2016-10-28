@@ -12,6 +12,7 @@ export const initial: Dashboard = {
 };
 
 
+
 export function dashboardReducer(state = initial, action: Action): Dashboard {
   switch (action.type) {
     case DashboardActions.DASH_SETUP:
@@ -27,7 +28,8 @@ export function dashboardReducer(state = initial, action: Action): Dashboard {
     case DashboardActions.DASH_DATALOAD_OK:
       return Object.assign({}, state, {
         loadData: 'ready',
-        jocs: action.payload.jocs
+        jocs: action.payload.jocs,
+        messages: action.payload.messages
       });
     case DashboardActions.DASH_NEEDSDUPDATE:
       return Object.assign({}, state, {

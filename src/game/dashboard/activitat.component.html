@@ -7,6 +7,13 @@
   </a>
 </div>
 
+<app-dash-messages
+  *ngIf="dashboard.loadData == 'ready'"
+  [messages]="dashboard.messages"
+  (deleteMessage)="deleteMsg.next($event)">
+</app-dash-messages>
+
+
 <app-dash-welcome
   *ngIf="!dashboard.setup && dashboard.setupTask == 'ready'"
   [user]="user"

@@ -36,18 +36,10 @@ export class WordsService {
     );
   }
 
-  // Checks on DB if game exists
   gameExists(uid: string, id: string): Observable<boolean> {
-    return Observable.fromPromise(
-        firebase.database().ref(this.gamePath(uid, id))
-        .once('value') as Promise<any>
-      ).switchMap(
-        (snap): Observable<boolean> => {
-          if (snap.val() !== null) {
-            return of(true);
-          }
-          return of(false);
-      });
+    return this.db
+      .object(this.gamePath(uid, id))
+      .switchMap(j => Observable.of(j.$exists()));
   }
 
   loadGames(uid: string): Observable<Joc[]> {
@@ -60,23 +52,9 @@ export class WordsService {
     }).take(1);
   }
 
-
-  // loadGames2(uid: string): Observable<Joc[]> {
-  //   return new Observable<Joc[]>((observer) => {
-  //     const path = `users/${uid}/jocs/`;
-  //     // console.log(path);
-  //     firebase.database().ref(path)
-  //       .orderByChild('published')
-  //       .equalTo(true)
-  //       .once('value', (snap) => {
-  //         let vals = snap.val();
-  //         let arr = Object.keys(vals)
-  //           .map((k) => vals[k]);
-  //         observer.next(arr);
-  //     });
-  //   });
-  // }
-
+  get db() {
+    return this.af.database;
+  }
 
   gamePath(uid: string, id: string): string {
     return `users/${uid}/jocs/${id}`;

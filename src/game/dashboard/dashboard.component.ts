@@ -29,4 +29,8 @@ export class DashboardComponent {
     this.store.dispatch(DashboardActions.updateBoard());
   }
 
+  deleteMessage(event) {
+    console.log("delete message", event);
+  }
+
 }

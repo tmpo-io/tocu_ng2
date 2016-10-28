@@ -3,7 +3,7 @@
 import { Action } from '@ngrx/store';
 // import { Dashboard } from '../models/dashboard';
 import { Joc } from '../models/joc';
-
+import { Message } from '../models/message';
 
 export class DashboardActions {
 
@@ -13,6 +13,7 @@ export class DashboardActions {
   static DASH_UPDATE_OK = 'DASH_UPDATE_OK';
   static DASH_DATALOAD = 'DASH_DATALOAD';
   static DASH_DATALOAD_OK = 'DASH_DATALOAD_OK';
+  static DASH_DEL_MSG = 'DASH_DEL_MSG';
 
   static checkSetup(): Action {
     return {
@@ -26,11 +27,12 @@ export class DashboardActions {
     };
   }
 
-  static loadDataOk(jocs: Joc[]): Action {
+  static loadDataOk(jocs: Joc[], messages: Message[]): Action {
     return {
       type: DashboardActions.DASH_DATALOAD_OK,
       payload: {
-        jocs
+        jocs,
+        messages
       }
     };
   }
@@ -50,6 +52,13 @@ export class DashboardActions {
   static updateBoardOk(): Action {
     return {
       type: DashboardActions.DASH_UPDATE_OK
+    };
+  }
+
+  static deleteMessage(msg): Action {
+    return {
+      type: DashboardActions.DASH_DEL_MSG,
+      payload: msg
     };
   }
 

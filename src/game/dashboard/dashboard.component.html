@@ -3,5 +3,6 @@
 <app-activitat
   [dashboard]="state$|async"
   [user]="user$|async"
-  (dashClick)="clickNext()">
+  (dashClick)="clickNext()"
+  (deleteMsg)="deleteMessage($event)">
 <app-activitat>

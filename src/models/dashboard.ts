@@ -2,6 +2,7 @@
 
 import { Joc } from './joc';
 
+import { Message } from './message';
 
 export type AsyncTask =
   'waiting' |
@@ -9,7 +10,7 @@ export type AsyncTask =
   'failed';
 
 export interface Dashboard {
-  messages?: any;
+  messages?: Message[];
   jocs?: Joc[];
   // IS FIRST TIME PLAYER
   setup?: boolean;
