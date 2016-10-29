@@ -16,6 +16,7 @@ export class DashboardActions {
   static DASH_DEL_MSG = 'DASH_DEL_MSG';
   static DASH_PUBLICNAME = 'DASH_PUBLICNAME';
   static DASH_PUBLICNAME_OK = 'DASH_PUBLICNAME_OK';
+  static DASH_PUBLICNAME_STORE = 'DASH_PUBLICNAME_STORE';
 
   static checkSetup(): Action {
     return {
@@ -67,6 +68,13 @@ export class DashboardActions {
   static setPublicName(): Action {
     return {
       type: DashboardActions.DASH_PUBLICNAME
+    };
+  }
+
+  static storePublicName(name: string): Action {
+    return {
+      type: DashboardActions.DASH_PUBLICNAME_STORE,
+      payload: name
     };
   }
 

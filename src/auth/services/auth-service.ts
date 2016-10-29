@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store';
 import { getRetryLogged } from '../reducers/login';
 import { Auth } from '../../models/auth';
 
+import { getName }  from '../../shared/utils';
 
 @Injectable()
 export class AuthService {
@@ -31,6 +32,9 @@ export class AuthService {
     return this.authenticated ? this.authState.user.id : '';
   }
 
+  username(): string {
+    return getName(this.authState.user.email);
+  }
 
   signOut(): void {
     // this.auth$.logout();

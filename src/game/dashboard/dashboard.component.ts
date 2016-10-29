@@ -41,4 +41,8 @@ export class DashboardComponent {
     );
   }
 
+  launch() {
+    this.store.dispatch(DashboardActions.setPublicName());
+  }
+
 }

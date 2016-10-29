@@ -8,3 +8,7 @@ export function cleanObject(obj) {
   delete obj.$exists;
   return obj;
 }
+
+export function getName(email: string): string {
+  return (email.split('@'))[0];
+}

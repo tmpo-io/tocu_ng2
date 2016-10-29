@@ -14,7 +14,7 @@ import { DashboardActions } from './dashboard.actions';
 import { cleanObject } from '../shared/utils';
 
 import 'rxjs/add/operator/ignoreElements';
-
+import 'rxjs/add/observable/defer';
 
 
 
@@ -80,8 +80,24 @@ export class DashboardEffects {
     return this.a$
       .ofType(DashboardActions.DASH_PUBLICNAME)
       .switchMap(ac => {
-
-      })
+        let add = '';
+        let name = `names/${this.auth.username()}`;
+        // console.log('finding name', name);
+        let check$ = Observable.defer(() => {
+          return this.keyExists( name + add );
+        });
+        return check$.map(v => {
+          if (v === true) {
+            add = String(Math.round(Math.random() * 100));
+            throw Error();
+          }
+          return `${this.auth.username()}${add}`;
+        }).retry();
+      }).switchMap((name) => {
+        return Observable.of(
+          DashboardActions.setPublicNameOk(name)
+        );
+      });
   }
 
   @Effect({ dispatch: false })
@@ -111,6 +127,11 @@ export class DashboardEffects {
         )
       )
     );
+  }
+
+  keyExists(key: string): Observable<boolean> {
+    return this.db.object(key)
+      .switchMap(j => Observable.of(j.$exists()));
   }
 
   addWelcomeMessage() {
