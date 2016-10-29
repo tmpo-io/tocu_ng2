@@ -6,16 +6,16 @@ import { Observable } from 'rxjs/Observable';
 
 import { AngularFire } from 'angularfire2';
 import { AuthService } from  '../auth/services/auth-service';
+import 'rxjs/add/operator/ignoreElements';
+import 'rxjs/add/observable/defer';
 
 import { Dashboard } from '../models/dashboard';
 import { welcomeMessage } from '../models/message';
 import { DashboardActions } from './dashboard.actions';
-
 import { cleanObject } from '../shared/utils';
-
-import 'rxjs/add/operator/ignoreElements';
-import 'rxjs/add/observable/defer';
-
+import { checkSetupStatus } from './effects/setupstatus';
+import { getPublicName } from './effects/publicname';
+import { loadData } from './effects/loaddata';
 
 
 @Injectable()
@@ -29,31 +29,20 @@ export class DashboardEffects {
   }
 
   @Effect()
-  setup$() {
-    return this.a$
-    .ofType(DashboardActions.DASH_SETUP)
-    .switchMap(a => {
-      return this.getSetupStatus()
-        .map(v => {
-          if (v.$exists()) {
-            return DashboardActions.loadData();
-          }
-          return DashboardActions.needsUpdate();
-        });
-    });
-  }
+  loadData$ = this.a$
+    .ofType(DashboardActions.DASH_DATALOAD)
+    .let(loadData(this.auth, this.db));
 
   @Effect()
-  loadData$() {
-    const combine = (x, y) => ({j: x, m: y});
-    return this.a$
-      .ofType(DashboardActions.DASH_DATALOAD)
-      .switchMap(() =>
-        this.getGames().take(1)
-          .combineLatest(this.getMessages().take(1), combine)
-          .map(g => DashboardActions.loadDataOk(g.j, g.m))
-      );
-  }
+  setup$ = this.a$
+    .ofType(DashboardActions.DASH_SETUP)
+    .let(checkSetupStatus(this.auth, this.db));
+
+  @Effect()
+  publicName$ = this.a$
+    .ofType(DashboardActions.DASH_PUBLICNAME)
+    .let(getPublicName(this.auth, this.db));
+
 
   @Effect()
   updateDashboard$() {
@@ -75,30 +64,7 @@ export class DashboardEffects {
       });
   }
 
-  @Effect()
-  publicName$() {
-    return this.a$
-      .ofType(DashboardActions.DASH_PUBLICNAME)
-      .switchMap(ac => {
-        let add = '';
-        let name = `names/${this.auth.username()}`;
-        // console.log('finding name', name);
-        let check$ = Observable.defer(() => {
-          return this.keyExists( name + add );
-        });
-        return check$.map(v => {
-          if (v === true) {
-            add = String(Math.round(Math.random() * 100));
-            throw Error();
-          }
-          return `${this.auth.username()}${add}`;
-        }).retry();
-      }).switchMap((name) => {
-        return Observable.of(
-          DashboardActions.setPublicNameOk(name)
-        );
-      });
-  }
+
 
   @Effect({ dispatch: false })
   removeMessage$() {
