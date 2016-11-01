@@ -12,10 +12,12 @@ import 'rxjs/add/observable/defer';
 import { Dashboard } from '../models/dashboard';
 import { welcomeMessage } from '../models/message';
 import { DashboardActions } from './dashboard.actions';
-import { cleanObject } from '../shared/utils';
+// import { cleanObject } from '../shared/utils';
 import { checkSetupStatus } from './effects/setupstatus';
 import { getPublicName } from './effects/publicname';
 import { loadData } from './effects/loaddata';
+import { copyGamesFromStarter } from './effects/updatedashboard';
+import { removeMessage } from './effects/messages';
 
 
 @Injectable()
@@ -49,10 +51,7 @@ export class DashboardEffects {
     return this.a$
       .ofType(DashboardActions.DASH_UPDATE)
       .delay(500)
-      .switchMap(() => {
-        return this.getStarterDb()
-          .map(item => this.updateGames(item));
-      })
+      .let(copyGamesFromStarter(this.auth, this.db))
       .switchMap(() => {
         this.getSetupObject().set(true);
         this.addWelcomeMessage();
@@ -64,17 +63,11 @@ export class DashboardEffects {
       });
   }
 
-
-
   @Effect({ dispatch: false })
-  removeMessage$() {
-    return this.a$
-      .ofType(DashboardActions.DASH_DEL_MSG)
-      .map(action =>
-        this.getMessage(action.payload.$key)
-        .remove()
-      );
-  }
+  removeMessage$ = this.a$
+    .ofType(DashboardActions.DASH_DEL_MSG)
+    .let(removeMessage(this.auth, this.db));
+
 
   get db() {
     return this.af.database;
@@ -84,40 +77,10 @@ export class DashboardEffects {
     return this.auth.id;
   }
 
-  updateGames(items) {
-    return Observable.merge(
-      items.map(i =>
-        Observable.fromPromise(
-          this.getGameObject(i.id)
-            .set(cleanObject(i)) as Promise<any>
-        )
-      )
-    );
-  }
-
-  keyExists(key: string): Observable<boolean> {
-    return this.db.object(key)
-      .switchMap(j => Observable.of(j.$exists()));
-  }
-
   addWelcomeMessage() {
     this.db
       .list(`users/${this.uid}/messages/`)
       .push(welcomeMessage());
-  }
-
-  getStarterDb() {
-    return this
-      .db.list('starter');
-  }
-
-  generatePublicName(name:string) {
-    return this.db.object('keys/${}')
-  }
-
-  getPublicBoard() {
-    return this
-      .db.object(`users/${this.uid}/public`);
   }
 
   getSetupObject() {
@@ -125,31 +88,7 @@ export class DashboardEffects {
       .db.object(`users/${this.uid}/setup`);
   }
 
-  getSetupStatus() {
-    return this
-      .getSetupObject()
-      .take(1);
-  }
 
-  getGameObject(id: string) {
-    return this.db
-      .object(`users/${this.uid}/jocs/${id}/`);
-  }
-
-  getGames() {
-    return this.db
-      .list(`users/${this.uid}/jocs/`);
-  }
-
-  getMessages() {
-    return this.db
-      .list(`users/${this.uid}/messages/`);
-  }
-
-  getMessage(id: string) {
-    return this.db
-      .object(`users/${this.uid}/messages/${id}`);
-  }
 
 }
 
