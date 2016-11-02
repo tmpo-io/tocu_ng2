@@ -4,7 +4,10 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
-import { AngularFire } from 'angularfire2';
+import { AngularFire,
+  AngularFireDatabase,
+  FirebaseObjectObservable
+ } from 'angularfire2';
 import { AuthService } from  '../auth/services/auth-service';
 import 'rxjs/add/operator/ignoreElements';
 import 'rxjs/add/observable/defer';
@@ -69,7 +72,7 @@ export class DashboardEffects {
     .let(removeMessage(this.auth, this.db));
 
 
-  get db() {
+  get db(): AngularFireDatabase {
     return this.af.database;
   }
 
@@ -83,9 +86,10 @@ export class DashboardEffects {
       .push(welcomeMessage());
   }
 
-  getSetupObject() {
+  getSetupObject(): FirebaseObjectObservable<any>  {
     return this
-      .db.object(`users/${this.uid}/setup`);
+      .db.object(`users/${this.uid}/setup`) as
+        FirebaseObjectObservable<any>;
   }
 
 

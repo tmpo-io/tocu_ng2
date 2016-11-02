@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 import * as firebase from 'firebase';
-import { AngularFire } from 'angularfire2';
+import { AngularFire, AngularFireDatabase } from 'angularfire2';
 
 
 import { Word } from '../../models/word';
@@ -51,7 +51,7 @@ export class WordsService {
     }).take(1);
   }
 
-  get db() {
+  get db(): AngularFireDatabase {
     return this.af.database;
   }
 
