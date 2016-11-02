@@ -12,7 +12,7 @@
 
 <div class="paraules-list row">
   <div class="col-xs activitats ticard hover"
-    *ngFor="let obj of activitats | async"
+    *ngFor="let obj of state.jocs"
     [routerLink]="[obj.id]"
     [ngStyle]="{'background-image': 'url(' + obj.image + ')'}"
     >

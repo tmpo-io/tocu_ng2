@@ -30,12 +30,14 @@ export class DashboardActions {
     };
   }
 
-  static loadDataOk(jocs: Joc[], messages: Message[]): Action {
+  static loadDataOk(jocs: Joc[],
+    messages: Message[], name: string): Action {
     return {
       type: DashboardActions.DASH_DATALOAD_OK,
       payload: {
         jocs,
-        messages
+        messages,
+        publicName: name
       }
     };
   }
@@ -68,13 +70,6 @@ export class DashboardActions {
   static setPublicName(): Action {
     return {
       type: DashboardActions.DASH_PUBLICNAME
-    };
-  }
-
-  static storePublicName(name: string): Action {
-    return {
-      type: DashboardActions.DASH_PUBLICNAME_STORE,
-      payload: name
     };
   }
 

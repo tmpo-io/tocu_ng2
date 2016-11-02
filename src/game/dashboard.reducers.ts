@@ -10,7 +10,8 @@ import { Dashboard } from '../models/dashboard';
 
 export const initial: Dashboard = {
   messages: [],
-  jocs: []
+  jocs: [],
+  loadData: 'notready'
 };
 
 
@@ -31,7 +32,8 @@ export function dashboardReducer(state = initial, action: Action): Dashboard {
       return Object.assign({}, state, {
         loadData: 'ready',
         jocs: action.payload.jocs,
-        messages: action.payload.messages
+        messages: action.payload.messages,
+        publicName: action.payload.publicName
       });
     case DashboardActions.DASH_NEEDSDUPDATE:
       return Object.assign({}, state, {
@@ -54,7 +56,7 @@ export function dashboardReducer(state = initial, action: Action): Dashboard {
     case DashboardActions.DASH_PUBLICNAME_OK:
       return Object.assign({}, state, {
         publicBoardTask: 'ready',
-        publicBoard: action.payload
+        publicName: action.payload
       });
     case DashboardActions.DASH_DEL_MSG:
       let index = state.messages
@@ -86,8 +88,8 @@ export function getMessages() {
 export function getPublishedJocs() {
   return $state =>
     $state.map((a: Dashboard) => {
-      a.jocs = a.jocs.filter(j => j.published);
-      return a;
+      let jocs = a.jocs.filter(j => j.published);
+      return Object.assign({}, a, {jocs: jocs});
     });
 };
 

@@ -1,32 +1,55 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
 
 import {
   AngularFire,
   FirebaseListObservable
 } from 'angularfire2';
 
-import * as firebase from 'firebase';
 import { AuthService } from '../../../auth';
-
-
+import { Dashboard } from '../../../models/dashboard';
+import { AppState } from '../../../models/app';
+import { DashboardActions } from '../../../game/dashboard.actions';
+import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'creator-jocs',
+  selector: 'app-creator-jocs',
   templateUrl: 'jocslist.component.html',
   styleUrls: ['./joclist.component.scss']
 })
-export class JocsListComponent implements OnInit {
+export class JocsListComponent implements OnDestroy {
 
-  activitats: FirebaseListObservable<any>;
+  state: Dashboard;
   bucket: string;
+  sub: Subscription;
 
-  constructor(private af: AngularFire,
-    private auth: AuthService) {
-    this.bucket = `users/${auth.id}/jocs`;
-    this.activitats = af.database.list(this.bucket)
+  dash$: Observable<Dashboard>;
+
+  constructor(
+    private af: AngularFire,
+    private auth: AuthService,
+    private store: Store<AppState>) {
+
+      this.bucket = `users/${auth.id}/jocs`;
+      // this.activitats = af.database.list(this.bucket);
+      this.dash$ = this.store
+         .select('dashboard')
+         .map((dash) => {
+           if (dash['loadData'] === 'notready') {
+             this.store.dispatch(DashboardActions.loadData());
+           }
+           return dash;
+         });
+      this.sub = this.dash$.subscribe((r) => {
+        this.state = r;
+      });
   }
 
-  ngOnInit() {
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
+
 
 }

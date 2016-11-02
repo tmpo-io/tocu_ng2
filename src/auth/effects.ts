@@ -19,11 +19,15 @@ import { AuthActions } from './auth.actions';
 import { Auth } from '../models/auth';
 
 
+const METADATA_KEY = '@ngrx/effects';
+
 @Injectable()
 export class AuthEffects {
 
+
   @Effect()
-  login$ = this.actions$
+  login$() {
+    return this.actions$
       .ofType(AuthActions.AUTH_LOGIN)
       .switchMap(action => {
           // console.log('action');
@@ -32,11 +36,13 @@ export class AuthEffects {
           .catch(err => of.call(
               AuthActions.actionLoginKo(err)));
       });
+  }
 
 
 
   @Effect()
-  restore$ = this.actions$
+  restore$() {
+    return this.actions$
       .ofType(AuthActions.AUTH_LOGINRESTORE)
       .switchMap(action => {
         console.log('Autenticating');
@@ -51,6 +57,7 @@ export class AuthEffects {
             return AuthActions.actionLoginRestoreKo();
           });
       });
+  }
 
 
   login(): Observable<any> {

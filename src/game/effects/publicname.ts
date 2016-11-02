@@ -24,10 +24,29 @@ export function getPublicName(auth: AuthService, db: any ) {
           }
           return `${auth.username()}${add}`;
         }).retry();
-      }).switchMap((name) => {
-        return Observable.of(
-          DashboardActions.setPublicNameOk(name)
-        );
+      })
+      .take(1)
+      .let(storePublicName(auth, db))
+      .map((name) => {
+        // console.log('Name:', name);
+        return DashboardActions.setPublicNameOk(name);
       });
-
 }
+
+
+export function storePublicName(auth: AuthService, db: any) {
+  return state$ =>
+    state$.switchMap(data => {
+      return Observable.forkJoin(
+        Observable.fromPromise(
+          db.object(`names/${data}`).set(auth.id)
+        ),
+        Observable.fromPromise(
+          db.object(`users/${auth.id}/publicName`).set(data)
+        ),
+        (x, y) => { return data; }
+      );
+    });
+}
+
+

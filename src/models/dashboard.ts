@@ -5,13 +5,15 @@ import { Joc } from './joc';
 import { Message } from './message';
 
 export type AsyncTask =
-  'waiting' |
-  'ready'   |
+  'notready' |
+  'waiting'   |
+  'ready'     |
   'failed';
 
 export interface Dashboard {
   messages?: Message[];
   jocs?: Joc[];
+  publicName?: string;
   // IS FIRST TIME PLAYER
   setup?: boolean;
   setupTask?: AsyncTask;

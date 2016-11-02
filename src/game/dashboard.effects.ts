@@ -17,7 +17,7 @@ import { welcomeMessage } from '../models/message';
 import { DashboardActions } from './dashboard.actions';
 // import { cleanObject } from '../shared/utils';
 import { checkSetupStatus } from './effects/setupstatus';
-import { getPublicName } from './effects/publicname';
+import { getPublicName, storePublicName } from './effects/publicname';
 import { loadData } from './effects/loaddata';
 import { copyGamesFromStarter } from './effects/updatedashboard';
 import { removeMessage } from './effects/messages';
@@ -47,6 +47,11 @@ export class DashboardEffects {
   publicName$ = this.a$
     .ofType(DashboardActions.DASH_PUBLICNAME)
     .let(getPublicName(this.auth, this.db));
+
+  // @Effect()
+  // storePublic$ = this.a$
+  //   .ofType(DashboardActions.DASH_PUBLICNAME_STORE)
+  //   .let(storePublicName(this.auth, this.db));
 
 
   @Effect()
