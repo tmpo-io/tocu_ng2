@@ -1,9 +1,13 @@
 import { Component, Output, OnInit, OnDestroy,
     ViewChild, EventEmitter, NgZone } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+
 
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+
+
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
@@ -30,6 +34,8 @@ import { TJoc } from '../../../models/tjoc';
 import { Joc } from '../../../models/joc';
 import { tipusJoc } from '../../../models/tipusjoc';
 import { Word } from '../../../models/word';
+import { AppState } from '../../../models/app';
+import { DashboardActions } from '../../../game/dashboard.actions';
 
 
 declare var Zone: any;
@@ -88,7 +94,8 @@ export class JocEditComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private db: JocDb,
-    private zone: NgZone
+    private zone: NgZone,
+    private store: Store<AppState>
     ) {
     }
 
@@ -218,6 +225,7 @@ export class JocEditComponent implements OnInit, OnDestroy {
         }
         this.loading = false;
         this.modified = false;
+        this.store.dispatch(DashboardActions.loadData());
     });
   }
 
