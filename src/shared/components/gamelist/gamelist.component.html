@@ -1,0 +1,14 @@
+
+
+
+<div class="list">
+  <a *ngFor="let item of jocs" class="item"
+    [routerLink]="['/play/', user, item.id]">
+    <span>
+      <h2>{{ item.label }}</h2>
+      <div
+      [ngStyle]="{'background-image': 'url(' + item.image +')'}">
+      </div>
+    </span>
+  </a>
+</div>

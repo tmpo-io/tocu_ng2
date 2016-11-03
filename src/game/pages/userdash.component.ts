@@ -10,7 +10,9 @@ import { GSActions } from '../gamesession.actions';
 
 @Component({
   selector: 'app-user-dash',
-  templateUrl: 'userdash.component.html'
+  template: `
+    <app-user-dashboard [gamesession]="game$ | async"></app-user-dashboard>
+  `
 })
 export class UserDashComponent {
 
@@ -24,7 +26,8 @@ export class UserDashComponent {
         if (g.loadJocs === 'notready') {
           store$.dispatch(GSActions.load(g.userID));
         }
-        return g;
+        let games = g.jocs.filter(g => g.published)
+        return Object.assign({}, g, {jocs:games});
       });
 
   }

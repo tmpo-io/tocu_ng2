@@ -22,6 +22,7 @@ import { ActivitatComponent } from './dashboard/activitat.component';
 import { DashWelcomeComponent } from './dashboard/welcome.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DashMessagesComponent } from './dashboard/messages.component';
+import { UserDashboardComponent } from './components/userdashboard.component';
 
 import {
   MemoryCardComponent,
@@ -53,7 +54,7 @@ import { GSEffects } from './gamesession.effects';
 
 import { ViewGameGuard } from './guards/viewgame.guard';
 import { AuthGuard, AuthService } from '../auth';
-import { UserDashComponent } from './users/userdash.component';
+import { UserDashComponent } from './pages';
 
 import { BoardExistsGuard } from './guards/boardexists.guard';
 
@@ -71,7 +72,7 @@ const routes: Routes = [
   {
     path: 'play/:uid/:id',
     component: GameComponent,
-    canActivate: [AuthGuard, ViewGameGuard]
+    canActivate: [ViewGameGuard]
   },
   {
     path: 'preview/:uid/:id',
@@ -122,7 +123,8 @@ const routes: Routes = [
     PointsComponent,
     TimerComponent,
     ButtonComponent,
-    UserDashComponent
+    UserDashComponent,
+    UserDashboardComponent
   ],
   exports: [
     GameComponent
