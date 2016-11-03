@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 
 import { Actions, Effect } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { AngularFire } from 'angularfire2';
 
@@ -25,14 +24,5 @@ export class GSEffects {
           );
     });
 
-    // .map(ac => {
-    //   console.log('action', ac);
-    //   return this.af.database
-    //     .list(`users/${ac.payload}/jocs/`).take(1)
-    //     .map(v => {
-    //       // console.log(v.$value);
-    //       return GSActions.loadOk(v);
-    //     });
-    // });
 
 }
