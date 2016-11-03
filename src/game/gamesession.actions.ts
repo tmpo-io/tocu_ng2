@@ -2,8 +2,7 @@
 
 import { Action } from '@ngrx/store';
 
-import { GameSession } from '../models/gamesession';
-
+import { Joc } from '../models/joc';
 
 export class GSActions {
 
@@ -12,13 +11,28 @@ export class GSActions {
   static CHECK_DASHBOARD_KO = '[GS] check dash KO';
 
   static LOAD_GAMES = '[GS] Load Games';
-  static LOAD_GAMES_OK = '[GS] Load Games';
+  static LOAD_GAMES_OK = '[GS] Load Games OK';
+  static LOAD_GAMES_KO = '[GS] Load Games Error';
 
 
   static load(id: string): Action {
     return {
       type: GSActions.LOAD_GAMES,
       payload: id
+    };
+  }
+
+  static loadOk(j: Joc[]): Action {
+    return {
+      type: GSActions.LOAD_GAMES_OK,
+      payload: j
+    };
+  }
+
+  static loadKo(e: any): Action {
+    return {
+      type: GSActions.LOAD_GAMES_KO,
+      payload: e
     };
   }
 

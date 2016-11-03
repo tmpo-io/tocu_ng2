@@ -30,6 +30,20 @@ export function gsReducer(state = initial, action: Action): GameSession {
           dashboardExists: 'failed',
           error: action.payload
         });
+      case GSActions.LOAD_GAMES:
+        return assign(state, {
+          loadJocs: 'waiting'
+        });
+      case GSActions.LOAD_GAMES_OK:
+        return assign(state, {
+          loadJocs: 'ready',
+          jocs: action.payload
+        });
+      case GSActions.LOAD_GAMES_KO:
+        return assign(state, {
+          loadJocs: 'failed',
+          error: action.payload
+        });
     }
     return state;
 }
