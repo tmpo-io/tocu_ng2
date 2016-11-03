@@ -44,6 +44,7 @@ export class BoardExistsGuard implements CanActivate {
       .map(v => {
         if (!v.$exists()) {
           this.store.dispatch(GSActions.check_invalid());
+          // @todo add a 404 page
           this.router.navigate(['/']);
           return false;
         }
