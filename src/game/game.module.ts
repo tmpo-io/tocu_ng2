@@ -49,12 +49,21 @@ import {
   ImageLoader } from './services';
 
 import { DashboardEffects } from './dashboard.effects';
+import { GSEffects } from './gamesession.effects';
 
 import { ViewGameGuard } from './guards/viewgame.guard';
 import { AuthGuard, AuthService } from '../auth';
+import { UserDashComponent } from './users/userdash.component';
+
+import { BoardExistsGuard } from './guards/boardexists.guard';
 
 
 const routes: Routes = [
+  {
+    path: 'usuari/:user',
+    component: UserDashComponent,
+    canActivate: [BoardExistsGuard]
+  },
   {
     path: 'game/:game',
     component: GameComponent
@@ -89,7 +98,8 @@ const routes: Routes = [
     SharedModule,
     NgbAlertModule,
     RouterModule.forChild(routes),
-    EffectsModule.run(DashboardEffects)
+    EffectsModule.run(DashboardEffects),
+    EffectsModule.run(GSEffects)
   ],
   declarations: [
     ActivitatComponent,
@@ -111,7 +121,8 @@ const routes: Routes = [
     TiDialogComponent,
     PointsComponent,
     TimerComponent,
-    ButtonComponent
+    ButtonComponent,
+    UserDashComponent
   ],
   exports: [
     GameComponent
@@ -121,7 +132,8 @@ const routes: Routes = [
     SoundFXService,
     ImageLoader,
     ViewGameGuard,
-    AuthService
+    AuthService,
+    BoardExistsGuard
   ]
 })
 export class GameModule {}

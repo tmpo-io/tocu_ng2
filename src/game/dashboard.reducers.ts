@@ -20,7 +20,8 @@ export function dashboardReducer(state = initial, action: Action): Dashboard {
   switch (action.type) {
     case DashboardActions.DASH_SETUP:
       return Object.assign({}, state, {
-        setupTask: 'waiting'
+        setupTask: 'waiting',
+        loadData: 'notready'
       });
     case DashboardActions.DASH_DATALOAD:
       return Object.assign({}, state, {

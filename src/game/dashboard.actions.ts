@@ -18,6 +18,7 @@ export class DashboardActions {
   static DASH_PUBLICNAME_OK = 'DASH_PUBLICNAME_OK';
   static DASH_PUBLICNAME_STORE = 'DASH_PUBLICNAME_STORE';
 
+
   static checkSetup(): Action {
     return {
       type: DashboardActions.DASH_SETUP

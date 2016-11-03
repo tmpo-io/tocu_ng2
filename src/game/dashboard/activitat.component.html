@@ -20,7 +20,7 @@
   [state]="dashboard"
   (subscribe)="dashClick.next()"></app-dash-welcome>
 
-<div class="list" *ngIf="dashboard.setup">
+<div class="list" *ngIf="dashboard.loadData=='ready'">
   <a *ngFor="let item of dashboard.jocs" class="item"
     [routerLink]="['/play/', user.id, item.id]">
     <span>
@@ -30,4 +30,12 @@
       </div>
     </span>
   </a>
+</div>
+
+
+<div class="user-link" *ngIf="dashboard.loadData=='ready'" >
+  <h3 class="">Pots compartir els teus jocs a l'adreça:<br/>
+  <a [routerLink]="['/usuari/', dashboard.publicName]">
+    https://tocu.io/usuari/{{ dashboard.publicName }}</a>
+    </h3>
 </div>
