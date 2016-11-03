@@ -44,6 +44,7 @@ export class BoardExistsGuard implements CanActivate {
       .map(v => {
         if (!v.$exists()) {
           this.store.dispatch(GSActions.check_invalid());
+          this.router.navigate(['/']);
           return false;
         }
         this.store.dispatch(GSActions.check_valid(v.$value));
@@ -68,6 +69,7 @@ export class BoardExistsGuard implements CanActivate {
   }
 
   canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
-    return this.dashboardExists(route.params['user']).take(1);
+    return this.dashboardExists(route.params['user'])
+      .take(1);
   }
 }
