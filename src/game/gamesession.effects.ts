@@ -9,6 +9,8 @@ import { GSActions } from './gamesession.actions';
 @Injectable()
 export class GSEffects {
 
+
+
   constructor(private action$: Actions, private af: AngularFire) {}
 
   @Effect()
@@ -26,3 +28,9 @@ export class GSEffects {
 
 
 }
+
+// GSEffects.metadata = {};
+// GSEffects.metadata['@ngrx/effects'] = [
+//   {propertyName: 'loadGames$', dispatch: true}
+// ]
+

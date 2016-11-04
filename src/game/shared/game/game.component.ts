@@ -1,5 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Location } from '@angular/common';
+
 import { ActivatedRoute } from '@angular/router';
+
 
 import { Word } from '../../../models/word';
 
@@ -50,6 +53,7 @@ export class GameComponent implements OnInit, OnDestroy {
     private fx: SoundFXService,
     private il: ImageLoader,
     private route: ActivatedRoute,
+    public loc: Location
   ) {}
 
   ngOnInit() {
