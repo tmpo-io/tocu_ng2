@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
-
 import { ActivatedRoute } from '@angular/router';
 
-
+import { Store } from '@ngrx/store';
+import { GameSession } from '../../../models/gamesession';
 import { Word } from '../../../models/word';
 
 import {
@@ -12,13 +12,13 @@ import {
   ImageLoader
 } from '../../services';
 
-
 import { Observable } from 'rxjs/Rx';
 import { Subscription } from 'rxjs/Subscription';
 import { withLatestFrom } from 'rxjs/operator/withLatestFrom';
 import { combineLatest} from 'rxjs/operator/combineLatest';
 
 import 'rxjs/add/operator/withLatestFrom';
+import 'rxjs/add/operator/takeWhile';
 
 
 export type GameStatus = 'preload' | 'playing' | 'end' | '';
@@ -37,6 +37,7 @@ export class GameComponent implements OnInit, OnDestroy {
   public preloadReady: boolean = false;
 
   public cards: Word[];
+  public fromStore: boolean = false;
 
   public preload$: Observable<number>;
   private sub: Subscription;
@@ -45,7 +46,6 @@ export class GameComponent implements OnInit, OnDestroy {
   public fails: number = 0;
 
   public isPreview: boolean = false;
-
   private gameID: string;
 
   constructor(
@@ -53,10 +53,13 @@ export class GameComponent implements OnInit, OnDestroy {
     private fx: SoundFXService,
     private il: ImageLoader,
     private route: ActivatedRoute,
-    public loc: Location
+    public loc: Location,
+    public store$: Store<GameSession>
   ) {}
 
   ngOnInit() {
+
+    // console.log('From store', this.fromStore);
 
     const params$ = this.route.params;
     const url$ = this.route.url;
@@ -82,19 +85,30 @@ export class GameComponent implements OnInit, OnDestroy {
     };
 
     const setPreloadReady = () => {
-      // console.log("[set preload ready]")
       this.preloadReady = true;
     };
 
-    this.sub = getParams$
+    this.preload$ = getParams$
       .do(getStateFromRouter)
-      .switchMap(r => ('game' in r.p) ? this.fromDev(r) : this.fromDb(r))
+      .switchMap(r => {
+        return this.store$
+          .select('gameSession')
+          .switchMap((s: GameSession) => {
+            if (s.loadJocs === 'ready' ) {
+              let joc = s.jocs.filter(j => j.id === r.p['id']);
+              return Observable.of(joc[0]);
+            } else {
+              if ('game' in r.p) {
+                return this.fromDev(r);
+              }
+              return this.fromDb(r);
+            }
+          });
+      })
       .do(getStateFromGame)
-      .subscribe((game) => {
-        this.preload$ = this.preloadFx$(game)
-          .do(null, null, setPreloadReady);
-      });
-
+      .switchMap((game) => this.preloadFx$(game))
+      .takeWhile(r => r < (this.cards.length * 2))
+      .do(null, null, setPreloadReady);
   }
 
   // todo add preview...
@@ -136,7 +150,7 @@ export class GameComponent implements OnInit, OnDestroy {
 
   preloadFx$(game): Observable<number> {
     const loadAudio$ = this.fx.add(game.words.map(x => x.audio));
-    const loadImages$ = this.il.add(this.cards.map(x => x.image));
+    const loadImages$ = this.il.add(game.words.map(x => x.image));
     const merge = (a, b) => (a + b);
     return combineLatest.call(loadAudio$, loadImages$, merge);
   }
