@@ -37,7 +37,6 @@ export class GameComponent implements OnInit, OnDestroy {
   public preloadReady: boolean = false;
 
   public cards: Word[];
-  public fromStore: boolean = false;
 
   public preload$: Observable<number>;
   private sub: Subscription;
