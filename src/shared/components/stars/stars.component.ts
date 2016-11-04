@@ -6,7 +6,7 @@ import {
   QueryList
 } from '@angular/core'
 
-import { getRandomColor } from '../../helpers';
+import { getRandomColor } from '../../colors';
 
 @Component({
   selector: 'star-explosion',

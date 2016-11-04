@@ -8,21 +8,14 @@ import { EffectsModule } from '@ngrx/effects';
 import { SharedModule } from '../shared/shared.module';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 
-import {
-  ButtonComponent,
-  GameComponent,
-  PointsComponent,
-  StarComponent,
-  BallonsComponent,
-  TiDialogComponent,
-  TimerComponent
-  } from './shared';
 
 import { ActivitatComponent } from './dashboard/activitat.component';
 import { DashWelcomeComponent } from './dashboard/welcome.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DashMessagesComponent } from './dashboard/messages.component';
 import { UserDashboardComponent } from './components/userdashboard.component';
+
+import { GameComponent } from './shared/game/game.component';
 
 import {
   MemoryCardComponent,
@@ -117,12 +110,6 @@ const routes: Routes = [
     RelacionaWordComponent,
     MixedComponent,
     MixedWordComponent,
-    StarComponent,
-    BallonsComponent,
-    TiDialogComponent,
-    PointsComponent,
-    TimerComponent,
-    ButtonComponent,
     UserDashComponent,
     UserDashboardComponent
   ],

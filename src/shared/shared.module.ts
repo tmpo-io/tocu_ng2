@@ -4,16 +4,36 @@ import { RouterModule } from '@angular/router';
 
 import { TiPreloadComponent }   from './components/preload/preload.component';
 import { TiGameListComponent } from './components/gamelist/gamelist.component';
+import { BallonsComponent } from './components/balloons/balloons.component';
+import { ButtonComponent } from './components/button/button.component';
+import { PointsComponent } from './components/points/points.component';
+import { StarComponent } from './components/stars/stars.component';
+import { TiDialogComponent } from './components/dialog/dialog.component';
+import { TimerComponent } from './components/timer/timer.component';
+
 
 @NgModule({
   imports: [CommonModule, RouterModule],
   exports: [
     TiPreloadComponent,
-    TiGameListComponent
+    TiGameListComponent,
+    BallonsComponent,
+    ButtonComponent,
+    PointsComponent,
+    StarComponent,
+    TiDialogComponent,
+    TimerComponent
+
   ],
   declarations: [
     TiPreloadComponent,
-    TiGameListComponent
+    TiGameListComponent,
+    BallonsComponent,
+    ButtonComponent,
+    PointsComponent,
+    StarComponent,
+    TiDialogComponent,
+    TimerComponent
   ],
   providers: [],
 })

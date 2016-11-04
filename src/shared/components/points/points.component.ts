@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges, state, style,
+import { Component, Input, state, style,
   transition, animate, trigger } from '@angular/core';
 
 @Component({
