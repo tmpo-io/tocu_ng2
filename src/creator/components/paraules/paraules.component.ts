@@ -35,6 +35,7 @@ export class ParaulesComponent implements OnDestroy {
   total: number = 0;
   current: number = 1;
   perPage: number = 10;
+  addParaula: boolean = false;
 
   per$: Observable<any>;
 

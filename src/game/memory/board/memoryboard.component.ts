@@ -69,6 +69,7 @@ export class MemoryBoardComponent implements OnInit {
   public wins:number = 0;
   public fails:number = 0;
   public total:number = 0;
+  public index: number;
 
   // Emitters
   @Output() public onWin = new EventEmitter<number>();
