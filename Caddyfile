@@ -1,10 +1,10 @@
 
 
-localhost:2000
-tls self_signed
+localhost:4200
 gzip
 
 rewrite {
+    if {path} not_has /assets
     to {path} {path}/ /index.html
 }
 

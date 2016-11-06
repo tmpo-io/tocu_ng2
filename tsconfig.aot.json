@@ -7,20 +7,24 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "removeComments": false,
-    "noImplicitAny": true,
-    "mapRoot": "./",
     "suppressImplicitAnyIndexErrors": true,
-    "types": []
+    "typeRoots": [
+      "../node_modules/@types"
+    ],
+    "types": [
+      "core-js",
+      "firebase"
+    ]
   },
 
   "files": [
-    "./app/app.module.ts",
-    "./main.ts",
-    "../typings/index.d.ts"
+    "tmp/app/app.module.ts",
+    "tmp/main.ts",
+    "tmp/typings.d.ts"
   ],
 
   "angularCompilerOptions": {
-   "genDir": "aot",
-   "skipMetadataEmit" : true
- }
+    "genDir": ".",
+    "skipMetadataEmit" : true
+  }
 }
