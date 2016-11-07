@@ -290,11 +290,9 @@ angular2-template-loader@^0.5.0:
     codecov "^1.0.1"
     loader-utils "^0.2.15"
 
-"angularfire2@git+https://github.com/jordic/angularfire2-nopeer":
+"angularfire2@https://github.com/jordic/angularfire2-nopeer":
   version "2.0.0-beta.6"
-  resolved "git+https://github.com/jordic/angularfire2-nopeer#bdd8792525d89be18b5c6fac8d3ec9409bbfc388"
-  dependencies:
-    firebase "3.3.0"
+  resolved "https://github.com/jordic/angularfire2-nopeer#bdd8792525d89be18b5c6fac8d3ec9409bbfc388"
 
 ansi-align@^1.1.0:
   version "1.1.0"
@@ -3373,16 +3371,6 @@ firebase@2.x.x:
   dependencies:
     faye-websocket ">=0.6.0"
 
-firebase@3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/firebase/-/firebase-3.3.0.tgz#c060d6dd106d30abf460ce510621479e79144e2f"
-  dependencies:
-    dom-storage "2.0.2"
-    faye-websocket "0.9.3"
-    jsonwebtoken "5.7.0"
-    rsvp "3.2.1"
-    xmlhttprequest "1.8.0"
-
 fireworm@^0.7.0:
   version "0.7.1"
   resolved "https://registry.yarnpkg.com/fireworm/-/fireworm-0.7.1.tgz#ccf20f7941f108883fcddb99383dbe6e1861c758"
@@ -3829,7 +3817,7 @@ google-auth-library@~0.9.3:
     request "~2.74.0"
     string-template "~0.2.0"
 
-google-closure-compiler:
+google-closure-compiler@^20161024.1.0:
   version "20161024.1.0"
   resolved "https://registry.yarnpkg.com/google-closure-compiler/-/google-closure-compiler-20161024.1.0.tgz#a8906fded624c5e466e0cf01f7eb5efecd8b7aee"
   dependencies:
@@ -8054,7 +8042,7 @@ source-list-map@^0.1.4, source-list-map@~0.1.0:
   version "0.1.6"
   resolved "https://registry.yarnpkg.com/source-list-map/-/source-list-map-0.1.6.tgz#e1e6f94f0b40c4d28dcf8f5b8766e0e45636877f"
 
-source-map-explorer:
+source-map-explorer@^1.3.3:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/source-map-explorer/-/source-map-explorer-1.3.3.tgz#ff15cb038465fb652e57fa54ecd103f51e01bc43"
   dependencies:

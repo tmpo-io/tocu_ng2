@@ -24,7 +24,7 @@
     "@ngrx/store-devtools": "^3.2.1",
     "@types/core-js": "^0.9.34",
     "@types/request": "0.0.30",
-    "angularfire2": "git+https://github.com/jordic/angularfire2-nopeer",
+    "angularfire2": "https://github.com/jordic/angularfire2-nopeer",
     "bootstrap": "4.0.0-alpha.4",
     "core-js": "^2.2.2",
     "firebase": "^3.5.3",
