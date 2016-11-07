@@ -16,15 +16,16 @@ export default {
   plugins: [
     commonjs({
       include: [
+        'node_modules/**',
         'node_modules/howler/dist/howler.js',
-        // 'node_modules/web-animations-js/src/**',
-        'node_modules/rxjs/**',
+        'node_modules/web-animations-js/src/**',
+        //'node_modules/rxjs/**',
         'node_modules/firebase/**',
         'node_modules/angularfire2/**'
       ],
       namedExports: {
         'node_modules/firebase/firebase.js': ['initializeApp', 'auth', 'database'],
-        'node_modules/angularfire2/node_modules/firebase/firebase-browser.js': ['initializeApp', 'auth', 'database']
+        'node_modules/firebase/firebase-browser.js': ['initializeApp', 'auth', 'database']
       }
     }),
     nodeResolve({ jsnext: true, module: true, browser: true, main:true, extensions:['.js'] }),
