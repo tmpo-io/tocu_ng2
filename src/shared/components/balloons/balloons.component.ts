@@ -18,10 +18,10 @@ export class BallonsComponent implements OnInit {
   @Input() public amount:number = 10;
   @Input() public delay:number = 1000;
 
-  private props:number[] = [];
-  private colors:Array<string> = [];
-  private enabled:boolean = true;
-  private explode:Array<boolean> = [];
+  public props:number[] = [];
+  public colors:Array<string> = [];
+  public enabled:boolean = true;
+  public explode:Array<boolean> = [];
 
   @ViewChildren("balloons") childs: QueryList<any>;
 

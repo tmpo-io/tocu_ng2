@@ -27,7 +27,7 @@ type timerStatus = 'start' | 'stop';
 export class TimerComponent implements OnInit, OnChanges, OnDestroy {
   @Input() gamestatus:string;
 
-  private tick: string;
+  public tick: string;
   private subscription:any = undefined;
 
   private formatMMSS(s:number):string {

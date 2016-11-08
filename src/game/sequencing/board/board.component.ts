@@ -20,20 +20,20 @@ export class SequencingBoardComponent implements OnInit {
   @Output() onFail = new EventEmitter<number>();
   @Output() onFinish = new EventEmitter<number>();
 
-  private wordVisible: string = 'out';
-  private lettersVisible: string = 'out';
-  private goingNext: boolean = false;
+  public wordVisible: string = 'out';
+  public lettersVisible: string = 'out';
+  public goingNext: boolean = false;
 
-  private currentWord: number = 0;
-  private word: Word;
-  private splittedWord: string[];
-  private mixedWord: string[];
-  private statusWord: Array<string>;
+  public currentWord: number = 0;
+  public word: Word;
+  public splittedWord: string[];
+  public mixedWord: string[];
+  public statusWord: Array<string>;
 
-  private currentLetter: number = 0;
+  public currentLetter: number = 0;
 
-  private wins: number = 0;
-  private fails: number = 0;
+  public wins: number = 0;
+  public fails: number = 0;
 
   constructor(
     private srv: WordsService,
@@ -118,7 +118,7 @@ export class SequencingBoardComponent implements OnInit {
     }
   }
 
-  private clickSound() {
+  public clickSound() {
     let audio: string = this.word.audio;
     setTimeout(() => {
       this.fx.play(audio);

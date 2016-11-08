@@ -9,7 +9,7 @@ export class SequencingWordComponent implements OnChanges {
   @Input() word:string[];
   @Input() current:number = 0;
 
-  private internalWord:string = "";
+  public internalWord:string = "";
 
   public ngOnChanges(c:SimpleChanges) {
     this.internalWord = "";

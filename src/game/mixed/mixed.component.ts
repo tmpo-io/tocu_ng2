@@ -23,18 +23,18 @@ export class MixedComponent implements OnInit {
   @Output() onFail = new EventEmitter<number>();
   @Output() onFinish = new EventEmitter<number>();
 
-  private wins: number = 0;
-  private fails: number = 0;
-  private total: number = 0;
-  private current: number = 0;
-  private word: Word;
-  private goingNext: boolean = false;
+  public wins: number = 0;
+  public fails: number = 0;
+  public total: number = 0;
+  public current: number = 0;
+  public word: Word;
+  public goingNext: boolean = false;
 
-  private options: Array<string> = [];
-  private optionsState: Array<string> = [];
+  public options: Array<string> = [];
+  public optionsState: Array<string> = [];
 
-  private wordVisible: string = 'out';
-  private lettersVisible: string = 'out';
+  public wordVisible: string = 'out';
+  public lettersVisible: string = 'out';
 
   constructor(
     private srv: WordsService,
@@ -48,7 +48,7 @@ export class MixedComponent implements OnInit {
   }
 
 
-  private playSound(ind: string): void {
+  public playSound(ind: string): void {
     let audio: string;
     this.words.forEach((el, i) => {
       if (el.id === ind) {
