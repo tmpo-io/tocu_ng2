@@ -47,7 +47,8 @@ import { GSEffects } from './gamesession.effects';
 
 import { ViewGameGuard } from './guards/viewgame.guard';
 import { AuthGuard, AuthService } from '../auth';
-import { UserDashComponent } from './pages';
+
+import { UserDashComponent, TestComponent } from './pages';
 
 import { BoardExistsGuard } from './guards/boardexists.guard';
 
@@ -81,7 +82,11 @@ const routes: Routes = [
     path: '',
     redirectTo: '/activitat',
     pathMatch: 'full'
-  }
+  },
+  {
+    path: 'test',
+    component: TestComponent
+  },
 ];
 
 @NgModule({
@@ -111,6 +116,7 @@ const routes: Routes = [
     MixedComponent,
     MixedWordComponent,
     UserDashComponent,
+    TestComponent,
     UserDashboardComponent
   ],
   exports: [
