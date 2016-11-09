@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-test',
-  template:  `<balloons amount="20" delay="3000">
-    </balloons>
+  template:  `<app-ti-sprite [steps]="[[1, 100], [2, 2000], [1, 500],[3, 100]]">
+    </app-ti-sprite>
     `
 
 })

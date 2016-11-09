@@ -10,6 +10,7 @@ import { PointsComponent } from './components/points/points.component';
 import { StarComponent } from './components/stars/stars.component';
 import { TiDialogComponent } from './components/dialog/dialog.component';
 import { TimerComponent } from './components/timer/timer.component';
+import { TiSpriteComponent } from './components/sprite/sprite.component';
 
 
 @NgModule({
@@ -22,8 +23,8 @@ import { TimerComponent } from './components/timer/timer.component';
     PointsComponent,
     StarComponent,
     TiDialogComponent,
-    TimerComponent
-
+    TimerComponent,
+    TiSpriteComponent
   ],
   declarations: [
     TiPreloadComponent,
@@ -33,7 +34,8 @@ import { TimerComponent } from './components/timer/timer.component';
     PointsComponent,
     StarComponent,
     TiDialogComponent,
-    TimerComponent
+    TimerComponent,
+    TiSpriteComponent
   ],
   providers: [],
 })
