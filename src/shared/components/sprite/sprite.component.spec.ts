@@ -22,7 +22,7 @@ let steps: Step[] = [
     let sub = '';
     let index = 0;
 
-    res.take(4).subscribe((n) => {
+    res.subscribe((n) => {
       sub += n;
       console.log(sub);
       expect(n).toBe(steps[index][0]);
