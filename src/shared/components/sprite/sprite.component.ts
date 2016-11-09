@@ -1,6 +1,7 @@
 import {
   Component, OnInit,
-  Input, OnDestroy, Renderer } from '@angular/core';
+  Input, OnDestroy, Renderer
+} from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
@@ -9,6 +10,9 @@ import 'rxjs/add/observable/timer';
 import 'rxjs/add/operator/mapTo';
 import 'rxjs/add/operator/concat';
 import 'rxjs/add/operator/takeUntil';
+import 'rxjs/add/operator/delay';
+import 'rxjs/add/operator/repeat';
+
 
 // Step is a frame, duration
 export type Step = [number, number];
@@ -76,15 +80,15 @@ export class TiSpriteComponent implements OnInit, OnDestroy {
 }
 
 
-export function steper$(a: Step[]): Observable<number> {
+export function steper$(a: Step[], scheduler: any = null): Observable<number> {
 
   let chain$;
   for (let i = 0; i < a.length; i++) {
     if (i === 0) {
-      chain$ = Observable.of(a[i][0]);
+      chain$ = Observable.of(a[i][0], scheduler);
     } else {
       chain$ = chain$.concat(
-        Observable.timer(a[i - 1][1]).mapTo(a[i][0])
+        Observable.timer(a[i - 1][1], scheduler).mapTo(a[i][0])
       );
     }
   }
