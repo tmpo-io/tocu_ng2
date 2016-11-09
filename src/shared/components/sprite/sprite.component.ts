@@ -1,8 +1,6 @@
 import {
   Component, OnInit,
-  Input, OnDestroy, Renderer,
-  AfterViewInit, ViewChild
-} from '@angular/core';
+  Input, OnDestroy, Renderer } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
@@ -17,7 +15,7 @@ export type Step = [number, number];
 
 @Component({
   selector: 'app-ti-sprite',
-  template: `<div #ref
+  template: `<div
       [style.width.px]="width"
       [style.height.px]="height"
       [style.background-position.px]="bpos"
@@ -36,7 +34,7 @@ export type Step = [number, number];
     }`
   ]
 })
-export class TiSpriteComponent implements OnInit, OnDestroy, AfterViewInit {
+export class TiSpriteComponent implements OnInit, OnDestroy {
 
   @Input() width: number;
   @Input() height: number;
@@ -44,7 +42,6 @@ export class TiSpriteComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() steps: Step[];
   @Input() repeat: number = Number.POSITIVE_INFINITY;
 
-  @ViewChild('ref') el;
 
   st$: Observable<number>;
   destroy: Subject<any> = new Subject();
@@ -71,15 +68,6 @@ export class TiSpriteComponent implements OnInit, OnDestroy, AfterViewInit {
       });
   }
 
-  ngAfterViewInit() {
-    this.render.setElementStyle(
-      this.el.nativeElement, 'width', this.width + 'px'
-    );
-    this.render.setElementStyle(
-      this.el.nativeElement, 'height', this.height + 'px'
-    );
-  }
-
   ngOnDestroy() {
     console.log('Should destroy');
     this.destroy.next();
@@ -89,10 +77,6 @@ export class TiSpriteComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
 export function steper$(a: Step[]): Observable<number> {
-
-  // Observable.of(1).concat(
-  //   Observable.timer(1000).mapTo(2)
-  // );
 
   let chain$;
   for (let i = 0; i < a.length; i++) {
@@ -104,7 +88,5 @@ export function steper$(a: Step[]): Observable<number> {
       );
     }
   }
-
   return chain$;
-
 }
