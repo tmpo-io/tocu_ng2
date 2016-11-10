@@ -29,3 +29,11 @@
 
   </div>
 </div>
+
+
+<div class="user-link" *ngIf="state.loadData=='ready'" >
+  <h3 class="">Pots compartir els teus jocs a l'adreça:<br/>
+  <a [routerLink]="['/usuari/', state.publicName]">
+    https://tocu.io/usuari/{{ state.publicName }}</a>
+    </h3>
+</div>

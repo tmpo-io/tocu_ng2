@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { AuthService } from '../../../auth';
 import { Word } from '../../../models/word';
 
-import { staggered$ } from '../../../shared';
+// import { staggered$ } from '../../../shared';
 
 @Component({
   selector: 'app-creator-paraules',
@@ -21,7 +21,8 @@ import { staggered$ } from '../../../shared';
     trigger('in', [
       state('*', style({opacity: 0})),
       state('in', style({opacity: 1})),
-      transition('* => in', animate(800))
+      transition('* => in', animate(800)),
+      transition('in => *', animate(100))
       ])
     ]
 })
@@ -69,7 +70,7 @@ export class ParaulesComponent implements OnDestroy {
           return;
         }
         let p = this.paraules.filter(
-          v => new RegExp(term, 'gi').test(v.label))
+          v => new RegExp(term, 'gi').test(v.label));
         this.setQueryset(p);
       });
   }
@@ -78,7 +79,8 @@ export class ParaulesComponent implements OnDestroy {
     if (!p) {
       p = this.paraules.slice(0, 10);
     }
-    this.per$ = staggered$(p, 100);
+    // this.per$ = staggered$(p, 100);
+    this.per$ = Observable.of(p).delay(100);
   }
 
   changePage(event) {
