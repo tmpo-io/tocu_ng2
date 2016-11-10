@@ -1,6 +1,6 @@
 import {
   Component, OnInit,
-  Input, OnDestroy, Renderer
+  Input, OnDestroy
 } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
@@ -49,11 +49,9 @@ export class TiSpriteComponent implements OnInit, OnDestroy {
 
   st$: Observable<number>;
   destroy: Subject<any> = new Subject();
-  public bpos: number = 1;
+  bpos: number = 1;
 
-  public a: number;
-
-  constructor(private render: Renderer) { }
+  constructor() { }
 
   ngOnInit() {
     this.st$ = steper$(this.steps);
@@ -67,13 +65,11 @@ export class TiSpriteComponent implements OnInit, OnDestroy {
     this.st$
       .takeUntil(this.destroy)
       .subscribe((a) => {
-        console.log('value', a);
         this.bpos = -((a - 1) * this.width);
       });
   }
 
   ngOnDestroy() {
-    console.log('Should destroy');
     this.destroy.next();
   }
 
