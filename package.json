@@ -4,19 +4,20 @@
   "license": "MIT",
   "angular-cli": {},
   "scripts": {
-    "sass": "node-sass src -o src --include-path node_modules --output-style compressed -q"
+    "sass": "node-sass src -o src --include-path node_modules --output-style compressed -q",
+    "ng": "ng"
   },
   "private": true,
   "dependencies": {
-    "@angular/common": "^2.1.1",
-    "@angular/compiler": "^2.1.1",
-    "@angular/compiler-cli": "^2.1.2",
-    "@angular/core": "^2.1.1",
-    "@angular/forms": "^2.1.1",
-    "@angular/http": "^2.1.1",
-    "@angular/platform-browser": "^2.1.1",
-    "@angular/platform-browser-dynamic": "^2.1.1",
-    "@angular/router": "^3.1.1",
+    "@angular/common": "^2.2.0",
+    "@angular/compiler": "^2.2.0",
+    "@angular/compiler-cli": "^2.2.0",
+    "@angular/core": "^2.2.0",
+    "@angular/forms": "^2.2.0",
+    "@angular/http": "^2.2.0",
+    "@angular/platform-browser": "^2.2.0",
+    "@angular/platform-browser-dynamic": "^2.2.0",
+    "@angular/router": "^3.2.0",
     "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.9",
     "@ngrx/core": "^1.2.0",
     "@ngrx/effects": "^2.0.0",
@@ -41,9 +42,9 @@
     "zone.js": "^0.6.25"
   },
   "devDependencies": {
-    "@angular/compiler-cli": "^2.1.2",
+    "@angular/compiler-cli": "^2.2.0",
     "@types/jasmine": "^2.5.36",
-    "angular-cli": "1.0.0-beta.18",
+    "angular-cli": "1.0.0-beta.19-3",
     "codelyzer": "^1.0.0-beta.2",
     "concurrently": "^2.2.0",
     "firebase-tools": "3.0.7",

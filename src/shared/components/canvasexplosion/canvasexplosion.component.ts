@@ -42,19 +42,18 @@ export class TiCanvasExplosionComponent extends PixiBase implements OnInit, OnDe
 
   pixiReady() {
 
-    Observable.interval(20)
-      .takeUntil(this.dest$)
-      .subscribe(this.sub$);
+    this.ngZone.runOutsideAngular(() => {
+      Observable.interval(20)
+        .takeUntil(this.dest$)
+        .subscribe(this.sub$);
+      Observable.interval(300)
+        .take(5)
+        .takeUntil(this.dest$)
+        .subscribe(() => {
+            this.addBalls();
+        });
+    });
 
-    Observable.interval(300)
-      .take(5)
-      .takeUntil(this.dest$)
-      .subscribe(() => {
-        this.ngZone.runOutsideAngular(() => {
-          // this.draw();
-          this.addBalls();
-         });
-      });
   }
 
   addBalls() {
@@ -82,7 +81,7 @@ export class TiCanvasExplosionComponent extends PixiBase implements OnInit, OnDe
   }
 
   onDestroy() {
-    console.log('on destroy');
+    // console.log('on destroy');
     this.dest$.next(true);
     this.stage.destroy();
     // this.ngOnDestroy();
