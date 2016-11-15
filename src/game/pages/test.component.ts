@@ -4,12 +4,22 @@ import { Component } from '@angular/core';
   selector: 'app-test',
   template:  `
     <button (click)="toggle=!toggle">TOGGLE</button><br/>
-    <app-ti-sprite *ngIf="toggle" [steps]="
-      [[1,3000], [2,100], [1,100], [3,100], [1,100], [3,100]]"
-      width="100" height="100"
-      sprite="/assets/img/tocu_anim.png" >
-    </app-ti-sprite>
+    <ti-canvasexplosion
+      *ngIf="toggle"></ti-canvasexplosion>
+    `,
+  styles: [
     `
+    button { position: absolute; z-index:100; }
+    ti-canvasexplosion {
+      box-sizing: border-box;
+      top: 0px;
+      left: 0px;
+      position: absolute;
+      width: 99%;
+      height: 99%;
+      border: 1px solid black;
+    }`
+  ]
 
 })
 export class TestComponent {

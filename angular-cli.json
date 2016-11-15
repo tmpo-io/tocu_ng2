@@ -22,7 +22,8 @@
       ],
       "scripts": [
         "../node_modules/web-animations-js/web-animations.min.js",
-        "../node_modules/howler/dist/howler.min.js"
+        "../node_modules/howler/dist/howler.min.js",
+        "../node_modules/pixi.js/bin/pixi.js"
       ],
       "environments": {
         "source": "environments/environment.ts",

@@ -16,6 +16,8 @@ ISSUES:
 
 
 
+
+
 [] Vols afegir la aparaula, ha d'apareixer des de dues lletres.
    (Si ja estan carregats no cal tornar a carregar-los).
 [] Que passa quan intentes pujar una imatge jpg.
@@ -30,3 +32,6 @@ ISSUES:
 
 
 [] Fer joc d'escriure lletres i números.
+   
+   Ideees canvas rendering
+   https://github.com/teropa/in-c/blob/master/src/app/ui/sound-vis.component.ts

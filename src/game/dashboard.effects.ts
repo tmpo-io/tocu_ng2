@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Actions, Effect } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
+import { Store, Action } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import { AngularFire,
@@ -55,7 +55,7 @@ export class DashboardEffects {
 
 
   @Effect()
-  updateDashboard$() {
+  updateDashboard$(): Observable<Action> {
     return this.a$
       .ofType(DashboardActions.DASH_UPDATE)
       .delay(500)

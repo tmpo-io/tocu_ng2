@@ -1,5 +1,6 @@
 {
   "globalDependencies": {
-    "howler": "registry:dt/howler#1.1.29+20160724070810"
+    "howler": "registry:dt/howler#1.1.29+20160724070810",
+    "pixi.js": "github:pixijs/pixi-typescript/pixi.js.d.ts#v4.1.1"
   }
 }

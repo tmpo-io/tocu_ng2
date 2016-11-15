@@ -11,6 +11,8 @@ import { StarComponent } from './components/stars/stars.component';
 import { TiDialogComponent } from './components/dialog/dialog.component';
 import { TimerComponent } from './components/timer/timer.component';
 import { TiSpriteComponent } from './components/sprite/sprite.component';
+import { TiCanvasExplosionComponent } from
+  './components/canvasexplosion/canvasexplosion.component';
 
 
 @NgModule({
@@ -24,7 +26,8 @@ import { TiSpriteComponent } from './components/sprite/sprite.component';
     StarComponent,
     TiDialogComponent,
     TimerComponent,
-    TiSpriteComponent
+    TiSpriteComponent,
+    TiCanvasExplosionComponent
   ],
   declarations: [
     TiPreloadComponent,
@@ -35,7 +38,8 @@ import { TiSpriteComponent } from './components/sprite/sprite.component';
     StarComponent,
     TiDialogComponent,
     TimerComponent,
-    TiSpriteComponent
+    TiSpriteComponent,
+    TiCanvasExplosionComponent
   ],
   providers: [],
 })

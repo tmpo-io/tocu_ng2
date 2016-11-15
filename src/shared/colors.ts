@@ -20,13 +20,20 @@ let colors = {
 }
 
 
-export function getColor(name:string):string {
+export function getColor(name: string): string {
   return colors[name];
 }
 
-export function getRandomColor():string {
+export function getRandomColor(): string {
   const keys = Object.keys(colors);
   let index = keys[Math.floor(keys.length * Math.random())];
   return colors[index];
 }
 
+export function toColor(s: string): number {
+  return parseInt(s.replace('#', '0x'), 16);
+}
+
+export function getRandomIntColor(): number {
+  return toColor(getRandomColor());
+}

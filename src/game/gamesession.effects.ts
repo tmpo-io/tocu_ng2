@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 
+import { Action } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 import { AngularFire } from 'angularfire2';
+
 
 import { GSActions } from './gamesession.actions';
 
@@ -14,7 +16,8 @@ export class GSEffects {
   constructor(private action$: Actions, private af: AngularFire) {}
 
   @Effect()
-  loadGames$ = this.action$
+  loadGames$(): Observable<Action> {
+    return this.action$
     .ofType(GSActions.LOAD_GAMES)
     .switchMap(ac => {
       return this.af.database
@@ -25,7 +28,7 @@ export class GSEffects {
             (err) => Observable.of(GSActions.loadKo(err))
           );
     });
-
+  }
 
 }
 
