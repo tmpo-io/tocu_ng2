@@ -9,3 +9,7 @@ export interface Point {
 
 export type Part = Point[];
 export type Lletra = Part[];
+
+export type LLetraSerial = number[][];
+
+

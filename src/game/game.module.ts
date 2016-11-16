@@ -42,6 +42,10 @@ import {
 } from './lletres/lletres.component';
 
 import {
+  LletresEditorComponent
+} from './lletres/lletreseditor.component';
+
+import {
   WordsService,
   SoundFXService,
   ImageLoader } from './services';
@@ -124,7 +128,8 @@ const routes: Routes = [
     UserDashComponent,
     TestComponent,
     UserDashboardComponent,
-    LletresComponent
+    LletresComponent,
+    LletresEditorComponent,
   ],
   exports: [
     GameComponent

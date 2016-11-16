@@ -16,7 +16,8 @@ export class Ball extends Pixi.Graphics {
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
   public speed: number;
-  public seed: Number;
+  public seed: number;
+  public index: number;
 
   constructor(radius: number, color: any) {
     super();

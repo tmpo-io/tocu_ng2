@@ -43,9 +43,11 @@ export class Punt extends Pixi.Graphics {
     this.x = p.x;
     this.y = p.y;
     this.interactive = true;
+  }
+
+  init() {
     this.draw();
     this.animIn$();
-
 
     this.changes$
       .subscribe((s: Pstate) => {
@@ -54,7 +56,6 @@ export class Punt extends Pixi.Graphics {
           this.blink$();
         }
       });
-
   }
 
 

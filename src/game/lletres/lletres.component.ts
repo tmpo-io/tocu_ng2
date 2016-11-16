@@ -1,6 +1,6 @@
 import {
   Component, ElementRef, NgZone,
-  OnInit, OnDestroy, Input
+  OnInit, OnDestroy, Input, OnChanges
 } from '@angular/core';
 
 import * as Pixi from 'pixi.js';
@@ -11,13 +11,19 @@ import { PixiBase } from '../../shared/pixi/base';
 import { Punt } from './punt';
 import { Segment } from './segment';
 
-import { Lletra, Part, Point } from './lletres.state';
+import { Lletra, Point } from './lletres.state';
+
+
+// export function buildPositions(a: any) {
+
+// }
 
 @Component({
   selector: 'app-lletres',
   template: ''
 })
-export class LletresComponent extends PixiBase implements OnInit, OnDestroy {
+export class LletresComponent extends PixiBase
+  implements OnInit, OnDestroy, OnChanges {
 
   @Input() lletra: Lletra = [
     [{ x: 100, y: 200 },
@@ -26,6 +32,10 @@ export class LletresComponent extends PixiBase implements OnInit, OnDestroy {
     [{ x: 200, y: 450 },
     { x: 400, y: 350 }]
   ];
+
+  // lletraA = [[73, 4, 79], [38, 42]];
+  @Input()
+  lletraA = [[73, 1, 22, 31, 37, 49, 58, 72]];
 
   private puntsClip = <Punt[]>[];
   private segments = <Segment[]>[];
@@ -48,8 +58,11 @@ export class LletresComponent extends PixiBase implements OnInit, OnDestroy {
   }
 
   addPoints(part: number) {
+    let radius = this.width / 30;
     for (let i = 0; i < this.lletra[part].length; i++) {
       let p = new Punt(this.lletra[part][i], i);
+      p.radius = radius;
+      p.init();
       this.puntsClip.push(p);
       this.stage.addChild(p);
     }
@@ -134,17 +147,28 @@ export class LletresComponent extends PixiBase implements OnInit, OnDestroy {
     return this.puntsClip[this.current];
   }
 
+  ngOnChanges(v) {
+    console.log('changed', v);
+    this.puntsClip = [];
+    if (this.stage) {
+      this.stage.removeChildren();
+    }
+    this.pixiReady();
+  }
+
   pixiReady() {
+    if (this.lletraA) {
+      this.lletra = this.toCoords(this.lletraA);
+      this.stage.interactive = true;
+      this.addPoints(this.currentPart);
+      this.setActive();
 
-    this.stage.interactive = true;
-    this.addPoints(this.currentPart);
-    this.setActive();
-
-    this.stage.on('mouseup', this.mouseUp.bind(this));
-    this.stage.on('mouseupoutside', this.mouseUp.bind(this));
-    this.stage.on('mousemove', this.mouseMove.bind(this));
-    this.stage.on('touchmove', this.mouseMove.bind(this));
-    this.stage.addChildAt(this.line, 0);
+      this.stage.on('mouseup', this.mouseUp.bind(this));
+      this.stage.on('mouseupoutside', this.mouseUp.bind(this));
+      this.stage.on('mousemove', this.mouseMove.bind(this));
+      this.stage.on('touchmove', this.mouseMove.bind(this));
+      this.stage.addChildAt(this.line, 0);
+    }
   }
 
   getRenderOptions(): Pixi.IRendererOptions {
@@ -154,5 +178,31 @@ export class LletresComponent extends PixiBase implements OnInit, OnDestroy {
       antialias: true
     };
   }
+
+  // lletraA = [[73, 4, 79], [38, 42]];
+  private toCoords(a: number[][]): Lletra {
+    let w = (this.width - 120) / 9;
+    let h = (this.height - 120) / 9;
+    const ix = 60;
+    const iy = 30;
+
+    let l: Lletra = [];
+    a.forEach((part) => {
+      let p: Point[] = [];
+      part.forEach((punt) => {
+        let col = Math.ceil(punt / 9);
+        let row = punt % 9;
+        // console.log(row, col, w, h);
+        p.push({
+          x: ix + (w * row),
+          y: iy + (h * col)
+        });
+      });
+      l.push(p);
+    });
+    // console.log(l);
+    return l;
+  }
+
 
 }
