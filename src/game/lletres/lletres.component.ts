@@ -11,7 +11,7 @@ import { PixiBase } from '../../shared/pixi/base';
 import { Punt } from './punt';
 import { Segment } from './segment';
 
-import { Point } from './lletres.state';
+import { Lletra, Part, Point } from './lletres.state';
 
 @Component({
   selector: 'app-lletres',
@@ -19,12 +19,12 @@ import { Point } from './lletres.state';
 })
 export class LletresComponent extends PixiBase implements OnInit, OnDestroy {
 
-  @Input() punts: Point[] = [
-    { x: 100, y: 200 },
+  @Input() lletra: Lletra = [
+    [{ x: 100, y: 200 },
     { x: 300, y: 300 },
-    { x: 400, y: 500 },
-    { x: 600, y: 50 },
-    { x: 600, y: 800 }
+    { x: 400, y: 500 }],
+    [{ x: 200, y: 450 },
+    { x: 400, y: 350 }]
   ];
 
   private puntsClip = <Punt[]>[];
@@ -33,6 +33,7 @@ export class LletresComponent extends PixiBase implements OnInit, OnDestroy {
 
   current = 0;
   dragging = false;
+  currentPart = 0;
 
   constructor(ngZone: NgZone, el: ElementRef) {
     super(ngZone, el);
@@ -46,10 +47,11 @@ export class LletresComponent extends PixiBase implements OnInit, OnDestroy {
     super.ngOnDestroy();
   }
 
-  addPoints() {
-    for (let i = 0; i < this.punts.length; i++) {
-      this.puntsClip[i] = new Punt(this.punts[i], i);
-      this.stage.addChild(this.puntsClip[i]);
+  addPoints(part: number) {
+    for (let i = 0; i < this.lletra[part].length; i++) {
+      let p = new Punt(this.lletra[part][i], i);
+      this.puntsClip.push(p);
+      this.stage.addChild(p);
     }
   }
 
@@ -86,10 +88,18 @@ export class LletresComponent extends PixiBase implements OnInit, OnDestroy {
     this.curr.removeListener('touchstart', this.mouseDown.bind(this));
     this.curr.interactive = false;
     this.current++;
-    if (this.current === this.punts.length - 1) {
-      console.log('wins');
+    if (this.current === this.puntsClip.length - 1) {
+      // console.log('wins');
       this.dragging = false;
       this.curr.setState('current');
+      if (this.hasNextPart) {
+        this.currentPart++;
+        this.addPoints(this.currentPart);
+        this.current++;
+        this.setActive();
+        return;
+      }
+      console.log('You win');
       return;
     }
     this.setActive();
@@ -98,7 +108,7 @@ export class LletresComponent extends PixiBase implements OnInit, OnDestroy {
 
   mouseMove(ev) {
     if (this.dragging) {
-      console.log('dragging');
+      // console.log('dragging');
       this.line.clear();
       this.line.lineStyle(10);
       this.line.moveTo(this.curr.x, this.curr.y);
@@ -112,6 +122,10 @@ export class LletresComponent extends PixiBase implements OnInit, OnDestroy {
     }
   }
 
+  get hasNextPart(): boolean {
+    return (this.currentPart + 1 < this.lletra.length);
+  }
+
   get next(): Punt {
     return this.puntsClip[this.current + 1];
   }
@@ -123,7 +137,7 @@ export class LletresComponent extends PixiBase implements OnInit, OnDestroy {
   pixiReady() {
 
     this.stage.interactive = true;
-    this.addPoints();
+    this.addPoints(this.currentPart);
     this.setActive();
 
     this.stage.on('mouseup', this.mouseUp.bind(this));
