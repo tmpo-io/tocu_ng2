@@ -38,9 +38,15 @@ import {
 } from './mixed';
 
 import {
+  LletresComponent
+} from './lletres/lletres.component';
+
+import {
   WordsService,
   SoundFXService,
   ImageLoader } from './services';
+
+
 
 import { DashboardEffects } from './dashboard.effects';
 import { GSEffects } from './gamesession.effects';
@@ -117,7 +123,8 @@ const routes: Routes = [
     MixedWordComponent,
     UserDashComponent,
     TestComponent,
-    UserDashboardComponent
+    UserDashboardComponent,
+    LletresComponent
   ],
   exports: [
     GameComponent

@@ -46,7 +46,7 @@ export class PixiBase implements OnInit, OnDestroy {
     let opts = Object.assign({}, this.getRenderOptions(), {
       view: this.canvas
     });
-    this.render = Pixi.autoDetectRenderer(this.width, this.height, opts);
+    this.render = new Pixi.CanvasRenderer(this.width, this.height, opts);
     this.el.nativeElement.appendChild(this.render.view);
     this.stage = new Pixi.Container();
     this.pixiReady();
@@ -110,8 +110,10 @@ export class PixiBase implements OnInit, OnDestroy {
       return;
     }
     // console.log('rendering');
-    this.render.render(this.stage);
-    requestAnimationFrame(() => this.draw());
+    this.ngZone.runOutsideAngular(() => {
+      this.render.render(this.stage);
+      requestAnimationFrame(() => this.draw());
+    });
   }
 
 

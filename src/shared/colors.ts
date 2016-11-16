@@ -24,6 +24,10 @@ export function getColor(name: string): string {
   return colors[name];
 }
 
+export function getColorNum(name: string): number {
+  return toColor(getColor(name));
+}
+
 export function getRandomColor(): string {
   const keys = Object.keys(colors);
   let index = keys[Math.floor(keys.length * Math.random())];
