@@ -33,6 +33,7 @@ export class Punt extends Pixi.Graphics {
   radius: number = 30;
   index: number = 0;
 
+  animateIntro = true;
   changes$: Subject<Pstate> = new Subject<Pstate>();
   animator$: Observable<number>;
 
@@ -47,7 +48,9 @@ export class Punt extends Pixi.Graphics {
 
   init() {
     this.draw();
-    this.animIn$();
+    if (this.animateIntro) {
+      this.animIn$();
+    }
 
     this.changes$
       .subscribe((s: Pstate) => {
@@ -77,10 +80,11 @@ export class Punt extends Pixi.Graphics {
   }
 
   blink$() {
+    let sc = this.scale.x + 0.1;
     Observable.interval(50)
       .takeUntil(this.changes$)
       .subscribe((i) => {
-        let s = this.scale.x + Math.sin(i) * 0.1;
+        let s = sc + (Math.sin(i / 2) * 0.08);
         this.scale = new Pixi.Point(s, s);
       }, null, () => {
         this.scale = new Pixi.Point(1, 1);

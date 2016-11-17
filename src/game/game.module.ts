@@ -58,7 +58,9 @@ import { GSEffects } from './gamesession.effects';
 import { ViewGameGuard } from './guards/viewgame.guard';
 import { AuthGuard, AuthService } from '../auth';
 
-import { UserDashComponent, TestComponent } from './pages';
+import { UserDashComponent,
+  CharEditorComponent,
+  TestComponent } from './pages';
 
 import { BoardExistsGuard } from './guards/boardexists.guard';
 
@@ -97,6 +99,10 @@ const routes: Routes = [
     path: 'test',
     component: TestComponent
   },
+  {
+    path: 'char/editor',
+    component: CharEditorComponent
+  }
 ];
 
 @NgModule({
@@ -127,6 +133,7 @@ const routes: Routes = [
     MixedWordComponent,
     UserDashComponent,
     TestComponent,
+    CharEditorComponent,
     UserDashboardComponent,
     LletresComponent,
     LletresEditorComponent,

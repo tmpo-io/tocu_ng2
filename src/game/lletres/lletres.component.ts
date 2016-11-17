@@ -58,10 +58,13 @@ export class LletresComponent extends PixiBase
   }
 
   addPoints(part: number) {
-    let radius = this.width / 30;
+    let radius = this.width / 25;
     for (let i = 0; i < this.lletra[part].length; i++) {
       let p = new Punt(this.lletra[part][i], i);
       p.radius = radius;
+      if (i === 0) {
+        p.animateIntro = false;
+      }
       p.init();
       this.puntsClip.push(p);
       this.stage.addChild(p);
@@ -148,7 +151,7 @@ export class LletresComponent extends PixiBase
   }
 
   ngOnChanges(v) {
-    console.log('changed', v);
+    // console.log('changed', v);
     this.puntsClip = [];
     if (this.stage) {
       this.stage.removeChildren();
@@ -165,6 +168,8 @@ export class LletresComponent extends PixiBase
 
       this.stage.on('mouseup', this.mouseUp.bind(this));
       this.stage.on('mouseupoutside', this.mouseUp.bind(this));
+      this.stage.on('touchend', this.mouseUp.bind(this));
+      this.stage.on('touchendoutside', this.mouseUp.bind(this));
       this.stage.on('mousemove', this.mouseMove.bind(this));
       this.stage.on('touchmove', this.mouseMove.bind(this));
       this.stage.addChildAt(this.line, 0);
@@ -181,7 +186,7 @@ export class LletresComponent extends PixiBase
 
   // lletraA = [[73, 4, 79], [38, 42]];
   private toCoords(a: number[][]): Lletra {
-    let w = (this.width - 120) / 9;
+    let w = (this.width - 120) / 8;
     let h = (this.height - 120) / 9;
     const ix = 60;
     const iy = 30;
