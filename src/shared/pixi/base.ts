@@ -9,7 +9,9 @@ import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/takeUntil';
 
-import * as Pixi from 'pixi.js';
+// import * as Pixi from 'pixi.js';
+import { CanvasRenderer,
+    Container, IRendererOptions } from 'pixi.js';
 
 export class PixiBase implements OnInit, OnDestroy {
 
@@ -19,7 +21,7 @@ export class PixiBase implements OnInit, OnDestroy {
   public canvas: any;
   public render: any;
   public active: boolean = true;
-  public stage: Pixi.Container;
+  public stage: Container;
 
   public shouldResize: boolean = true;
 
@@ -40,9 +42,9 @@ export class PixiBase implements OnInit, OnDestroy {
     let opts = Object.assign({}, this.getRenderOptions(), {
       view: this.canvas
     });
-    this.render = Pixi.autoDetectRenderer(this.width, this.height, opts);
+    this.render = new CanvasRenderer(this.width, this.height, opts);
     this.el.nativeElement.appendChild(this.render.view);
-    this.stage = new Pixi.Container();
+    this.stage = new Container();
     this.pixiReady();
     this.ngZone.runOutsideAngular(() => {
       this.draw();
@@ -50,7 +52,7 @@ export class PixiBase implements OnInit, OnDestroy {
 
   }
 
-  getRenderOptions(): Pixi.IRendererOptions {
+  getRenderOptions(): IRendererOptions {
     return {
       transparent: true,
       autoResize: true,

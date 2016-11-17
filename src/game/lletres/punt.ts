@@ -7,11 +7,13 @@ import 'rxjs/add/operator/takeUntil';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/take';
 
+import { Graphics } from 'pixi.js';
+import { Point } from 'pixi.js';
 
-import * as Pixi from 'pixi.js';
+// import * as Pixi from 'pixi.js';
 import { getColorNum } from '../../shared/colors';
 
-import { Point } from './lletres.state';
+import { IPoint } from './lletres.state';
 
 export type Pstate = 'waiting' | 'current'
   | 'next' | 'completed' | 'error';
@@ -26,7 +28,7 @@ let colorStates = {
 };
 
 
-export class Punt extends Pixi.Graphics {
+export class Punt extends Graphics {
 
   state: Pstate = 'waiting';
   // color: number;
@@ -38,7 +40,7 @@ export class Punt extends Pixi.Graphics {
   animator$: Observable<number>;
 
 
-  constructor(p: Point, index?: number) {
+  constructor(p: IPoint, index?: number) {
     super();
     this.index = index;
     this.x = p.x;
@@ -85,25 +87,25 @@ export class Punt extends Pixi.Graphics {
       .takeUntil(this.changes$)
       .subscribe((i) => {
         let s = sc + (Math.sin(i / 2) * 0.08);
-        this.scale = new Pixi.Point(s, s);
+        this.scale = new Point(s, s);
       }, null, () => {
-        this.scale = new Pixi.Point(1, 1);
+        this.scale = new Point(1, 1);
       });
   }
 
   animIn$() {
-    this.scale = new Pixi.Point(0, 0);
+    this.scale = new Point(0, 0);
     Observable.interval(50)
       .delay(this.index * 100)
       .take(10)
       .subscribe((i) => {
         let s = 0.1 * i;
-        this.scale = new Pixi.Point(s, s);
+        this.scale = new Point(s, s);
       });
   }
 
-  get point(): Pixi.Point {
-    return new Pixi.Point(this.x, this.y);
+  get point(): Point {
+    return new Point(this.x, this.y);
   }
 
 }

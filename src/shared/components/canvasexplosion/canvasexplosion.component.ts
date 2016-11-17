@@ -8,8 +8,7 @@ import {
 // import * as Pixi from 'pixi.js';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
-import * as Pixi from 'pixi.js';
-
+import { Point  } from 'pixi.js';
 
 import { getRandomIntColor } from '../../colors';
 import { PixiBase } from '../../pixi/base';
@@ -70,7 +69,7 @@ export class TiCanvasExplosionComponent extends PixiBase implements OnInit, OnDe
     for (let i = 0; i < 30; i++) {
       let b = new Ball(10, getRandomIntColor());
       let s = 1 + (Math.random() * 2);
-      b.scale = new Pixi.Point(s, s);
+      b.scale = new Point(s, s);
       b.x = Math.random() * this.width;
       b.y = -50;
       // this.balls.push(b);

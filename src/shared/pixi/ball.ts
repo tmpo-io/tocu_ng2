@@ -4,15 +4,15 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
 
-import * as Pixi from 'pixi.js';
+import { Graphics }  from 'pixi.js';
 
 
 
 
-const SPEED = 25;
+// const SPEED = 25;
 
 
-export class Ball extends Pixi.Graphics {
+export class Ball extends Graphics {
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
   public speed: number;

@@ -1,13 +1,13 @@
 
 
-import * as Pixi from 'pixi.js';
+import { Graphics, Point } from 'pixi.js';
 import { getColorNum } from '../../shared/colors';
 
 
-export class Segment extends Pixi.Graphics {
+export class Segment extends Graphics {
 
 
-  constructor(public from: Pixi.Point, public to: Pixi.Point) {
+  constructor(public from: Point, public to: Point) {
     super();
     this.lineStyle(10, getColorNum('gris'));
     this.moveTo(from.x, from.y);

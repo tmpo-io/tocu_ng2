@@ -3,15 +3,14 @@ import {
   OnInit, OnDestroy, Input, OnChanges
 } from '@angular/core';
 
-import * as Pixi from 'pixi.js';
-
+import { Graphics, IRendererOptions, Point } from 'pixi.js';
 import { PixiBase } from '../../shared/pixi/base';
+
 
 // Pixi objects
 import { Punt } from './punt';
 import { Segment } from './segment';
-
-import { Lletra, Point } from './lletres.state';
+import { Lletra, IPoint } from './lletres.state';
 
 
 // export function buildPositions(a: any) {
@@ -39,7 +38,7 @@ export class LletresComponent extends PixiBase
 
   private puntsClip = <Punt[]>[];
   private segments = <Segment[]>[];
-  private line: Pixi.Graphics = new Pixi.Graphics();
+  private line: Graphics = new Graphics();
 
   current = 0;
   dragging = false;
@@ -129,7 +128,7 @@ export class LletresComponent extends PixiBase
       this.line.lineStyle(10);
       this.line.moveTo(this.curr.x, this.curr.y);
       this.line.lineTo(ev.data.global.x, ev.data.global.y);
-      let p = new Pixi.Point(ev.data.global.x, ev.data.global.y);
+      let p = new Point(ev.data.global.x, ev.data.global.y);
       if (this.next.containsPoint(p) === true) {
         this.dragging = false;
         this.line.clear();
@@ -176,7 +175,7 @@ export class LletresComponent extends PixiBase
     }
   }
 
-  getRenderOptions(): Pixi.IRendererOptions {
+  getRenderOptions(): IRendererOptions {
     return {
       transparent: true,
       autoResize: true,
@@ -193,7 +192,7 @@ export class LletresComponent extends PixiBase
 
     let l: Lletra = [];
     a.forEach((part) => {
-      let p: Point[] = [];
+      let p: IPoint[] = [];
       part.forEach((punt) => {
         let col = Math.ceil(punt / 9);
         let row = punt % 9;
