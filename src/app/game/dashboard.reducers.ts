@@ -11,7 +11,8 @@ import { Dashboard } from '../models/dashboard';
 export const initial: Dashboard = {
   messages: [],
   jocs: [],
-  loadData: 'notready'
+  loadData: 'notready',
+  isAdmin: false
 };
 
 

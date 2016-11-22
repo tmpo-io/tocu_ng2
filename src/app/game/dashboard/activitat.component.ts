@@ -14,7 +14,7 @@ import { Message } from '../../models/message';
 })
 export class ActivitatComponent {
 
-  constructor(public router: Router)  {}
+  constructor(public router: Router) { }
 
   @Input() dashboard: Dashboard = {};
   @Input() user: User = {};
@@ -34,5 +34,11 @@ export class ActivitatComponent {
     return false;
   }
 
+  getJocs() {
+    if (!this.dashboard.isAdmin) {
+      return this.dashboard.jocs.filter(k => k.published);
+    }
+    return this.dashboard.jocs;
+  }
 
 }

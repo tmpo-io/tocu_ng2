@@ -27,6 +27,7 @@ export interface Dashboard {
   updateBoardTask?: AsyncTask;
 
   loadData?: AsyncTask;
+  isAdmin?: boolean;
 
 }
 
