@@ -8,16 +8,16 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppComponent } from './app.component';
-import { AuthModule } from '../auth';
-import { CreatorModule } from '../creator';
-import { FirebaseModule } from '../firebase';
-import { GameModule } from '../game';
+import { AuthModule } from './auth';
+import { CreatorModule } from './creator';
+import { FirebaseModule } from './firebase';
+import { GameModule } from './game';
 
 
 // Reducers
-import { authReducer } from '../auth/reducers/login';
-import { dashboardReducer } from '../game/dashboard.reducers';
-import { gsReducer } from '../game/gamesession.reducers';
+import { authReducer } from './auth/reducers/login';
+import { dashboardReducer } from './game/dashboard.reducers';
+import { gsReducer } from './game/gamesession.reducers';
 
 @NgModule({
   declarations: [

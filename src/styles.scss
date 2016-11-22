@@ -9,7 +9,7 @@ progress,sub,sup{vertical-align:baseline}button,hr,input{overflow:visible}html{f
 $fa-font-path: '/assets/fonts';
 @import '../node_modules/font-awesome/scss/font-awesome';
 
-@import 'styles_shared';
+@import './app/styles_shared';
 
 $bgcolor: #999;
 $card_bg: #ccc;

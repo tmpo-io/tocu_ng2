@@ -3,7 +3,7 @@ import { Http, Response } from '@angular/http';
 
 import { Observable } from 'rxjs';
 
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 import * as firebase from 'firebase';
 import { AngularFire, AngularFireDatabase } from 'angularfire2';
