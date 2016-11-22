@@ -32,7 +32,9 @@
   flex-wrap: wrap;
   flex-direction: row;
 }
+
 .item {
+
   margin: 20px;
   position: relative;
   width: calc(33% - 40px);
@@ -40,6 +42,7 @@
   background: white;
   text-decoration: none;
   @include box_small($gris);
+
   span {
     display: block;
     padding-top: 80%;
@@ -62,6 +65,34 @@
     background: $ocre;
     @include box_small($ocre_fosc);
   }
+
+  &.disabled {
+    background-color: #eaeaea;
+  }
+
+  .toolbar {
+
+    padding: 5px;
+    padding-left: 10px;
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    background-color: $blau_fosc;
+
+    li {
+      display: inline-block;
+      color: #fff;
+      padding-right: 10px;
+    }
+
+    i {
+      font-size: 24px;
+    }
+
+  }
+
 }
 
 

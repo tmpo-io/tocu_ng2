@@ -6,7 +6,9 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { EffectsModule } from '@ngrx/effects';
 import { SharedModule } from '../shared/shared.module';
+
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 import { ActivitatComponent } from './dashboard/activitat.component';
@@ -113,6 +115,7 @@ const routes: Routes = [
     FormsModule,
     SharedModule,
     NgbAlertModule,
+    NgbTooltipModule,
     RouterModule.forChild(routes),
     EffectsModule.run(DashboardEffects),
     EffectsModule.run(GSEffects)

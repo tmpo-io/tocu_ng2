@@ -35,8 +35,8 @@ export class DashboardComponent {
         private router: Router) {
 
     this.state$ = this.store
-      .select('dashboard')
-      .let(getPublishedJocs());
+      .select('dashboard');
+      // .let(getPublishedJocs());
 
     this.user$ = this.store
       .select('auth').map(a => a['user']);

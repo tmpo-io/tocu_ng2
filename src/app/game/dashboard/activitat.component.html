@@ -27,6 +27,7 @@
 
 <div class="list" *ngIf="dashboard.loadData=='ready'">
   <a *ngFor="let item of dashboard.jocs" class="item"
+    [ngClass]="{'disabled': !item.published}"
     [routerLink]="['/play/', user.id, item.id]">
     <span>
       <h2>{{ item.label }}</h2>
@@ -34,7 +35,28 @@
       [ngStyle]="{'background-image': 'url(' + item.image +')'}">
       </div>
     </span>
+
+    <ul class="toolbar">
+      <li><i class="fa fa-pencil"
+        placement="top"
+        ngbTooltip="Editar"
+        (click)="navigate(['/creator/jocs/', item.id])"
+        ></i></li>
+        <!--
+        <li *ngIf="item.published">
+          <i
+          ngbTooltip="Desactiva"
+          class="fa fa-eye"></i></li>
+        <li *ngIf="!item.published">
+          <i class="fa fa-eye-slash"
+          ngbTooltip="Activa"
+          ></i></li>
+        -->
+    </ul>
+
   </a>
+
+
 </div>
 
 

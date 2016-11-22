@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
+import { Router } from '@angular/router';
 
 import { Dashboard } from '../../models/dashboard';
 import { User } from '../../models/user';
@@ -13,6 +14,8 @@ import { Message } from '../../models/message';
 })
 export class ActivitatComponent {
 
+  constructor(public router: Router)  {}
+
   @Input() dashboard: Dashboard = {};
   @Input() user: User = {};
 
@@ -24,5 +27,12 @@ export class ActivitatComponent {
 
   @Output()
   logout: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+
+  navigate(url) {
+    this.router.navigate(url);
+    return false;
+  }
+
 
 }

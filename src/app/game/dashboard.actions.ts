@@ -18,6 +18,8 @@ export class DashboardActions {
   static DASH_PUBLICNAME_OK = 'DASH_PUBLICNAME_OK';
   static DASH_PUBLICNAME_STORE = 'DASH_PUBLICNAME_STORE';
 
+  static CHANGE_PROFILE = '[Dash] Change profile';
+
 
   static checkSetup(): Action {
     return {
