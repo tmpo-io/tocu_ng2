@@ -29,10 +29,10 @@ export default {
       namedExports: {
         'node_modules/firebase/firebase.js': ['initializeApp', 'auth', 'database'],
         'node_modules/firebase/firebase-browser.js': ['initializeApp', 'auth', 'database'],
-        'node_modules/pixi.js/lib/index.js': ['Point',
-          'CanvasRenderer', 'Container', 'Graphics']
+        'node_modules/pixi.js/node_modules/pixi-gl-core/src/index.js': [
+          'GLFramebuffer', 'GLShader', 'GLTexture']
       }
     }),
-    // uglify()
+    uglify()
   ]
 }

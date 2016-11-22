@@ -26,7 +26,7 @@ export class UserDashComponent {
         if (g.loadJocs === 'notready') {
           store$.dispatch(GSActions.load(g.userID));
         }
-        let games = g.jocs.filter(g => g.published)
+        let games = g.jocs.filter(g => g.published);
         return Object.assign({}, g, {jocs:games});
       });
 

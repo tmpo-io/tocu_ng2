@@ -17,7 +17,6 @@ import { LLetraSerial } from './lletres.state';
   selector: 'app-lletres-editor',
   template: `
     <button (click)="output()">Output</button>
-    <div>{{ onLLetres | async | json }}</div>
     `,
   styles: [
     `button, div { position: absolute; bottom: 5px; }
