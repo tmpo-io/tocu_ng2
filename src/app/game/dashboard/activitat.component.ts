@@ -1,10 +1,12 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, OnChanges, EventEmitter } from '@angular/core';
 
 import { Router } from '@angular/router';
 
 import { Dashboard } from '../../models/dashboard';
 import { User } from '../../models/user';
 import { Message } from '../../models/message';
+
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -14,10 +16,12 @@ import { Message } from '../../models/message';
 })
 export class ActivitatComponent {
 
-  constructor(public router: Router) { }
+  constructor(
+    public router: Router,
+    private modal: NgbModal) { }
 
-  @Input() dashboard: Dashboard = {};
-  @Input() user: User = {};
+  @Input() dashboard: Dashboard;
+  @Input() user: User;
 
   @Output()
   dashClick: EventEmitter<any> = new EventEmitter();
@@ -28,17 +32,32 @@ export class ActivitatComponent {
   @Output()
   logout: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+  @Output()
+  changeUser: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   navigate(url) {
     this.router.navigate(url);
     return false;
   }
 
+  // ngOnChanges(c) {
+    // console.log('canghes', c);
+  // }
+
   getJocs() {
     if (!this.dashboard.isAdmin) {
       return this.dashboard.jocs.filter(k => k.published);
     }
     return this.dashboard.jocs;
+  }
+
+  open(content) {
+    this.modal.open(content);
+  }
+
+  validLogin() {
+    console.log('valid login');
+    this.changeUser.next(true);
   }
 
 }

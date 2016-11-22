@@ -1,0 +1,17 @@
+
+
+<i class="fa fa-close" (click)="close()"></i>
+
+<div class="row">
+<div class="form-inline" >
+  <div class="form-group">
+  <h1>{{ op1 }} + {{ op2 }} = </h1>
+  <input type="number"
+    class="form-control" [(ngModel)]="res" />
+
+  <button class="btn btn-success"
+    (click)="validate()">ENTRAR</button>
+  </div>
+</div>
+</div>
+

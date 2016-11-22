@@ -1,9 +1,19 @@
+<template #content let-c="close" let-m="this">
+  <app-profilelogin
+    [close]="c"
+    (result)="validLogin()"></app-profilelogin>
+</template>
 
 <div class="header">
   <img src="/assets/img/tocu.svg" width="200" />
 
   <div class="right">
-  <a [routerLink]="['/creator/jocs']">
+  <a (click)="open(content)"
+     *ngIf="dashboard && !dashboard.isAdmin">
+    <i class="fa fa-bars"></i>
+  </a>
+  <a (click)="changeUser.next(true)"
+     *ngIf="dashboard && dashboard.isAdmin">
     <i class="fa fa-bars"></i>
   </a>
   <a (click)="logout.next(true)">
@@ -12,20 +22,22 @@
  </div>
 </div>
 
+
+
 <app-dash-messages
-  *ngIf="dashboard.loadData == 'ready'"
+  *ngIf="dashboard && dashboard.loadData == 'ready'"
   [messages]="dashboard.messages"
   (deleteMessage)="deleteMsg.next($event)">
 </app-dash-messages>
 
 
 <app-dash-welcome
-  *ngIf="!dashboard.setup && dashboard.setupTask == 'ready'"
+  *ngIf="dashboard && !dashboard.setup && dashboard.setupTask == 'ready'"
   [user]="user"
   [state]="dashboard"
   (subscribe)="dashClick.next()"></app-dash-welcome>
 
-<div class="list" *ngIf="dashboard.loadData=='ready'">
+<div class="list" *ngIf="dashboard && dashboard.loadData=='ready'">
   <a *ngFor="let item of getJocs()" class="item"
     [ngClass]="{'disabled': !item.published}"
     [routerLink]="['/play/', user.id, item.id]">
@@ -42,18 +54,18 @@
         ngbTooltip="Editar"
         (click)="navigate(['/creator/jocs/', item.id]);"
         ></i></li>
-        <!--
-        <li *ngIf="item.published">
-          <i
-          ngbTooltip="Desactiva"
-          class="fa fa-eye"></i></li>
-        <li *ngIf="!item.published">
-          <i class="fa fa-eye-slash"
-          ngbTooltip="Activa"
-          ></i></li>
-        -->
     </ul>
+  </a>
 
+  <a class="item add"
+    [routerLink]="['/creator/jocs/add']"
+    *ngIf="dashboard.isAdmin">
+    <span>
+      <h2>Afegir Nou Joc</h2>
+    </span>
+    <div>
+      <i class="fa fa-plus"> </i>
+    </div>
   </a>
 
 

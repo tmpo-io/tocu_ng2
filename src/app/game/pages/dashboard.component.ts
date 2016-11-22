@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
@@ -8,7 +8,6 @@ import { Dashboard } from '../../models/dashboard';
 import { User } from '../../models/user';
 import { Message } from '../../models/message';
 import { DashboardActions } from '../dashboard.actions';
-import { getPublishedJocs } from '../dashboard.reducers';
 import { AuthActions } from '../../auth/auth.actions';
 
 
@@ -20,12 +19,13 @@ import { AuthActions } from '../../auth/auth.actions';
     [user]="user$|async"
     (dashClick)="clickNext()"
     (deleteMsg)="deleteMessage($event)"
-    (logout)="logout($event)">
+    (logout)="logout($event)"
+    (changeUser)="changeUser()">
   <app-activitat>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
 
   public state$: Observable<Dashboard>;
   public user$: Observable<User>;
@@ -36,12 +36,22 @@ export class DashboardComponent {
 
     this.state$ = this.store
       .select('dashboard');
+      // .do((a) => console.log('state', a));
       // .let(getPublishedJocs());
 
     this.user$ = this.store
       .select('auth').map(a => a['user']);
+    // @TODO conditionaly apply
     this.store.dispatch(DashboardActions.checkSetup());
 
+  }
+
+  ngOnInit() {}
+
+  changeUser() {
+    this.store.dispatch(
+      DashboardActions.changeProfile()
+    );
   }
 
   clickNext() {

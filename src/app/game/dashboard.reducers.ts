@@ -1,7 +1,6 @@
 
 
 import { Action } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
 
 
 import { DashboardActions } from './dashboard.actions';
@@ -12,7 +11,7 @@ export const initial: Dashboard = {
   messages: [],
   jocs: [],
   loadData: 'notready',
-  isAdmin: false
+  isAdmin: true
 };
 
 
@@ -70,9 +69,12 @@ export function dashboardReducer(state = initial, action: Action): Dashboard {
       return Object.assign({}, state, {
         messages: messages
       });
-  default:
-    return state;
+    case DashboardActions.CHANGE_PROFILE:
+      return Object.assign({}, state, {
+        isAdmin: !state.isAdmin
+      });
   }
+  return state;
 }
 
 

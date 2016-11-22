@@ -20,7 +20,6 @@ export class DashboardActions {
 
   static CHANGE_PROFILE = '[Dash] Change profile';
 
-
   static checkSetup(): Action {
     return {
       type: DashboardActions.DASH_SETUP
@@ -42,6 +41,12 @@ export class DashboardActions {
         messages,
         publicName: name
       }
+    };
+  }
+
+  static changeProfile(): Action {
+    return {
+      type: DashboardActions.CHANGE_PROFILE
     };
   }
 

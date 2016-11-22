@@ -1,0 +1,27 @@
+
+@import '../../styles_shared';
+
+:host {
+  display: block;
+  background-color:#fff;
+  margin: 30%;
+  margin-top: 8%;
+  margin-bottom: 8%;
+  text-align: center;
+}
+
+.row {
+  text-align: center;
+}
+
+input {
+  margin-bottom: 10px;
+}
+
+i {
+  cursor: pointer;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 26px;
+}

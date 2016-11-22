@@ -9,12 +9,14 @@ import { SharedModule } from '../shared/shared.module';
 
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ActivitatComponent } from './dashboard/activitat.component';
 import { DashWelcomeComponent } from './dashboard/welcome.component';
 import { DashMessagesComponent } from './dashboard/messages.component';
 import { UserDashboardComponent } from './components/userdashboard.component';
+import { ProfileLoginComponent } from './components/profilelogin.component';
+
 
 import { GameComponent } from './shared/game/game.component';
 
@@ -116,6 +118,7 @@ const routes: Routes = [
     SharedModule,
     NgbAlertModule,
     NgbTooltipModule,
+    NgbModalModule,
     RouterModule.forChild(routes),
     EffectsModule.run(DashboardEffects),
     EffectsModule.run(GSEffects)
@@ -141,6 +144,7 @@ const routes: Routes = [
     UserDashboardComponent,
     LletresComponent,
     LletresEditorComponent,
+    ProfileLoginComponent
   ],
   exports: [
     GameComponent
