@@ -5,8 +5,10 @@ import { Router } from '@angular/router';
 import { Dashboard } from '../../models/dashboard';
 import { User } from '../../models/user';
 import { Message } from '../../models/message';
+import { Joc } from '../../models/joc';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 
 
 @Component({
@@ -41,10 +43,10 @@ export class ActivitatComponent {
   }
 
   // ngOnChanges(c) {
-    // console.log('canghes', c);
+  // console.log('canghes', c);
   // }
 
-  getJocs() {
+  getJocs(): Joc[] {
     if (!this.dashboard.isAdmin) {
       return this.dashboard.jocs.filter(k => k.published);
     }
