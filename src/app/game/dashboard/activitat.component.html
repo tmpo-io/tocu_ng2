@@ -31,6 +31,8 @@
 </app-dash-messages>
 
 
+<div *ngIf="dashboard">
+
 <app-dash-welcome
   *ngIf="dashboard && !dashboard.setup && dashboard.setupTask == 'ready'"
   [user]="user"
@@ -72,4 +74,12 @@
 </div>
 
 
+<div class="user-link" *ngIf="dashboard.loadData=='ready'" >
+  <h3 class="">Pots compartir els teus jocs a l'adreça:<br/>
+  <a [routerLink]="['/usuari/', dashboard.publicName]">
+    https://tocu.io/usuari/{{ dashboard.publicName }}</a>
+    </h3>
+</div>
 
+
+</div>
