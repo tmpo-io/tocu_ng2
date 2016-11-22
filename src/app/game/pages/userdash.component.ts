@@ -27,7 +27,7 @@ export class UserDashComponent {
           store$.dispatch(GSActions.load(g.userID));
         }
         let games = g.jocs.filter(g => g.published);
-        return Object.assign({}, g, {jocs:games});
+        return Object.assign({}, g, { jocs: games });
       });
 
   }

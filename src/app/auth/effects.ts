@@ -34,7 +34,12 @@ export class AuthEffects {
               AuthActions.actionLoginKo(err)));
       });
 
-
+  @Effect({dispatch: false})
+  logout$ = this.actions$
+    .ofType(AuthActions.LOGOUT)
+    .map((x) => {
+      this.af.auth.logout();
+    });
 
   @Effect()
   restore$ = this.actions$

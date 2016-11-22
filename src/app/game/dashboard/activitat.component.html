@@ -2,9 +2,14 @@
 <div class="header">
   <img src="/assets/img/tocu.svg" width="200" />
 
+  <div class="right">
   <a [routerLink]="['/creator/jocs']">
     <i class="fa fa-bars"></i>
   </a>
+  <a (click)="logout.next(true)">
+    <i class="fa fa-sign-out"></i>
+  </a>
+ </div>
 </div>
 
 <app-dash-messages

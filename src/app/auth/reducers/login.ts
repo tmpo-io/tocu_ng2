@@ -1,4 +1,3 @@
-
 import { Action } from '@ngrx/store';
 
 import { AuthActions } from '../auth.actions';
@@ -45,6 +44,13 @@ export function authReducer(state = initial, action: Action): Auth {
       return Object.assign({}, state, {
         hasTryRestore: true,
         isLogging: false
+      });
+    }
+    case AuthActions.LOGOUT: {
+      return Object.assign({}, state, {
+        hasTryRestore: true,
+        isLogged: false,
+        user: {}
       });
     }
 

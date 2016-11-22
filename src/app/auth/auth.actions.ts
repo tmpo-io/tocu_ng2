@@ -12,7 +12,7 @@ export class AuthActions {
   static AUTH_LOGINKO = 'AUTH_LOGINKO';
   static AUTH_LOGINRESTORE = 'AUTH_LOGINRESTORE';
   static AUTH_LOGINRESTOREKO = 'AUTH_LOGINRESTOREKO';
-
+  static LOGOUT = 'AUTH LOGOUT';
 
   static actionLoginOk(res: FirebaseAuthState): Action {
     return {
@@ -49,6 +49,12 @@ export class AuthActions {
   static actionLoginRestoreKo(): Action {
     return {
       type: AuthActions.AUTH_LOGINRESTOREKO
+    };
+  }
+
+  static logout(): Action {
+    return {
+      type: AuthActions.LOGOUT
     };
   }
 

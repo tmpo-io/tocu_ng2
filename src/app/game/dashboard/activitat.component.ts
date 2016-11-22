@@ -22,4 +22,7 @@ export class ActivitatComponent {
   @Output()
   deleteMsg: EventEmitter<Message> = new EventEmitter<Message>();
 
+  @Output()
+  logout: EventEmitter<boolean> = new EventEmitter<boolean>();
+
 }

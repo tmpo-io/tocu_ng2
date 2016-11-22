@@ -12,12 +12,16 @@
   padding-bottom: 30px;
   text-align: left;
 
-  a {
-    display: block;
+  .right {
     position: absolute;
-    color: $marro_fosc;
-    top: 30px;
     right: 30px;
+    top: 30px;
+  }
+
+  a {
+    margin-right: 20px;
+    display: inline-block;
+    color: $marro_fosc;
     font-size: 40px;
   }
 

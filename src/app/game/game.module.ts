@@ -11,7 +11,6 @@ import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ActivitatComponent } from './dashboard/activitat.component';
 import { DashWelcomeComponent } from './dashboard/welcome.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { DashMessagesComponent } from './dashboard/messages.component';
 import { UserDashboardComponent } from './components/userdashboard.component';
 
@@ -59,8 +58,10 @@ import { ViewGameGuard } from './guards/viewgame.guard';
 import { AuthGuard, AuthService } from '../auth';
 
 import { UserDashComponent,
+  DashboardComponent,
   CharEditorComponent,
-  TestComponent } from './pages';
+  TestComponent
+} from './pages';
 
 import { BoardExistsGuard } from './guards/boardexists.guard';
 
