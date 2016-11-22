@@ -28,7 +28,9 @@ export default {
       ],
       namedExports: {
         'node_modules/firebase/firebase.js': ['initializeApp', 'auth', 'database'],
-        'node_modules/firebase/firebase-browser.js': ['initializeApp', 'auth', 'database']
+        'node_modules/firebase/firebase-browser.js': ['initializeApp', 'auth', 'database'],
+        'node_modules/pixi.js/lib/index.js': ['Point',
+          'CanvasRenderer', 'Container', 'Graphics']
       }
     }),
     // uglify()
