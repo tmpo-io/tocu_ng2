@@ -11,7 +11,8 @@ export const initial: Dashboard = {
   messages: [],
   jocs: [],
   loadData: 'notready',
-  isAdmin: true
+  isAdmin: false,
+  setupTask: 'notready'
 };
 
 

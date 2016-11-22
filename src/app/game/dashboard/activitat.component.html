@@ -34,12 +34,12 @@
 <div *ngIf="dashboard">
 
 <app-dash-welcome
-  *ngIf="dashboard && !dashboard.setup && dashboard.setupTask == 'ready'"
+  *ngIf="!dashboard.setup && dashboard.setupTask == 'ready'"
   [user]="user"
   [state]="dashboard"
   (subscribe)="dashClick.next()"></app-dash-welcome>
 
-<div class="list" *ngIf="dashboard && dashboard.loadData=='ready'">
+<div class="list" *ngIf="dashboard.loadData=='ready'">
   <a *ngFor="let item of getJocs()" class="item"
     [ngClass]="{'disabled': !item.published}"
     [routerLink]="['/play/', user.id, item.id]">

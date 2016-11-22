@@ -32,21 +32,24 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private store: Store<Dashboard>,
-        private router: Router) {
+    private router: Router) {
 
-    this.state$ = this.store
-      .select('dashboard');
-      // .do((a) => console.log('state', a));
-      // .let(getPublishedJocs());
+    this.state$ = store
+      .select('dashboard')
+      .map((d: Dashboard) => {
+        if (d.setupTask !== 'ready'
+          && d.setupTask !== 'waiting') {
+          store.dispatch(DashboardActions.checkSetup());
+        }
+        return d;
+      });
 
     this.user$ = this.store
       .select('auth').map(a => a['user']);
-    // @TODO conditionaly apply
-    this.store.dispatch(DashboardActions.checkSetup());
 
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   changeUser() {
     this.store.dispatch(

@@ -77,8 +77,9 @@
     position: absolute;
     right: -3px;
     bottom: 0px;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
+    /*border-top-left-radius: 5px;*/
+    /*border-bottom-left-radius: 5px;*/
+    border-radius: 5px;
     background-color: $blau_fosc;
 
     li {
