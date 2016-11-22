@@ -9,15 +9,15 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/common": "^2.2.0",
-    "@angular/compiler": "^2.2.0",
-    "@angular/compiler-cli": "^2.2.0",
-    "@angular/core": "^2.2.0",
-    "@angular/forms": "^2.2.0",
-    "@angular/http": "^2.2.0",
-    "@angular/platform-browser": "^2.2.0",
-    "@angular/platform-browser-dynamic": "^2.2.0",
-    "@angular/router": "^3.2.0",
+    "@angular/common": "^2.2.1",
+    "@angular/compiler": "^2.2.1",
+    "@angular/compiler-cli": "^2.2.1",
+    "@angular/core": "^2.2.1",
+    "@angular/forms": "^2.2.1",
+    "@angular/http": "^2.2.1",
+    "@angular/platform-browser": "^2.2.1",
+    "@angular/platform-browser-dynamic": "^2.2.1",
+    "@angular/router": "^3.2.1",
     "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.9",
     "@ngrx/core": "^1.2.0",
     "@ngrx/effects": "^2.0.0",
@@ -44,7 +44,7 @@
   "devDependencies": {
     "@angular/compiler-cli": "^2.2.0",
     "@types/jasmine": "^2.5.36",
-    "angular-cli": "1.0.0-beta.19-3",
+    "angular-cli": "1.0.0-beta.20-4",
     "codelyzer": "^1.0.0-beta.2",
     "concurrently": "^2.2.0",
     "firebase-tools": "3.0.7",
@@ -64,6 +64,7 @@
     "rollup-plugin-uglify": "^1.0.1",
     "ts-node": "1.2.1",
     "tslint": "3.13.0",
-    "typescript": "2.0.3"
+    "typescript": "2.0.3",
+    "typings": "^2.0.0"
   }
 }
