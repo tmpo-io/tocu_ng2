@@ -62,22 +62,17 @@ export class DashboardComponent implements OnInit {
   }
 
   deleteMessage(msg: Message) {
-    // console.log("delete message", event);
     this.store.dispatch(
       DashboardActions.deleteMessage(msg)
     );
   }
 
   logout(res: boolean) {
-    // console.log('logout');
     this.store.dispatch(
       AuthActions.logout()
     );
     this.router.navigate(['/']);
   }
 
-  // launch() {
-  //   this.store.dispatch(DashboardActions.setPublicName());
-  // }
 
 }

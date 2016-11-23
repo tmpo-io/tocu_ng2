@@ -1,5 +1,7 @@
-import { Component, Output, OnInit, OnDestroy,
-    ViewChild, EventEmitter, NgZone } from '@angular/core';
+import {
+  Component, Output, OnInit, OnDestroy,
+  ViewChild, EventEmitter, NgZone
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
@@ -17,9 +19,10 @@ import 'rxjs/add/operator/delay';
 
 
 import {
-    AngularFire,
-    FirebaseObjectObservable,
-    FirebaseListObservable }
+  AngularFire,
+  FirebaseObjectObservable,
+  FirebaseListObservable
+}
   from 'angularfire2';
 import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 
@@ -28,7 +31,7 @@ import { JocDb } from '../../services';
 import { AuthService } from '../../../auth';
 import { ImageResult } from '../imagefield/interfaces';
 import { ImageFieldComponent } from '../imagefield/imagefield.component';
-import { validateJoc, audioForWord  } from './utils';
+import { validateJoc, audioForWord } from './utils';
 
 import { TJoc } from '../../../models/tjoc';
 import { Joc } from '../../../models/joc';
@@ -97,8 +100,8 @@ export class JocEditComponent implements OnInit, OnDestroy {
     private db: JocDb,
     private zone: NgZone,
     private store: Store<AppState>
-    ) {
-    }
+  ) {
+  }
 
   ngOnInit() {
     this.uid = this.auth.id;
@@ -106,10 +109,10 @@ export class JocEditComponent implements OnInit, OnDestroy {
       const p = params['id'];
       if (p === 'add') {
         this.joc = {
-           label: '',
-           words: []
-         };
-         this.ready = true;
+          label: '',
+          words: []
+        };
+        this.ready = true;
       } else {
         // @TODO convert to a route guard
         // Is edit.. load game instance
@@ -127,7 +130,7 @@ export class JocEditComponent implements OnInit, OnDestroy {
     });
     const path = `users/${this.auth.id}/words`
     this._paraules = this.af.database.list(path)
-    this.wsubs = this._paraules.subscribe(w=>{
+    this.wsubs = this._paraules.subscribe(w => {
       this.paraules = w;
     });
   }
@@ -136,7 +139,7 @@ export class JocEditComponent implements OnInit, OnDestroy {
     // console.log("1", Zone.current.name);
     this.joc$ = this.db.getJoc(this.jocID);
     this.subscription = this.joc$.subscribe(o => this.zone.run(() => {
-    // console.log("2", Zone.current.name);
+      // console.log("2", Zone.current.name);
       this.joc = clean(o);
       if (!this.joc.words) {
         this.joc.words = [];
@@ -160,10 +163,10 @@ export class JocEditComponent implements OnInit, OnDestroy {
         // pero eliminem les ja seleccionades
         let result = this.paraules.filter(
           v => new RegExp(term, 'gi').test(v.label)
-          ).filter(el => {
-            return (
-              this.joc.words.find(k => k.id === el.id) === undefined);
-          });
+        ).filter(el => {
+          return (
+            this.joc.words.find(k => k.id === el.id) === undefined);
+        });
         // If there are no results sure is not an added word..
         if (result.length === 0) {
           this.suggest = term;
@@ -178,9 +181,10 @@ export class JocEditComponent implements OnInit, OnDestroy {
     let res = confirm('Estàs segur que vols esborrar el joc?');
     if (res) {
       this.db.remove(this.joc).subscribe(() => {
-         this.router.navigate(['/creator/jocs']);
+        this.router.navigate(['/activitat']);
       });
     }
+    this.store.dispatch(CreatorActions.deleteJoc(this.joc));
   }
 
   wordFormater(result: Word): string {
@@ -189,7 +193,7 @@ export class JocEditComponent implements OnInit, OnDestroy {
 
   wordSelected(event: NgbTypeaheadSelectItemEvent) {
     this.selectedWord = '';
-    if(!this.joc.words) {
+    if (!this.joc.words) {
       this.joc.words = [];
     }
     this.modified = true;
@@ -199,7 +203,7 @@ export class JocEditComponent implements OnInit, OnDestroy {
 
   removeWord(w: Word) {
     this.modified = true;
-    this.joc.words = this.joc.words.filter(el => w.id!=el.id)
+    this.joc.words = this.joc.words.filter(el => w.id !== el.id);
   }
 
   imageSelected(event: ImageResult) {
@@ -227,7 +231,7 @@ export class JocEditComponent implements OnInit, OnDestroy {
         this.loading = false;
         this.modified = false;
         this.store.dispatch(DashboardActions.loadData());
-    });
+      });
   }
 
   ensureWordsHasAudios(): boolean {

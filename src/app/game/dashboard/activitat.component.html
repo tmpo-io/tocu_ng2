@@ -40,7 +40,7 @@
   (subscribe)="dashClick.next()"></app-dash-welcome>
 
 <div class="list" *ngIf="dashboard.loadData=='ready'">
-  <a *ngFor="let item of getJocs()" class="item"
+  <div *ngFor="let item of getJocs()" class="item"
     [ngClass]="{'disabled': !item.published}"
     [routerLink]="['/play/', user.id, item.id]">
     <span>
@@ -57,9 +57,9 @@
         (click)="navigate(['/creator/jocs/', item.id]);"
         ></i></li>
     </ul>
-  </a>
+  </div>
 
-  <a class="item add"
+  <div class="item add"
     [routerLink]="['/creator/jocs/add']"
     *ngIf="dashboard.isAdmin">
     <span>
@@ -68,7 +68,7 @@
     <div>
       <i class="fa fa-plus"> </i>
     </div>
-  </a>
+  </div>
 
 
 </div>

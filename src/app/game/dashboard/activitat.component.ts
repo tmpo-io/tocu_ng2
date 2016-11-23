@@ -1,4 +1,4 @@
-import { Component, Input, Output, OnChanges, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { Router } from '@angular/router';
 
@@ -42,10 +42,6 @@ export class ActivitatComponent {
     return false;
   }
 
-  // ngOnChanges(c) {
-  // console.log('canghes', c);
-  // }
-
   getJocs(): Joc[] {
     if (!this.dashboard.isAdmin) {
       return this.dashboard.jocs.filter(k => k.published);
@@ -58,7 +54,6 @@ export class ActivitatComponent {
   }
 
   validLogin() {
-    console.log('valid login');
     this.changeUser.next(true);
   }
 
