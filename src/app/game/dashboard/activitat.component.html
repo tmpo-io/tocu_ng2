@@ -49,12 +49,12 @@
       [ngStyle]="{'background-image': 'url(' + item.image +')'}">
       </div>
     </span>
-
+<!--(click)="navigate(['/creator/jocs/', item.id]);"-->
     <ul class="toolbar" *ngIf="dashboard.isAdmin">
       <li><i class="fa fa-pencil"
         placement="top"
         ngbTooltip="Editar"
-        (click)="navigate(['/creator/jocs/', item.id]);"
+        [routerLink]="['/creator/jocs/', item.id]"
         ></i></li>
     </ul>
   </div>
