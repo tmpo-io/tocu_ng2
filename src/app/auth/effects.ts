@@ -45,11 +45,11 @@ export class AuthEffects {
   restore$ = this.actions$
       .ofType(AuthActions.AUTH_LOGINRESTORE)
       .switchMap(action => {
-        console.log('Autenticating');
+        // console.log('Autenticating');
         return this.af.auth
           .take(1)
           .map(state => {
-            console.log('[Effect] login restore:', state);
+            // console.log('[Effect] login restore:', state);
             if (state) {
               // console.log("state")
               return AuthActions.actionLoginOk(state);
