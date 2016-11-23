@@ -5,6 +5,7 @@ import { Action } from '@ngrx/store';
 
 import { DashboardActions } from './dashboard.actions';
 import { Dashboard } from '../models/dashboard';
+import { Word } from '../models/word';
 
 import { creatorReducer } from '../creator/creator.reducers';
 
@@ -96,8 +97,28 @@ export function getPublishedJocs() {
   return $state =>
     $state.map((a: Dashboard) => {
       let jocs = a.jocs.filter(j => j.published);
-      return Object.assign({}, a, {jocs: jocs});
+      return Object.assign({}, a, { jocs: jocs });
     });
 };
 
 
+export function getDashboard(store) {
+  return state$ => state$
+    .map((d: Dashboard) => {
+      if (d.setupTask !== 'ready'
+        && d.setupTask !== 'waiting') {
+        store.dispatch(DashboardActions.checkSetup());
+      }
+      return d;
+    });
+};
+
+
+export function getWords() {
+  return state$ => state$
+    .map((d: Dashboard) => {
+      let words: Word[] = [];
+      d.jocs.forEach((j) => words = [...words, ...j.words]);
+      return words.filter((v, i, a) => a.indexOf(v) === i);
+    });
+}

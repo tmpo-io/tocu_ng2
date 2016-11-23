@@ -9,8 +9,6 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
-
-
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
@@ -33,11 +31,15 @@ import { ImageResult } from '../imagefield/interfaces';
 import { ImageFieldComponent } from '../imagefield/imagefield.component';
 import { validateJoc, audioForWord } from './utils';
 
+
+import { getDashboard,
+  getWords } from '../../../game/dashboard.reducers';
 import { TJoc } from '../../../models/tjoc';
 import { Joc } from '../../../models/joc';
 import { tipusJoc } from '../../../models/tipusjoc';
 import { Word } from '../../../models/word';
 import { AppState } from '../../../models/app';
+import { Dashboard } from '../../../models/dashboard';
 import { DashboardActions } from '../../../game/dashboard.actions';
 import { CreatorActions } from '../../creator.actions';
 
@@ -104,49 +106,92 @@ export class JocEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.uid = this.auth.id;
-    this.route.params.subscribe(params => {
-      const p = params['id'];
-      if (p === 'add') {
-        this.joc = {
-          label: '',
-          words: []
-        };
-        this.ready = true;
-      } else {
-        // @TODO convert to a route guard
-        // Is edit.. load game instance
-        this.jocID = params['id'];
-        this.db.gameExists(this.jocID).subscribe(
-          res => {
-            if (res === false) {
-              return this.router.navigate(['/activitat']);
+    this.route
+      .params
+      .switchMap((p: any) => {
+        if (p.id === 'add') {
+          return this.newGame();
+        }
+        return this.store
+          .select(state => state.dashboard)
+          .let(getDashboard(this.store))
+          .map((das: Dashboard) => {
+            let s = das.jocs.find(r => p.id === r.id);
+            if (!s && das.loadData === 'ready') {
+              this.router.navigate(['/activitat']);
+              return null;
             }
-            this._getGameData();
-            this.ready = true;
-          }
-        );
-      }
-    });
-    const path = `users/${this.auth.id}/words`
-    this._paraules = this.af.database.list(path)
-    this.wsubs = this._paraules.subscribe(w => {
-      this.paraules = w;
+            return s;
+          });
+      }).subscribe((j: Joc) => {
+        if (j) {
+          this.joc = j;
+          this.jocID = j.id;
+          this.ready = true;
+        }
+      });
+
+      this.store
+        .select(state => state.dashboard)
+        .let(getWords())
+        .subscribe((w: Word[]) => {
+          this.paraules = w;
+        });
+
+  }
+
+  private newGame(): Observable<Joc> {
+    return Observable.of({
+      label: '',
+      words: [],
+      id: undefined
     });
   }
 
-  private _getGameData() {
-    // console.log("1", Zone.current.name);
-    this.joc$ = this.db.getJoc(this.jocID);
-    this.subscription = this.joc$.subscribe(o => this.zone.run(() => {
-      // console.log("2", Zone.current.name);
-      this.joc = clean(o);
-      if (!this.joc.words) {
-        this.joc.words = [];
-      }
-      // console.log("the game", this.joc);
-    }));
-  }
+  // ngOnInit2() {
+  //   this.uid = this.auth.id;
+  //   this.route.params.subscribe(params => {
+  //     const p = params['id'];
+  //     if (p === 'add') {
+  //       this.joc = {
+  //         label: '',
+  //         words: []
+  //       };
+  //       this.ready = true;
+  //     } else {
+  //       // @TODO convert to a route guard
+  //       // Is edit.. load game instance
+  //       this.jocID = params['id'];
+  //       this.db.gameExists(this.jocID).subscribe(
+  //         res => {
+  //           if (res === false) {
+  //             return this.router.navigate(['/activitat']);
+  //           }
+  //           this._getGameData();
+  //           this.ready = true;
+  //         }
+  //       );
+  //     }
+  //   });
+  //   const path = `users/${this.auth.id}/words`
+  //   this._paraules = this.af.database.list(path)
+  //   this.wsubs = this._paraules.subscribe(w => {
+  //     this.paraules = w;
+  //   });
+  // }
+
+  // private _getGameData() {
+  //   // console.log("1", Zone.current.name);
+  //   this.joc$ = this.db.getJoc(this.jocID);
+  //   this.subscription = this.joc$.subscribe(o => this.zone.run(() => {
+  //     // console.log("2", Zone.current.name);
+  //     this.joc = clean(o);
+  //     if (!this.joc.words) {
+  //       this.joc.words = [];
+  //     }
+  //     // console.log("the game", this.joc);
+  //   }));
+  // }
 
   // aquesta funcio ha de ser una arrow, pq conservi el this
   // de la clase.

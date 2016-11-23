@@ -49,7 +49,7 @@
   <div class="col-xs">
     <label for="">Paraules:</label>
   </div>
-  <div class="col-xs-10">
+  <div class="col-xs-6">
     <input type="text"
       class="form-control"
       name="paraules"
@@ -74,7 +74,9 @@
         <span class="close" (click)="showSuggest=false">&times;</span>
         <app-add-paraula [paraula]="suggest" (onCreate)="createWord($event)"></app-add-paraula>
       </div>
-
+  </div>
+  <div class="col-xs-4">
+    <button class="btn btn-default">PARAULES</button>
   </div>
 </div>
 

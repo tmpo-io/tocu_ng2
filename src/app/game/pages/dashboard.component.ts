@@ -10,6 +10,7 @@ import { Message } from '../../models/message';
 import { DashboardActions } from '../dashboard.actions';
 import { AuthActions } from '../../auth/auth.actions';
 
+import { getDashboard } from '../dashboard.reducers';
 
 @Component({
   selector: 'app-dashboard',
@@ -36,13 +37,7 @@ export class DashboardComponent implements OnInit {
 
     this.state$ = store
       .select('dashboard')
-      .map((d: Dashboard) => {
-        if (d.setupTask !== 'ready'
-          && d.setupTask !== 'waiting') {
-          store.dispatch(DashboardActions.checkSetup());
-        }
-        return d;
-      });
+      .let(getDashboard(store));
 
     this.user$ = this.store
       .select('auth').map(a => a['user']);
