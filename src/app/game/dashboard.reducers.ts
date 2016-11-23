@@ -6,6 +6,8 @@ import { Action } from '@ngrx/store';
 import { DashboardActions } from './dashboard.actions';
 import { Dashboard } from '../models/dashboard';
 
+import { creatorReducer } from '../creator/creator.reducers';
+
 
 export const initial: Dashboard = {
   messages: [],
@@ -75,7 +77,7 @@ export function dashboardReducer(state = initial, action: Action): Dashboard {
         isAdmin: !state.isAdmin
       });
   }
-  return state;
+  return creatorReducer(state, action);
 }
 
 

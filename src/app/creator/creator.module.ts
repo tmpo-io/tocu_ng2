@@ -12,7 +12,6 @@ import {
 import {
   CreatorComponent,
   HeaderComponent,
-  JocsListComponent,
   JocEditComponent,
   ParaulesComponent,
   ClipartComponent,
@@ -53,10 +52,6 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       {
-        path: 'jocs',
-        component: JocsListComponent
-      },
-      {
         path: 'jocs/:id',
         component: JocEditComponent
       },
@@ -66,7 +61,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: 'jocs',
+        redirectTo: '/activitat',
         pathMatch: 'full'
       }
     ]
@@ -89,7 +84,6 @@ const routes: Routes = [
   declarations: [
     CreatorComponent,
     HeaderComponent,
-    JocsListComponent,
     JocEditComponent,
     ParaulesComponent,
     ClipartComponent,

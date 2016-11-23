@@ -36,7 +36,7 @@ import { tipusJoc } from '../../../models/tipusjoc';
 import { Word } from '../../../models/word';
 import { AppState } from '../../../models/app';
 import { DashboardActions } from '../../../game/dashboard.actions';
-
+import { CreatorActions } from '../../creator.actions';
 
 
 declare var Zone: any;
@@ -117,7 +117,7 @@ export class JocEditComponent implements OnInit, OnDestroy {
         this.db.gameExists(this.jocID).subscribe(
           res => {
             if (res === false) {
-              return this.router.navigate(['/creator/jocs']);
+              return this.router.navigate(['/activitat']);
             }
             this._getGameData();
             this.ready = true;
@@ -266,6 +266,8 @@ export class JocEditComponent implements OnInit, OnDestroy {
       this.modified = false;
     });
 
+    this.store.dispatch(CreatorActions.updateJoc(this.joc));
+
   }
 
   unpublish() {
@@ -275,6 +277,8 @@ export class JocEditComponent implements OnInit, OnDestroy {
       this.loading = false;
       this.modified = false;
     });
+    this.store.dispatch(CreatorActions.updateJoc(this.joc));
+
   }
 
   ngOnDestroy() {
