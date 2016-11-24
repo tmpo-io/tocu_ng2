@@ -1,6 +1,6 @@
 import {
   Component, Output, OnInit, OnDestroy,
-  ViewChild, EventEmitter, NgZone
+  ViewChild, EventEmitter
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -19,7 +19,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import {
   AngularFire,
-  FirebaseObjectObservable,
   FirebaseListObservable
 }
   from 'angularfire2';
@@ -46,9 +45,6 @@ import { DashboardActions } from '../../../game/dashboard.actions';
 import { CreatorActions } from '../../creator.actions';
 
 
-declare var Zone: any;
-
-
 export function clean(obj) {
   delete obj.$key;
   delete obj.$exists;
@@ -71,6 +67,8 @@ export class JocEditComponent implements OnInit, OnDestroy {
   // private joc$: FirebaseObjectObservable<Joc>;
   private subscription: Subscription;
   private wsubs: Subscription;
+  private sauth: Subscription;
+
   public joc: Joc = {
     label: '',
     words: []
@@ -104,7 +102,6 @@ export class JocEditComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private db: JocDb,
-    private zone: NgZone,
     private store: Store<AppState>,
     private modal: NgbModal
 
@@ -112,7 +109,7 @@ export class JocEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.route
+    this.subscription = this.route
       .params
       .switchMap((p: any) => {
         if (p.id === 'add') {
@@ -137,20 +134,13 @@ export class JocEditComponent implements OnInit, OnDestroy {
         }
       });
 
-    // Firebase subscription to words
-    // this.store
-    //   .select(state => state.dashboard)
-    //   .let(getWords())
-    //   .subscribe((w: Word[]) => {
-    //     this.paraules = w;
-    //   });
     const path = `users/${this.auth.id}/words`;
     this._paraules = this.af.database.list(path);
     this.wsubs = this._paraules.subscribe(w => {
       this.paraules = w;
     });
 
-    this.store
+    this.sauth = this.store
       .select(state => state.auth)
       .subscribe((auth) => {
         this.uid = auth.user.id;
@@ -165,9 +155,6 @@ export class JocEditComponent implements OnInit, OnDestroy {
       id: undefined
     });
   }
-
-
-
   // aquesta funcio ha de ser una arrow, pq conservi el this
   // de la clase.
   searchWords = (text$: Observable<string>) => {
@@ -286,9 +273,7 @@ export class JocEditComponent implements OnInit, OnDestroy {
       this.loading = false;
       this.modified = false;
     });
-
     this.store.dispatch(CreatorActions.updateJoc(this.joc));
-
   }
 
   unpublish() {
@@ -299,7 +284,6 @@ export class JocEditComponent implements OnInit, OnDestroy {
       this.modified = false;
     });
     this.store.dispatch(CreatorActions.updateJoc(this.joc));
-
   }
 
   openParaules(content) {
@@ -315,55 +299,9 @@ export class JocEditComponent implements OnInit, OnDestroy {
     if (this.wsubs) {
       this.wsubs.unsubscribe();
     }
+    if (this.sauth) {
+      this.sauth.unsubscribe();
+    }
   }
 
-
-
 }
-
-
-
-// ngOnInit2() {
-  //   this.uid = this.auth.id;
-  //   this.route.params.subscribe(params => {
-  //     const p = params['id'];
-  //     if (p === 'add') {
-  //       this.joc = {
-  //         label: '',
-  //         words: []
-  //       };
-  //       this.ready = true;
-  //     } else {
-  //       // @TODO convert to a route guard
-  //       // Is edit.. load game instance
-  //       this.jocID = params['id'];
-  //       this.db.gameExists(this.jocID).subscribe(
-  //         res => {
-  //           if (res === false) {
-  //             return this.router.navigate(['/activitat']);
-  //           }
-  //           this._getGameData();
-  //           this.ready = true;
-  //         }
-  //       );
-  //     }
-  //   });
-  //   const path = `users/${this.auth.id}/words`
-  //   this._paraules = this.af.database.list(path)
-  //   this.wsubs = this._paraules.subscribe(w => {
-  //     this.paraules = w;
-  //   });
-  // }
-
-  // private _getGameData() {
-  //   // console.log("1", Zone.current.name);
-  //   this.joc$ = this.db.getJoc(this.jocID);
-  //   this.subscription = this.joc$.subscribe(o => this.zone.run(() => {
-  //     // console.log("2", Zone.current.name);
-  //     this.joc = clean(o);
-  //     if (!this.joc.words) {
-  //       this.joc.words = [];
-  //     }
-  //     // console.log("the game", this.joc);
-  //   }));
-  // }

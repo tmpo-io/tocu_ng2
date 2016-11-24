@@ -22,5 +22,10 @@ export class CreatorEffects {
       return this.db.remove(a.payload).take(1);
     });
 
+  // @Effect({dispatch: false})
+  // updateGame$ = this.actions
+  //   .ofType(CreatorActions.UPDATE_JOC)
+  //   .flatMap()
+
 
 }
