@@ -14,6 +14,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/delay';
 
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 import {
@@ -32,8 +33,10 @@ import { ImageFieldComponent } from '../imagefield/imagefield.component';
 import { validateJoc, audioForWord } from './utils';
 
 
-import { getDashboard,
-  getWords } from '../../../game/dashboard.reducers';
+import {
+  getDashboard,
+  getWords
+} from '../../../game/dashboard.reducers';
 import { TJoc } from '../../../models/tjoc';
 import { Joc } from '../../../models/joc';
 import { tipusJoc } from '../../../models/tipusjoc';
@@ -91,6 +94,8 @@ export class JocEditComponent implements OnInit, OnDestroy {
 
   public validateMsg: string;
 
+  showParaules = true;
+
   @ViewChild(ImageFieldComponent) imgField;
   @Output() onCreate: EventEmitter<Joc> = new EventEmitter<Joc>()
 
@@ -101,7 +106,9 @@ export class JocEditComponent implements OnInit, OnDestroy {
     private router: Router,
     private db: JocDb,
     private zone: NgZone,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private modal: NgbModal
+
   ) {
   }
 
@@ -125,18 +132,18 @@ export class JocEditComponent implements OnInit, OnDestroy {
           });
       }).subscribe((j: Joc) => {
         if (j) {
-          this.joc = j;
+          this.joc = clean(j);
           this.jocID = j.id;
           this.ready = true;
         }
       });
 
-      this.store
-        .select(state => state.dashboard)
-        .let(getWords())
-        .subscribe((w: Word[]) => {
-          this.paraules = w;
-        });
+    this.store
+      .select(state => state.dashboard)
+      .let(getWords())
+      .subscribe((w: Word[]) => {
+        this.paraules = w;
+      });
 
   }
 
@@ -148,50 +155,7 @@ export class JocEditComponent implements OnInit, OnDestroy {
     });
   }
 
-  // ngOnInit2() {
-  //   this.uid = this.auth.id;
-  //   this.route.params.subscribe(params => {
-  //     const p = params['id'];
-  //     if (p === 'add') {
-  //       this.joc = {
-  //         label: '',
-  //         words: []
-  //       };
-  //       this.ready = true;
-  //     } else {
-  //       // @TODO convert to a route guard
-  //       // Is edit.. load game instance
-  //       this.jocID = params['id'];
-  //       this.db.gameExists(this.jocID).subscribe(
-  //         res => {
-  //           if (res === false) {
-  //             return this.router.navigate(['/activitat']);
-  //           }
-  //           this._getGameData();
-  //           this.ready = true;
-  //         }
-  //       );
-  //     }
-  //   });
-  //   const path = `users/${this.auth.id}/words`
-  //   this._paraules = this.af.database.list(path)
-  //   this.wsubs = this._paraules.subscribe(w => {
-  //     this.paraules = w;
-  //   });
-  // }
 
-  // private _getGameData() {
-  //   // console.log("1", Zone.current.name);
-  //   this.joc$ = this.db.getJoc(this.jocID);
-  //   this.subscription = this.joc$.subscribe(o => this.zone.run(() => {
-  //     // console.log("2", Zone.current.name);
-  //     this.joc = clean(o);
-  //     if (!this.joc.words) {
-  //       this.joc.words = [];
-  //     }
-  //     // console.log("the game", this.joc);
-  //   }));
-  // }
 
   // aquesta funcio ha de ser una arrow, pq conservi el this
   // de la clase.
@@ -245,6 +209,12 @@ export class JocEditComponent implements OnInit, OnDestroy {
     this.joc.words.push(clean(event.item));
     event.preventDefault();
   };
+
+  updateWords(items: Word[]) {
+    console.log('words:', items);
+    this.joc.words = items.map(i => clean(i));
+    this.modified = true;
+  }
 
   removeWord(w: Word) {
     this.modified = true;
@@ -330,6 +300,12 @@ export class JocEditComponent implements OnInit, OnDestroy {
 
   }
 
+  openParaules(content) {
+    this.modal.open(content,
+      { size: 'lg' }
+    );
+  }
+
   ngOnDestroy() {
     if (this.subscription) {
       this.subscription.unsubscribe();
@@ -340,4 +316,52 @@ export class JocEditComponent implements OnInit, OnDestroy {
   }
 
 
+
 }
+
+
+
+// ngOnInit2() {
+  //   this.uid = this.auth.id;
+  //   this.route.params.subscribe(params => {
+  //     const p = params['id'];
+  //     if (p === 'add') {
+  //       this.joc = {
+  //         label: '',
+  //         words: []
+  //       };
+  //       this.ready = true;
+  //     } else {
+  //       // @TODO convert to a route guard
+  //       // Is edit.. load game instance
+  //       this.jocID = params['id'];
+  //       this.db.gameExists(this.jocID).subscribe(
+  //         res => {
+  //           if (res === false) {
+  //             return this.router.navigate(['/activitat']);
+  //           }
+  //           this._getGameData();
+  //           this.ready = true;
+  //         }
+  //       );
+  //     }
+  //   });
+  //   const path = `users/${this.auth.id}/words`
+  //   this._paraules = this.af.database.list(path)
+  //   this.wsubs = this._paraules.subscribe(w => {
+  //     this.paraules = w;
+  //   });
+  // }
+
+  // private _getGameData() {
+  //   // console.log("1", Zone.current.name);
+  //   this.joc$ = this.db.getJoc(this.jocID);
+  //   this.subscription = this.joc$.subscribe(o => this.zone.run(() => {
+  //     // console.log("2", Zone.current.name);
+  //     this.joc = clean(o);
+  //     if (!this.joc.words) {
+  //       this.joc.words = [];
+  //     }
+  //     // console.log("the game", this.joc);
+  //   }));
+  // }

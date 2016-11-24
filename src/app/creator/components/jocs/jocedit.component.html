@@ -1,3 +1,23 @@
+<template #content let-cl="close" let-m="this">
+<div class="modal-header">
+  <button type="button" class="close"
+    aria-label="Close" (click)="cl()">
+      <span aria-hidden="true">&times;</span>
+  </button>
+  <h5 class="modal-title">Paraules</h5>
+</div>
+<div class="modal-body">
+  <app-word-selector
+    [words]="paraules"
+    [selected]="joc.words.slice()"
+    [close]="cl"
+    (onSelect)="updateWords($event)"></app-word-selector>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-success"
+      (click)="cl()">TANCAR</button>
+</div>
+</template>
 
 <form name="form" class="form_creator"
    #jocForm="ngForm" *ngIf="ready">
@@ -24,7 +44,7 @@
   </div>
 </div>
 
-<div class="row admin">
+<div class="row admin btop">
   <div class="col-xs">
     <label for="tipus">Tipus de joc:</label>
   </div>
@@ -45,11 +65,29 @@
   </div>
 </div>
 
-<div class="row admin">
-  <div class="col-xs">
-    <label for="">Paraules:</label>
+<div class="row admin btop">
+  <div class="col-xs-2">
+    <h4>Paraules</h4>
   </div>
-  <div class="col-xs-6">
+  <div class="col-xs-10">
+
+    <button class="btn btn-sm"
+      [ngClass]="{'btn-success': showParaules}"
+      (click)="showParaules = true">
+      PARAULES SELECCIONADES
+    </button>
+    <button class="btn btn-sm"
+      [ngClass]="{'btn-success': showParaules == false}"
+      (click)="showParaules = false">
+      <i class="fa fa-plus"></i>
+      AFEGIR PARAULA
+    </button>
+  </div>
+</div>
+
+<div class="row admin">
+  <div class="col-xs-10 offset-xs-2" *ngIf="showParaules">
+    <div class="input-group">
     <input type="text"
       class="form-control"
       name="paraules"
@@ -57,30 +95,44 @@
       [ngbTypeahead]="searchWords"
       [resultFormatter]="wordFormater"
       (selectItem)="wordSelected($event)"
-      placeholder="Selecciona les paraules"><br />
+      placeholder="Selecciona les paraules">
+      <button
+      (click)="openParaules(content)"
+      class="btn btn-default">
+        <i class="fa fa-search"></i>
+      </button>
+    </div>
+      <br />
 
-      <ngb-alert *ngIf="suggest!=''"
+    <div class="paraules">
+      <span class="tag tag-success tag-pill"
+        *ngFor="let word of joc.words"
+          (click)="removeWord(word)">
+          {{ word.label }} &times;
+          </span>
+     </div>
+  </div>
+
+  <div class="col-xs-10 offset-xs-2" *ngIf="showParaules==false">
+    <app-add-paraula [paraula]=""
+      (onCreate)="createWord($event)">
+    </app-add-paraula>
+  </div>
+
+</div>
+
+<div class="row admin">
+  <div class="col-xs-2"></div>
+  <div class="col-xs-10" >
+    <ngb-alert *ngIf="suggest!=''"
         type="success"
         (close)="suggest=''">No disposes de la paraula <strong>{{ suggest }}</strong> <a (click)="showSuggest=true">
           <span class="link">vols afegir-la?</span></a> </ngb-alert>
-
-     <div class="paraules">
-      <span class="tag tag-success tag-pill"
-        *ngFor="let word of joc.words"
-          (click)="removeWord(word)">{{ word.label }} &times;</span>
-     </div>
-
-     <div *ngIf="showSuggest" class="suggest">
-        <span class="close" (click)="showSuggest=false">&times;</span>
-        <app-add-paraula [paraula]="suggest" (onCreate)="createWord($event)"></app-add-paraula>
-      </div>
-  </div>
-  <div class="col-xs-4">
-    <button class="btn btn-default">PARAULES</button>
   </div>
 </div>
 
-<div class="row admin" *ngIf="jocID">
+
+<div class="row admin btop" *ngIf="jocID">
   <div class="col-xs">
     <label for="">Estat:</label>
   </div>

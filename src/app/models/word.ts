@@ -6,5 +6,6 @@ export class Word {
   public image?: string;
   public audio?: string;
   public file?: string;
+  public selected?: boolean;
 }
 

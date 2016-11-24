@@ -35,3 +35,29 @@ span.link {
 p {
   font-family: 'Open Sans';
 }
+
+
+.modal-body {
+      min-height: 80vh;
+    max-height: 80vh;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+
+.word {
+  height: 150px;
+  border: 1px solid #666;
+  border-radius: 5px;
+  margin-right: 10px;
+
+  div.image {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+
+.btop {
+  border-top: 1px solid #eaeaea;
+}

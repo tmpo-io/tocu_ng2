@@ -1,0 +1,21 @@
+<div class="row admin resultset">
+  <div class="col-xs-2 word"
+    *ngFor="let item of paraules"
+    (click)="click(item)"
+    [ngClass]="{'selected': item.selected }">
+    {{ item.label }}
+    <div class="image"
+      [ngStyle]="{'background-image': 'url(' + item.image +')'}">
+    </div>
+
+    <span class="ico"><i class="fa fa-check"></i></span>
+
+  </div>
+</div>
+
+<div class="row admin">
+  <div class="col-xs text-xs-right">
+    <button class="btn btn-success"
+      (click)="close()">TANCAR</button>
+  </div>
+</div>

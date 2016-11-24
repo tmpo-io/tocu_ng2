@@ -119,6 +119,12 @@ export function getWords() {
     .map((d: Dashboard) => {
       let words: Word[] = [];
       d.jocs.forEach((j) => words = [...words, ...j.words]);
-      return words.filter((v, i, a) => a.indexOf(v) === i);
+      let filtered = {};
+      return words.filter((v) => {
+        if (!(v.id in filtered)) {
+          filtered[v.id] = true;
+          return v;
+        }
+      });
     });
 }

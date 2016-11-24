@@ -20,6 +20,8 @@ import {
   TiAudioPlayerComponent
 } from './components';
 
+import { WordSelectorComponent } from './components/wordselector/wordselector.component';
+
 import { Autofocus } from './directives';
 import { SharedModule } from '../shared/shared.module';
 
@@ -90,7 +92,8 @@ const routes: Routes = [
     AddParaulaComponent,
     ImageFieldComponent,
     TiAudioPlayerComponent,
-    Autofocus
+    Autofocus,
+    WordSelectorComponent
   ],
   exports: [
   ],
