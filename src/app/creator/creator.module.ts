@@ -4,6 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { Routes, RouterModule } from '@angular/router';
 
+import { EffectsModule } from '@ngrx/effects';
+
+
 import {
   NgbTypeaheadModule,
   NgbAlertModule,
@@ -31,7 +34,7 @@ import {
   JocDb
 } from './services';
 
-
+import { CreatorEffects } from './creator.effects';
 
 import { AuthGuard, AuthService } from '../auth';
 
@@ -81,7 +84,8 @@ const routes: Routes = [
     NgbTypeaheadModule,
     NgbAlertModule,
     NgbPaginationModule,
-    SharedModule
+    SharedModule,
+    EffectsModule.run(CreatorEffects)
   ],
   declarations: [
     CreatorComponent,

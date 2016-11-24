@@ -34,8 +34,7 @@ import { validateJoc, audioForWord } from './utils';
 
 
 import {
-  getDashboard,
-  getWords
+  getDashboard
 } from '../../../game/dashboard.reducers';
 import { TJoc } from '../../../models/tjoc';
 import { Joc } from '../../../models/joc';
@@ -69,7 +68,7 @@ export class JocEditComponent implements OnInit, OnDestroy {
   public ready: boolean = false;
 
   private jocID: string;
-  private joc$: FirebaseObjectObservable<Joc>;
+  // private joc$: FirebaseObjectObservable<Joc>;
   private subscription: Subscription;
   private wsubs: Subscription;
   public joc: Joc = {
@@ -138,11 +137,23 @@ export class JocEditComponent implements OnInit, OnDestroy {
         }
       });
 
+    // Firebase subscription to words
+    // this.store
+    //   .select(state => state.dashboard)
+    //   .let(getWords())
+    //   .subscribe((w: Word[]) => {
+    //     this.paraules = w;
+    //   });
+    const path = `users/${this.auth.id}/words`;
+    this._paraules = this.af.database.list(path);
+    this.wsubs = this._paraules.subscribe(w => {
+      this.paraules = w;
+    });
+
     this.store
-      .select(state => state.dashboard)
-      .let(getWords())
-      .subscribe((w: Word[]) => {
-        this.paraules = w;
+      .select(state => state.auth)
+      .subscribe((auth) => {
+        this.uid = auth.user.id;
       });
 
   }
@@ -165,7 +176,6 @@ export class JocEditComponent implements OnInit, OnDestroy {
       .distinctUntilChanged()
       .switchMap(term => {
         if (term === '') {
-          this.suggest = '';
           return Observable.of([]);
         }
         // filtrem la llista de paraules coincidents amb el patró
@@ -176,12 +186,6 @@ export class JocEditComponent implements OnInit, OnDestroy {
           return (
             this.joc.words.find(k => k.id === el.id) === undefined);
         });
-        // If there are no results sure is not an added word..
-        if (result.length === 0) {
-          this.suggest = term;
-        } else {
-          this.suggest = '';
-        }
         return Observable.of(result);
       });
   }
@@ -189,11 +193,9 @@ export class JocEditComponent implements OnInit, OnDestroy {
   delete() {
     let res = confirm('Estàs segur que vols esborrar el joc?');
     if (res) {
-      this.db.remove(this.joc).subscribe(() => {
-        this.router.navigate(['/activitat']);
-      });
+      this.store.dispatch(CreatorActions.deleteJoc(this.joc));
     }
-    this.store.dispatch(CreatorActions.deleteJoc(this.joc));
+    return false;
   }
 
   wordFormater(result: Word): string {
@@ -211,7 +213,7 @@ export class JocEditComponent implements OnInit, OnDestroy {
   };
 
   updateWords(items: Word[]) {
-    console.log('words:', items);
+    // console.log('words:', items);
     this.joc.words = items.map(i => clean(i));
     this.modified = true;
   }

@@ -67,10 +67,9 @@
 
 <div class="row admin btop">
   <div class="col-xs-2">
-    <h4>Paraules</h4>
+    <label>Paraules</label>
   </div>
-  <div class="col-xs-10">
-
+  <div class="col-xs-10 toolbar">
     <button class="btn btn-sm"
       [ngClass]="{'btn-success': showParaules}"
       (click)="showParaules = true">
@@ -85,7 +84,7 @@
   </div>
 </div>
 
-<div class="row admin">
+<div class="row admin ppp">
   <div class="col-xs-10 offset-xs-2" *ngIf="showParaules">
     <div class="input-group">
     <input type="text"
@@ -104,12 +103,14 @@
     </div>
       <br />
 
-    <div class="paraules">
-      <span class="tag tag-success tag-pill"
+    <div class="row" style="margin-left:0px;">
+      <div class="word col-xs-2"
         *ngFor="let word of joc.words"
           (click)="removeWord(word)">
-          {{ word.label }} &times;
-          </span>
+          {{ word.label }}
+        <img [src]="word.image" />
+        <i class="fa fa-times"></i>
+      </div>
      </div>
   </div>
 
@@ -121,15 +122,6 @@
 
 </div>
 
-<div class="row admin">
-  <div class="col-xs-2"></div>
-  <div class="col-xs-10" >
-    <ngb-alert *ngIf="suggest!=''"
-        type="success"
-        (close)="suggest=''">No disposes de la paraula <strong>{{ suggest }}</strong> <a (click)="showSuggest=true">
-          <span class="link">vols afegir-la?</span></a> </ngb-alert>
-  </div>
-</div>
 
 
 <div class="row admin btop" *ngIf="jocID">
