@@ -10,7 +10,8 @@ import { EffectsModule } from '@ngrx/effects';
 import {
   NgbTypeaheadModule,
   NgbAlertModule,
-  NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+  NgbPaginationModule,
+  NgbTabsetModule } from '@ng-bootstrap/ng-bootstrap';
 
 import {
   CreatorComponent,
@@ -84,6 +85,7 @@ const routes: Routes = [
     NgbTypeaheadModule,
     NgbAlertModule,
     NgbPaginationModule,
+    NgbTabsetModule,
     SharedModule,
     EffectsModule.run(CreatorEffects)
   ],
