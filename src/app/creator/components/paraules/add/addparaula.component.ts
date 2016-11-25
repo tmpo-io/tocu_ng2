@@ -2,7 +2,9 @@ import { Component, Output, Input, NgZone,
   OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ImageResult } from '../../imagefield/interfaces';
 import { AngularFire } from 'angularfire2';
-import * as firebase from 'firebase';
+// import * as firebase from 'firebase';
+let database = require('firebase/database');
+let storage = require('firebase/storage');
 
 import { AuthService } from '../../../../auth';
 import { Word } from '../../../../models/word';
@@ -43,8 +45,8 @@ export class AddParaulaComponent implements OnInit {
 
     this.loading = true;
     const path = `users/${this.auth.id}/words`;
-    let storageRef = firebase.storage().ref();
-    let db = firebase.database();
+    let storageRef = storage().ref();
+    let db = database();
     let key = db.ref().child(path).push().key;
     let file = storageRef.child(`${path}/${key}.jpg`);
 

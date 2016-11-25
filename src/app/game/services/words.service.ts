@@ -5,7 +5,9 @@ import { Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 
-import * as firebase from 'firebase';
+// import * as firebase from 'firebase';
+let database = require('firebase/database');
+
 import { AngularFire, AngularFireDatabase } from 'angularfire2';
 
 
@@ -30,7 +32,7 @@ export class WordsService {
 
   getGame(uid: string, id: string): Observable<any> {
     return Observable.fromPromise(
-      firebase.database().ref(this.gamePath(uid, id))
+      database().ref(this.gamePath(uid, id))
         .once('value') as Promise<any>
     );
   }

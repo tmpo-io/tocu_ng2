@@ -4,10 +4,10 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
 
-import { Graphics }  from 'pixi.js';
-
-
-
+// let Graphics: PIXI.Graphics = require('pixi.js/Graphics');
+// import { Graphics }  from 'pixi.js';
+import { Graphics } from '../../../pixi/core/graphics/Graphics';
+//let Graphics = require('../../../pixi/core/graphics/Graphics.js');
 
 // const SPEED = 25;
 

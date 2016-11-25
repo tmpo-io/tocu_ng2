@@ -7,10 +7,13 @@ import { Observable } from 'rxjs/Observable';
 import { AngularFire,
   FirebaseObjectObservable } from 'angularfire2';
 
-import * as firebase from 'firebase';
+// import * as firebase from 'firebase';
 
 import { AuthService } from '../../auth';
 import { Joc } from '../../models/joc';
+
+let database = require('firebase/database');
+let storage = require('firebase/storage');
 
 
 interface UploadedFile {
@@ -28,7 +31,7 @@ export class JocDb {
 
   gameExists(gameId: string): EventEmitter<boolean> {
     // console.log(this.getPath(authId, gameId))
-    let ref = firebase.database().ref(this.getPath(gameId));
+    let ref = database().ref(this.getPath(gameId));
     let o = new EventEmitter<boolean>();
     ref.once('value', (snapshot) => this.zone.run(() => {
       let exists = (snapshot.val() !== null);
@@ -57,12 +60,12 @@ export class JocDb {
   remove(joc: Joc): Observable<boolean> {
     return new Observable<boolean>((observer) => {
       let remove = () => {
-        firebase.database().ref().child(this.getPath(joc.id))
+        database().ref().child(this.getPath(joc.id))
         .remove();
       };
       // delete file
       if (joc.file) {
-        let ref = firebase.storage().ref().child(joc.file);
+        let ref = storage().ref().child(joc.file);
         ref.delete().then(() => {
           remove();
           observer.next(true);
@@ -83,7 +86,7 @@ export class JocDb {
   private storeFile(key, file): Observable<UploadedFile> {
     let result: UploadedFile = {};
     return new Observable<UploadedFile>(observer => {
-      const ref = firebase.storage().ref().child(this.getPath(key) + '.png');
+      const ref = storage().ref().child(this.getPath(key) + '.png');
       result.file = ref.fullPath;
       ref.put(file).then(() => {
         ref.getDownloadURL().then(s => {
@@ -98,7 +101,7 @@ export class JocDb {
 
   private saveObject(t: Joc): Observable<Joc> {
     return new Observable<Joc>( (obs) => {
-      firebase.database().ref()
+      database().ref()
         .child(this.getPath(t.id))
         .update(t, () => this.zone.run(() => {
           obs.next(t);
@@ -108,7 +111,7 @@ export class JocDb {
   }
 
   private getNewId(): string {
-    return firebase.database().ref()
+    return database().ref()
       .child(this.getPath()).push().key;
   }
 
