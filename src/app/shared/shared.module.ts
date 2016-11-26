@@ -15,6 +15,7 @@ import { TiCanvasExplosionComponent } from
   './components/canvasexplosion/canvasexplosion.component';
 
 
+
 @NgModule({
   imports: [CommonModule, RouterModule],
   exports: [
@@ -27,7 +28,7 @@ import { TiCanvasExplosionComponent } from
     TiDialogComponent,
     TimerComponent,
     TiSpriteComponent,
-    TiCanvasExplosionComponent
+    TiCanvasExplosionComponent,
   ],
   declarations: [
     TiPreloadComponent,
