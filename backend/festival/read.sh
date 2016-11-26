@@ -10,6 +10,6 @@ shift;
 shift;
 
 #echo $TEXT | text2wave -eval "(voice_upc_ca_ona_hts)" $@ | lame --nores - $OUTPUT
-echo $TEXT | text2wave -eval "(voice_upc_ca_ona_hts)" $@ > $OUTPUT.raw
+echo $TEXT | text2wave -eval "(voice_upc_ca_ona_hts)" $@ > $OUTPUT.wav
 
-ffmpeg -i $OUTPUT.raw -vn -ar 44100 -ac 2 -ab 128k -f mp3 $OUTPUT
+ffmpeg -i $OUTPUT.wav -vn -ac 2 -f mp3 $OUTPUT
