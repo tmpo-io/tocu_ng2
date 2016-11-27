@@ -10,6 +10,7 @@ import 'rxjs/add/operator/take';
 import { Graphics } from 'pixi.js';
 import { Point } from 'pixi.js';
 
+
 // import * as Pixi from 'pixi.js';
 import { getColorNum } from '../../shared/colors';
 

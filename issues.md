@@ -17,18 +17,18 @@ ISSUES:
 
 
 
-
+[] Si quan enviem una paraula, aquesta te un espai al final, 
+   afeigeix a l'audio una part extranya
 [] Vols afegir la aparaula, ha d'apareixer des de dues lletres.
    (Si ja estan carregats no cal tornar a carregar-los).
 [] Que passa quan intentes pujar una imatge jpg.
 
-[] Poder eliminar paraules
-[] Afegir dashboard de demo a pàgina pública.
+[x] Afegir dashboard de demo a pàgina pública.
 [] Afegir animació tocu quan comences o guanyes un jocs
 
 
-[] Millorar estils dashboard edició
-[] Unificar el dashboard d'edicio?
+[x] Millorar estils dashboard edició
+[x] Unificar el dashboard d'edicio?
 
 
 [] Fer joc d'escriure lletres i números.

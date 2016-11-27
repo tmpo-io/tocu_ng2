@@ -1,0 +1,16 @@
+
+<app-card [word]="word"
+  *ngIf="state.status == 'show_word'"
+  (onClick)="action('playLetter')">
+</app-card>
+
+
+<app-lletres *ngIf="state.status == 'lletra_play'"
+  [lletraA]="state.char"
+  (win)="action('lletraWin')"></app-lletres>
+
+
+<app-wordprogress
+  *ngIf="wordprogress"
+  [word]="state.word" [index]="state.currentLetter+1">
+</app-wordprogress>

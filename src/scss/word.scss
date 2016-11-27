@@ -1,16 +1,17 @@
-@import '../../styles_shared';
+app-card {
 
-
-.word {
   position: relative;
   margin-top: 30px;
   background: white;
   display: inline-block;
-  min-width: 60%;
+  min-width: 40%;
+
   padding: 40px 40px 60px 40px;
+
   @include box($gris);
+
   img {
-    padding-bottom: 40px;
+    padding-bottom: 80px;
     max-height:200px;
   }
   .bt-sound {
@@ -20,18 +21,13 @@
     @include position(absolute, auto auto 0 50%);
     transform: translate(-50%, 50%);
   }
-}
 
-.words {
-  width: 100%;
-  margin: 40px 0;
-
-  div {
-    margin: 20px;
-    font-size: 28px;
-    background: white;
-    display: inline-block;
-    @include box($gris);
-    padding: 10px 20px;
+  h2 {
+    display: block;
+    position: absolute;
+    bottom: 60px;
+    text-align: center;
+    width: 80%;
   }
+
 }

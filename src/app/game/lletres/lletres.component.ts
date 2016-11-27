@@ -1,6 +1,6 @@
 import {
-  Component, ElementRef, NgZone,
-  OnInit, OnDestroy, Input, OnChanges
+  Component, ElementRef, EventEmitter, NgZone,
+  OnInit, OnDestroy, Input, Output, OnChanges
 } from '@angular/core';
 
 import { Graphics, IRendererOptions, Point } from 'pixi.js';
@@ -11,7 +11,7 @@ import { PixiBase } from '../../shared/pixi/base';
 import { Punt } from './punt';
 import { Segment } from './segment';
 import { Lletra, IPoint } from './lletres.state';
-
+import { TmpoTweenService } from '../../shared/tween';
 
 // export function buildPositions(a: any) {
 
@@ -36,6 +36,9 @@ export class LletresComponent extends PixiBase
   @Input()
   lletraA = [[73, 1, 22, 31, 37, 49, 58, 72]];
 
+  @Output()
+  win = new EventEmitter<boolean>();
+
   private puntsClip = <Punt[]>[];
   private segments = <Segment[]>[];
   private line: Graphics = new Graphics();
@@ -43,8 +46,9 @@ export class LletresComponent extends PixiBase
   current = 0;
   dragging = false;
   currentPart = 0;
+  initialized = false;
 
-  constructor(ngZone: NgZone, el: ElementRef) {
+  constructor(ngZone: NgZone, el: ElementRef, private tween: TmpoTweenService) {
     super(ngZone, el);
   }
 
@@ -115,10 +119,37 @@ export class LletresComponent extends PixiBase
         return;
       }
       console.log('You win');
+      // this.win.next(true);
+      this.onWin();
       return;
     }
     this.setActive();
     this.curr.emit('mousedown');
+  }
+
+  onWin() {
+    let i = 1;
+    this.puntsClip.forEach((el) => {
+      this.tween
+        .to(el, 500, { alpha: 0 })
+        .delay(i * 50)
+        .subscribe((d) => {
+          el.alpha = d.alpha;
+        });
+      i++;
+    });
+    i = 1;
+    this.segments.forEach((el) => {
+      this.tween
+        .to(el, 200, { alpha: 0 })
+        .delay(i * 50)
+        .subscribe((d) => {
+          el.alpha = d.alpha;
+        });
+      i++;
+    });
+    setTimeout(() => this.win.next(true), 1000);
+
   }
 
   mouseMove(ev) {
@@ -155,7 +186,9 @@ export class LletresComponent extends PixiBase
     if (this.stage) {
       this.stage.removeChildren();
     }
-    this.pixiReady();
+    if (this.initialized) {
+      this.pixiReady();
+    }
   }
 
   pixiReady() {
@@ -172,6 +205,7 @@ export class LletresComponent extends PixiBase
       this.stage.on('mousemove', this.mouseMove.bind(this));
       this.stage.on('touchmove', this.mouseMove.bind(this));
       this.stage.addChildAt(this.line, 0);
+      this.initialized = true;
     }
   }
 

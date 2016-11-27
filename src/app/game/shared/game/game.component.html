@@ -68,6 +68,14 @@
     (onFail)="onFail($event)"
     (onFinish)="onFinish($event)"
   ></mixed-game>
+  <app-lletres-game
+    *ngSwitchCase="'lletres'"
+    [words]="cards"
+    (onWin)="onWin($event)"
+    (onFail)="onFail($event)"
+    (onFinish)="onFinish($event)">
+  </app-lletres-game>
+
 </div>
 
 

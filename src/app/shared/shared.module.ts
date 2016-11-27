@@ -16,6 +16,7 @@ import { TiCanvasExplosionComponent } from
 import { CardComponent } from './components/card/card.component';
 import { WordprogressComponent } from './components/wordprogress/wordprogress.component';
 
+import { TmpoTweenService } from './tween';
 
 
 @NgModule({
@@ -32,7 +33,7 @@ import { WordprogressComponent } from './components/wordprogress/wordprogress.co
     TiSpriteComponent,
     TiCanvasExplosionComponent,
     CardComponent,
-    WordprogressComponent,
+    WordprogressComponent
   ],
   declarations: [
     TiPreloadComponent,
@@ -48,6 +49,8 @@ import { WordprogressComponent } from './components/wordprogress/wordprogress.co
     CardComponent,
     WordprogressComponent,
   ],
-  providers: [],
+  providers: [
+    TmpoTweenService
+  ],
 })
 export class SharedModule { }

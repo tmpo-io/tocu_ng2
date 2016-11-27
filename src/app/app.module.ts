@@ -18,6 +18,7 @@ import { GameModule } from './game';
 import { authReducer } from './auth/reducers/login';
 import { dashboardReducer } from './game/dashboard.reducers';
 import { gsReducer } from './game/gamesession.reducers';
+import { lletresGameReducer } from './game/lletres/lletres.reducer';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { gsReducer } from './game/gamesession.reducers';
     StoreModule.provideStore({
       auth: authReducer,
       dashboard: dashboardReducer,
-      gameSession: gsReducer
+      gameSession: gsReducer,
+      lletresGame: lletresGameReducer
     }),
     StoreDevtoolsModule.instrumentOnlyWithExtension()
   ],

@@ -9,7 +9,7 @@ export class Segment extends Graphics {
 
   constructor(public from: Point, public to: Point) {
     super();
-    this.lineStyle(10, getColorNum('gris'));
+    this.lineStyle(20, getColorNum('gris'));
     this.moveTo(from.x, from.y);
     this.lineTo(to.x, to.y);
   }

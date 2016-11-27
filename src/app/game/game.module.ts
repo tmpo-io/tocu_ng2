@@ -57,6 +57,8 @@ import {
 
 import { DashboardEffects } from './dashboard.effects';
 import { GSEffects } from './gamesession.effects';
+import { LletresEffects } from './lletres/lletres.effects';
+
 
 import { ViewGameGuard } from './guards/viewgame.guard';
 import { AuthGuard, AuthService } from '../auth';
@@ -68,6 +70,7 @@ import { UserDashComponent,
 } from './pages';
 
 import { BoardExistsGuard } from './guards/boardexists.guard';
+import { LletresGameComponent } from './lletres/lletresgame.component';
 
 
 const routes: Routes = [
@@ -121,7 +124,8 @@ const routes: Routes = [
     NgbModalModule,
     RouterModule.forChild(routes),
     EffectsModule.run(DashboardEffects),
-    EffectsModule.run(GSEffects)
+    EffectsModule.run(GSEffects),
+    EffectsModule.run(LletresEffects)
   ],
   declarations: [
     ActivitatComponent,
@@ -144,6 +148,7 @@ const routes: Routes = [
     UserDashboardComponent,
     LletresComponent,
     LletresEditorComponent,
+    LletresGameComponent,
     ProfileLoginComponent
   ],
   exports: [

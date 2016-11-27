@@ -9,12 +9,12 @@ import { state, style, transition, animate, trigger }
   styleUrls: ['./wordprogress.component.scss'],
   animations: [trigger('main', [
     state('*', style({
-      transform: 'translate3d(0,0,0)'
+      transform: 'translate3d(0,0,0) scale(1,1)'
     })),
     state('void', style({
-      transform: 'translate3d(0,-100%,0)'
+      transform: 'translate3d(0,-20%,0) scale(2,2)'
     })),
-    transition('* <=> *', animate('900ms ease-in-out'))
+    transition('void => *', animate('500ms ease-in-out'))
   ])],
 })
 export class WordprogressComponent implements OnInit {
