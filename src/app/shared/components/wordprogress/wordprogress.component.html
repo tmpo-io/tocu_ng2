@@ -1,0 +1,17 @@
+
+
+<div
+  *ngFor="let letter of letters; let ind=index"
+  class="letter"
+  [class.active]="(ind+1) == index"
+  [@main]="letter">
+  {{ letter }}
+</div>
+
+<div
+  *ngFor="let letter of dashes"
+  [@main]="dash"
+  class="letter">
+  {{ letter }}
+</div>
+

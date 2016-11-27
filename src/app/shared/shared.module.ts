@@ -13,6 +13,8 @@ import { TimerComponent } from './components/timer/timer.component';
 import { TiSpriteComponent } from './components/sprite/sprite.component';
 import { TiCanvasExplosionComponent } from
   './components/canvasexplosion/canvasexplosion.component';
+import { CardComponent } from './components/card/card.component';
+import { WordprogressComponent } from './components/wordprogress/wordprogress.component';
 
 
 
@@ -29,6 +31,8 @@ import { TiCanvasExplosionComponent } from
     TimerComponent,
     TiSpriteComponent,
     TiCanvasExplosionComponent,
+    CardComponent,
+    WordprogressComponent,
   ],
   declarations: [
     TiPreloadComponent,
@@ -40,7 +44,9 @@ import { TiCanvasExplosionComponent } from
     TiDialogComponent,
     TimerComponent,
     TiSpriteComponent,
-    TiCanvasExplosionComponent
+    TiCanvasExplosionComponent,
+    CardComponent,
+    WordprogressComponent,
   ],
   providers: [],
 })

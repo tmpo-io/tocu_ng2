@@ -1,0 +1,15 @@
+
+
+<div class="word">
+  <img [src]="word.image" />
+
+  <h2>{{ word.label }}</h2>
+
+  <ti-button
+    (click)="onClick.next(true)"
+    class="bt-nextWord"
+    [type]="'icon size-xl blau'"
+  >
+    <i class="fa fa-play"> </i>
+  </ti-button>
+<div>
