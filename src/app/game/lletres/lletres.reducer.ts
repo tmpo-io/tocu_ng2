@@ -10,7 +10,7 @@ export const initial: LletresGame = {
   words: [],
   word: '',
   status: 'initial',
-  currentWord: 0,
+  currentWord: 7,
   currentLetter: 0,
   char: null,
 };
@@ -31,8 +31,10 @@ export function lletresGameReducer(state = initial, action: Action) {
       });
     case LletresActions.ADD_WORDS:
       let words = Shuffle([...action.payload]);
+      // Initialize game
+      state = Object.assign({}, initial);
       return Object.assign({}, state, {
-        words: words
+        words: words,
       });
     case LletresActions.PLAY_LETTER:
       let current = 0;
@@ -60,6 +62,10 @@ export function lletresGameReducer(state = initial, action: Action) {
     case LletresActions.HIDEWIN_WORD:
       return Object.assign({}, state, {
         status: 'hide_winword'
+      });
+    case LletresActions.END_GAME:
+      return Object.assign({}, state, {
+        status: 'end_game'
       });
   }
   return state;

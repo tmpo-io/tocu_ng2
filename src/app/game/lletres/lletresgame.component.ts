@@ -1,6 +1,6 @@
 import {
   Component, EventEmitter, ChangeDetectionStrategy,
-  Input, Output, OnInit
+  Input, Output, OnInit, OnDestroy,
 } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
@@ -21,7 +21,7 @@ import { LletresActions } from './lletres.actions';
   templateUrl: 'lletresgame.component.html',
   styleUrls: ['./lletresgame.component.scss']
 })
-export class LletresGameComponent implements OnInit {
+export class LletresGameComponent implements OnInit, OnDestroy {
 
   @Input() words: Word[];
   @Output() onWin = new EventEmitter<number>();
@@ -39,7 +39,13 @@ export class LletresGameComponent implements OnInit {
     public store$: Store<AppState>) {
     this.subs = store$
       .select(state => state.lletresGame)
-      .subscribe(st => this.state = st);
+      .subscribe((st) => {
+        this.state = st;
+        if (st.status === 'end_game') {
+          this.onFinish.next(0);
+        }
+    });
+
   }
 
 
@@ -62,8 +68,12 @@ export class LletresGameComponent implements OnInit {
     if (act === 'winWord') {
       this.played++;
       this.onWin.next(this.played);
+      let end = false;
+      if (this.played === this.state.words.length) {
+        end = true;
+      }
       this.store$.dispatch(
-        LletresActions.hideWinWord()
+        LletresActions.hideWinWord(end)
       );
     }
   }
@@ -75,6 +85,12 @@ export class LletresGameComponent implements OnInit {
   get wordprogress(): boolean {
     return this.state.status === 'lletra_play' ||
       this.state.status === 'lletra_win';
+  }
+
+  ngOnDestroy() {
+    if (this.subs) {
+      this.subs.unsubscribe();
+    }
   }
 
 }

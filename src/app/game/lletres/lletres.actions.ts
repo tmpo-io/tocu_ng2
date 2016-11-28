@@ -13,6 +13,8 @@ export class LletresActions {
   static PLAY_LETTER = '[LLG] Play letter';
   static NEXT_LETTER = '[LLG] Next letter';
   static WIN_LETTER = '[LLG] Lletra complete';
+  static END_GAME = '[LLG] End Game';
+
 
   static addWords(words: Word[]): Action {
     return {
@@ -55,9 +57,16 @@ export class LletresActions {
     };
   }
 
-  static hideWinWord(): Action {
+  static hideWinWord(last = false): Action {
     return {
-      type: LletresActions.HIDEWIN_WORD
+      type: LletresActions.HIDEWIN_WORD,
+      payload: last
+    };
+  }
+
+  static endGame(): Action {
+    return {
+      type: LletresActions.END_GAME
     };
   }
 

@@ -34,7 +34,12 @@ export class LletresEffects {
   hideWinWord = this.actions
     .ofType(LletresActions.HIDEWIN_WORD)
     .delay(1000)
-    .map(act => LletresActions.showWord());
+    .map(act => {
+      if (act) {
+        return LletresActions.endGame();
+      }
+      return LletresActions.showWord();
+    });
 
 
 }
