@@ -1,6 +1,6 @@
 
 
-import { Action } from "@ngrx/store";
+import { Action } from '@ngrx/store';
 
 import { Word } from '../../models/word';
 

@@ -1,10 +1,12 @@
 import {
-  Component, EventEmitter, ChangeDetectionStrategy,
+  Component, EventEmitter,
   Input, Output, OnInit, OnDestroy,
 } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+
+import { FxService } from '../../fx/fx.service';
 
 import { WordsService, SoundFXService } from '../services';
 
@@ -34,6 +36,7 @@ export class LletresGameComponent implements OnInit, OnDestroy {
   played: number = 0;
 
   constructor(
+    private gfx: FxService,
     private srv: WordsService,
     private fx: SoundFXService,
     public store$: Store<AppState>) {
@@ -50,8 +53,11 @@ export class LletresGameComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-
     this.store$.next(LletresActions.addWords(this.words));
+    this.gfx.load('/assets/snd/cocodril.mp3');
+    setTimeout(() => {
+      this.gfx.play('/assets/snd/cocodril.mp3');
+    }, 2000);
     // Loaded words...
     // this.store$.next(LletresActions.showWord());
   }

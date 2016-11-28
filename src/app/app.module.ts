@@ -12,13 +12,14 @@ import { AuthModule } from './auth';
 import { CreatorModule } from './creator';
 import { FirebaseModule } from './firebase';
 import { GameModule } from './game';
-
+import { FxModule } from './fx/fx.module';
 
 // Reducers
 import { authReducer } from './auth/reducers/login';
 import { dashboardReducer } from './game/dashboard.reducers';
 import { gsReducer } from './game/gamesession.reducers';
 import { lletresGameReducer } from './game/lletres/lletres.reducer';
+import { fxReducer } from './fx/fx.reducers';
 
 @NgModule({
   declarations: [
@@ -36,8 +37,10 @@ import { lletresGameReducer } from './game/lletres/lletres.reducer';
       auth: authReducer,
       dashboard: dashboardReducer,
       gameSession: gsReducer,
-      lletresGame: lletresGameReducer
+      lletresGame: lletresGameReducer,
+      fx: fxReducer
     }),
+    FxModule,
     StoreDevtoolsModule.instrumentOnlyWithExtension()
   ],
   bootstrap: [AppComponent]
