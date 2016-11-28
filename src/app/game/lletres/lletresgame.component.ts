@@ -55,9 +55,6 @@ export class LletresGameComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.store$.next(LletresActions.addWords(this.words));
     this.gfx.load('/assets/snd/cocodril.mp3');
-    setTimeout(() => {
-      this.gfx.play('/assets/snd/cocodril.mp3');
-    }, 2000);
     // Loaded words...
     // this.store$.next(LletresActions.showWord());
   }
@@ -65,6 +62,7 @@ export class LletresGameComponent implements OnInit, OnDestroy {
   action(act: string) {
     if (act === 'playLetter') {
       this.store$.dispatch(LletresActions.playLetter());
+      this.gfx.play('/assets/snd/cocodril.mp3');
     }
     if (act === 'lletraWin') {
       this.store$.dispatch(
