@@ -35,7 +35,7 @@ export class LletresEffects {
     .ofType(LletresActions.HIDEWIN_WORD)
     .delay(1000)
     .map(act => {
-      if (act) {
+      if (act.payload === true) {
         return LletresActions.endGame();
       }
       return LletresActions.showWord();

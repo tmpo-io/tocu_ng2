@@ -10,7 +10,7 @@ export const initial: LletresGame = {
   words: [],
   word: '',
   status: 'initial',
-  currentWord: 7,
+  currentWord: 0,
   currentLetter: 0,
   char: null,
 };
