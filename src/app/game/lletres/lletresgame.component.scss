@@ -27,13 +27,14 @@ app-wordprogress {
 
 
 @keyframes blink-animation {
-  to {
-    visibility: hidden;
+  0% {
+    color: $blau;
   }
-}
-@-webkit-keyframes blink-animation {
-  to {
-    visibility: hidden;
+  50% {
+    color: $vermell;
+  }
+  100% {
+    color: $blau;
   }
 }
 
@@ -45,9 +46,16 @@ app-wordprogress {
 
     &.active {
       color: $blau;
-      animation: blink-animation 0.5s steps(5, start) infinite;
+      animation: blink-animation 1s infinite;
     }
+
 }
 
 
-
+ti-canvasexplosion {
+  top: 0px;
+  left: 0px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}

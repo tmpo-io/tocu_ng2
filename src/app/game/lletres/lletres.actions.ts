@@ -9,6 +9,7 @@ export class LletresActions {
   static ADD_WORDS = '[LLG] Add words';
   static SHOW_WORD = '[LLG] Show word';
   static WIN_WORD = '[LLG] Win word';
+  static HIDEWIN_WORD = '[LLG] Hide Win word';
   static PLAY_LETTER = '[LLG] Play letter';
   static NEXT_LETTER = '[LLG] Next letter';
   static WIN_LETTER = '[LLG] Lletra complete';
@@ -54,6 +55,11 @@ export class LletresActions {
     };
   }
 
+  static hideWinWord(): Action {
+    return {
+      type: LletresActions.HIDEWIN_WORD
+    };
+  }
 
 }
 

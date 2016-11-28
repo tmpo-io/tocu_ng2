@@ -31,6 +31,7 @@ export class LletresGameComponent implements OnInit {
   state$: Observable<LletresGame>;
   state: LletresGame;
   subs: Subscription;
+  played: number = 0;
 
   constructor(
     private srv: WordsService,
@@ -56,6 +57,13 @@ export class LletresGameComponent implements OnInit {
     if (act === 'lletraWin') {
       this.store$.dispatch(
         LletresActions.winLetter(this.state.word, this.state.currentLetter)
+      );
+    }
+    if (act === 'winWord') {
+      this.played++;
+      this.onWin.next(this.played);
+      this.store$.dispatch(
+        LletresActions.hideWinWord()
       );
     }
   }

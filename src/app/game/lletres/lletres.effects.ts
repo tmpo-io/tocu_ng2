@@ -25,9 +25,16 @@ export class LletresEffects {
       if (act.payload.word.length > (act.payload.current + 1)) {
         return LletresActions.playLetter();
       } else {
-        return LletresActions.showWord();
+        return LletresActions.winWord();
       }
     });
+
+
+  @Effect()
+  hideWinWord = this.actions
+    .ofType(LletresActions.HIDEWIN_WORD)
+    .delay(1000)
+    .map(act => LletresActions.showWord());
 
 
 }

@@ -4,6 +4,13 @@
   (onClick)="action('playLetter')">
 </app-card>
 
+<ti-canvasexplosion
+  *ngIf="state.status == 'win_word'"></ti-canvasexplosion>
+<app-card [word]="word"
+  completed="true"
+  *ngIf="state.status == 'win_word'"
+(onClick)="action('winWord')"></app-card>
+
 
 <app-lletres *ngIf="state.status == 'lletra_play'"
   [lletraA]="state.char"

@@ -57,6 +57,10 @@ export function lletresGameReducer(state = initial, action: Action) {
       return Object.assign({}, state, {
         status: 'win_word'
       });
+    case LletresActions.HIDEWIN_WORD:
+      return Object.assign({}, state, {
+        status: 'hide_winword'
+      });
   }
   return state;
 };

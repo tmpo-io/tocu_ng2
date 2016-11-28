@@ -66,7 +66,7 @@ export class TiCanvasExplosionComponent extends PixiBase implements OnInit, OnDe
       }
     };
 
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 20; i++) {
       let b = new Ball(10, getRandomIntColor());
       let s = 1 + (Math.random() * 2);
       b.scale = new Point(s, s);

@@ -16,7 +16,8 @@ import { state, style, transition, animate, trigger }
       state('void', style({
         transform: 'translate3d(0, -200%, 0)'
       })),
-      transition('* <=> *', animate('900ms ease-in-out'))
+      transition('void => *', animate('900ms ease-in-out')),
+      transition('* => void', animate('500ms ease-out'))
     ])
   ]
 })
@@ -26,6 +27,9 @@ export class CardComponent implements OnInit {
 
   @Input()
   word;
+
+  @Input()
+  completed: boolean = false;
 
   @Output()
   onClick = new EventEmitter<boolean>();

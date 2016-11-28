@@ -12,6 +12,7 @@ import { Punt } from './punt';
 import { Segment } from './segment';
 import { Lletra, IPoint } from './lletres.state';
 import { TmpoTweenService } from '../../shared/tween';
+import { Easing } from '../../shared/easing';
 
 // export function buildPositions(a: any) {
 
@@ -131,24 +132,22 @@ export class LletresComponent extends PixiBase
     let i = 1;
     this.puntsClip.forEach((el) => {
       this.tween
-        .to(el, 500, { alpha: 0 })
-        .delay(i * 50)
-        .subscribe((d) => {
-          el.alpha = d.alpha;
-        });
+        .to(el, 400, { alpha: 0 })
+        .delay(800 + (i * 50))
+        .do(v => el.scale = new Point(v.alpha, v.alpha))
+        .subscribe();
       i++;
     });
     i = 1;
     this.segments.forEach((el) => {
       this.tween
-        .to(el, 200, { alpha: 0 })
-        .delay(i * 50)
-        .subscribe((d) => {
-          el.alpha = d.alpha;
-        });
+        .to(el, 200, { alpha: 0})
+        .delay(500 + (i * 50))
+        .do(v => Object.assign(el, v))
+        .subscribe();
       i++;
     });
-    setTimeout(() => this.win.next(true), 1000);
+    setTimeout(() => this.win.next(true), 1500);
 
   }
 

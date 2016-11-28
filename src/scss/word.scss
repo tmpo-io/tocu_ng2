@@ -30,4 +30,23 @@ app-card {
     width: 80%;
   }
 
+  .completed {
+    display: block;
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 10px solid $verd_fosc;
+    color: $verd_fosc;
+    top: -35px;
+    left: 50%;
+    background-color: #fff;
+    transform: translateX(-50%) scale(1.5, 1.5);
+
+    i {
+      font-size: 46px;
+    }
+
+  }
+
 }
