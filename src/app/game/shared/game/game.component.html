@@ -7,13 +7,6 @@
     (click)="loc.back()"
     [type]="'icon size-m vermell'"
   >X</ti-button>
-  <!--<ti-button
-    *ngIf="status=='playing' && isPreview"
-    [routerLink]="['/creator/jocs', gameID]"
-    [type]="'icon size-m vermell'"
-  >X</ti-button>-->
-
-
 </div>
 
 <ti-dialog
@@ -99,8 +92,9 @@
     </ti-button>
   </div>
 </ti-dialog>
-<balloons
+<app-globus *ngIf="status=='end'"></app-globus>
+<!--<balloons
   *ngIf="status=='end'"
   [amount]="20"
   [delay]="3500"
-></balloons>
+></balloons>-->

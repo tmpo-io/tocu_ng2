@@ -3,11 +3,11 @@ import {
   ElementRef, NgZone, EventEmitter
 } from '@angular/core';
 
-
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
-import { animationFrame } from 'rxjs';
+// import { animationFrame } from 'rxjs';
+// import { animationFrame } from 'rxjs';
 
 import { FxService } from '../../../fx/fx.service';
 import { PixiBase } from '../../pixi/base';
@@ -22,7 +22,7 @@ import { Globus } from './globus';
 export class GlobusComponent extends PixiBase implements OnInit, OnDestroy {
 
   dest$ = new Subject<boolean>();
-  generator$ = Observable.interval(400, animationFrame);
+  generator$ = Observable.interval(400);
   emmit$ = new EventEmitter<boolean>();
   subs: Subscription;
 
@@ -50,7 +50,7 @@ export class GlobusComponent extends PixiBase implements OnInit, OnDestroy {
   addBalloons() {
     // console.log('add balloons');
     let gl = new Globus();
-    gl.x = Math.round(Math.random() * this.width);
+    gl.x = 50 + Math.round(Math.random() * (this.width - 100));
     gl.y = this.height + 100;
     gl.output = this.emmit$;
     this.stage.addChild(gl);

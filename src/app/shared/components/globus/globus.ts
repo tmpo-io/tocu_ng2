@@ -4,7 +4,11 @@ import { ObservablePoint, Sprite,
     Texture, Point } from 'pixi.js';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
-import { animationFrame } from 'rxjs';
+// import { animationFrame } from 'rxjs';
+// import 'rxjs/scheduler/animationFrame';
+// import { animationFrame } from 'rxjs/sch';
+
+
 
 import { getRandomIntColor } from '../../colors';
 
@@ -13,7 +17,7 @@ export function noob() { }
 export class Globus extends Sprite {
 
   static image = '/assets/img/globus.png';
-  animator$ = Observable.interval(50, animationFrame);
+  animator$ = Observable.interval(50);
   cancel$ = new Subject<boolean>();
   speed: number = 1;
   output: EventEmitter<boolean>;
