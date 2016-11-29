@@ -20,7 +20,7 @@ export class FxService {
   }
 
   load(audio: string) {
-    console.log('audio load', audio);
+    // console.log('audio load', audio);
     this.store.next(
       FxActions.load(audio)
     );

@@ -31,10 +31,10 @@ export class FxEffects {
           if (a.payload in fx.audios) {
             return Observable.of(null);
           }
-          console.log('fx load', a.payload);
+          // console.log('fx load', a.payload);
           return this.loadAudio(a.payload)
             .map((aud) => {
-              console.log('audio complete', aud);
+              // console.log('audio complete', aud);
               this.store.dispatch(
                 FxActions.loadComplete(a.payload, aud)
               );
