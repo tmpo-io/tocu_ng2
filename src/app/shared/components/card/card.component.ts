@@ -14,7 +14,7 @@ import { state, style, transition, animate, trigger }
         transform: 'translate3d(0,0,0)'
       })),
       state('void', style({
-        transform: 'translate3d(0, -200%, 0)'
+        transform: 'translate3d(0, -300%, 0)'
       })),
       transition('void => *', animate('900ms ease-in-out')),
       transition('* => void', animate('500ms ease-out'))
