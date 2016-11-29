@@ -43,8 +43,12 @@ export function lletresGameReducer(state = initial, action: Action) {
         current = state.currentLetter + 1;
       }
       // @todo si lletra espai, seguent...
+      while (state.word[current].toUpperCase() === ' ') {
+        current++;
+      }
+
       let letter = normalizeLletra(
-          state.word[current].toUpperCase()
+        state.word[current].toUpperCase()
       );
       // console.log(letter);
       return Object.assign({}, state, {
