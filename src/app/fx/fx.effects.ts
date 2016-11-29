@@ -23,18 +23,18 @@ export class FxEffects {
   @Effect({ dispatch: false })
   loadAudio$ = this.actions
     .ofType(FxActions.LOAD)
-    .switchMap((a) => {
-      let s = a.payload;
+    .flatMap((a) => {
       return this.store
         .select(store => store.fx)
-        .switchMap((fx) => {
-          // console.log('fx', fx, a.payload);
+        .take(1)
+        .flatMap((fx) => {
           if (a.payload in fx.audios) {
             return Observable.of(null);
           }
-          return this.loadAudio(s)
-            .take(1)
+          console.log('fx load', a.payload);
+          return this.loadAudio(a.payload)
             .map((aud) => {
+              console.log('audio complete', aud);
               this.store.dispatch(
                 FxActions.loadComplete(a.payload, aud)
               );
@@ -47,15 +47,14 @@ export class FxEffects {
   play$ = this.actions
     .ofType(FxActions.PLAY)
     .flatMap((act) => {
-      console.log('effect', act);
       return this.store
         .select(store => store.fx)
         .take(1)
         .map((fx) => {
-          console.log('effect 2', fx);
-          // if (fx.audios[act.payload]) {
-          fx.audios[act.payload].play();
-          // }
+          // console.log('effect 2', fx);
+          if (fx.audios[act.payload]) {
+            fx.audios[act.payload].play();
+          }
         });
     });
 
@@ -68,11 +67,12 @@ export class FxEffects {
         onload: () => {
           observed.next(audio);
           observed.complete();
+        },
+        onError: (m) => {
+          console.log(m);
+          observed.error(m);
         }
       });
-      return () => {
-        audio.unload();
-      };
     });
   }
 

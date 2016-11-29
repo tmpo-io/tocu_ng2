@@ -11,11 +11,16 @@ export class FxService {
   constructor(private store: Store<AppState>) {
     // setTimeout(() => {
     // }, 1000);
-
+    // this.loadMultiple([
+    //   '/assets/fx/click.mp3',
+    //   '/assets/fx/aplauso.mp3',
+    //   // '/assets/fx/fiuu.mp3'
+    // ]);
+    // this.load('/assets/fx/click.mp3');
   }
 
   load(audio: string) {
-    console.log('audio load');
+    console.log('audio load', audio);
     this.store.next(
       FxActions.load(audio)
     );
@@ -26,7 +31,7 @@ export class FxService {
   }
 
   play(audio: string) {
-    this.store.next(
+    this.store.dispatch(
       FxActions.play(audio)
     );
   }

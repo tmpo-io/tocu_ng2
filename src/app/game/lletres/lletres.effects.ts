@@ -1,15 +1,23 @@
 
 import { Injectable } from '@angular/core';
 
-import { Actions, Effect } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
 
+import { AppState } from '../../models/app';
+import { SoundFXService } from '../services/soundfx.service';
+import { FxService } from '../../fx/fx.service';
+
+import { Actions, Effect } from '@ngrx/effects';
 import { LletresActions } from './lletres.actions';
 
 
 @Injectable()
 export class LletresEffects {
 
-  constructor(private actions: Actions) { }
+  constructor(private actions: Actions,
+    private store: Store<AppState>,
+    private fx: SoundFXService,
+    private gfx: FxService) { }
 
   @Effect()
   selectWord = this.actions
@@ -41,5 +49,24 @@ export class LletresEffects {
       return LletresActions.showWord();
     });
 
+
+  @Effect({ dispatch: false })
+  fxShowWord$ = this.actions
+    .ofType(LletresActions.SHOW_WORD, LletresActions.WIN_WORD)
+    .delay(500)
+    .flatMap(act => {
+      return this.store
+        .select(store => store.lletresGame)
+        .map(llg => {
+          let sound = llg.words[llg.currentWord].audio;
+          this.fx.play(sound);
+        }).take(1);
+    });
+
+  @Effect({ dispatch: false })
+  fxClaps$ = this.actions
+    .ofType(LletresActions.WIN_WORD)
+    .delay(500)
+    .map(act => this.gfx.play('/assets/fx/aplauso.mp3'));
 
 }

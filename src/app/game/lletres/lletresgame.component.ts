@@ -54,20 +54,26 @@ export class LletresGameComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.store$.next(LletresActions.addWords(this.words));
-    this.gfx.load('/assets/snd/cocodril.mp3');
-    // Loaded words...
-    // this.store$.next(LletresActions.showWord());
+    this.gfx.loadMultiple([
+      '/assets/fx/click.mp3',
+      '/assets/fx/aplauso.mp3',
+      '/assets/fx/fiuu.mp3'
+    ]);
+    // this.gfx.load('/assets/fx/click.mp3');
   }
 
   action(act: string) {
     if (act === 'playLetter') {
       this.store$.dispatch(LletresActions.playLetter());
-      this.gfx.play('/assets/snd/cocodril.mp3');
+      // this.gfx.play('/assets/snd/cocodril.mp3');
     }
     if (act === 'lletraWin') {
+      setTimeout(() => this.gfx.play('/assets/fx/fiuu.mp3'), 500);
+      setTimeout(() => {
       this.store$.dispatch(
-        LletresActions.winLetter(this.state.word, this.state.currentLetter)
-      );
+          LletresActions.winLetter(this.state.word, this.state.currentLetter)
+        );
+      }, 1500);
     }
     if (act === 'winWord') {
       this.played++;
@@ -79,6 +85,9 @@ export class LletresGameComponent implements OnInit, OnDestroy {
       this.store$.dispatch(
         LletresActions.hideWinWord(end)
       );
+    }
+    if (act === 'onPoint') {
+      this.gfx.play('/assets/fx/click.mp3');
     }
   }
 

@@ -46,7 +46,7 @@ export class TiCanvasExplosionComponent extends PixiBase implements OnInit, OnDe
         .takeUntil(this.dest$)
         .subscribe(this.sub$);
       Observable.interval(300)
-        .take(5)
+        .take(3)
         .takeUntil(this.dest$)
         .subscribe(() => {
             this.addBalls();

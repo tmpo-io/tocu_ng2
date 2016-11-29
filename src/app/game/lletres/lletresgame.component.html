@@ -14,7 +14,9 @@
 
 <app-lletres *ngIf="state.status == 'lletra_play'"
   [lletraA]="state.char"
-  (win)="action('lletraWin')"></app-lletres>
+  [character]="state.character"
+  (win)="action('lletraWin')"
+  (onPoint)="action('onPoint')"></app-lletres>
 
 
 <app-wordprogress

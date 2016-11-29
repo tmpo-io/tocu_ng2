@@ -11,6 +11,7 @@ export interface LletresGame {
     | 'next_lletra' | 'initial' | 'end_game';
   currentWord: number;
   currentLetter: number;
+  character?: string;
   char?: LLetraSerial;
   word: string;
 }

@@ -13,6 +13,7 @@ export const initial: LletresGame = {
   currentWord: 0,
   currentLetter: 0,
   char: null,
+  character: ''
 };
 
 
@@ -49,6 +50,7 @@ export function lletresGameReducer(state = initial, action: Action) {
       return Object.assign({}, state, {
         status: 'lletra_play',
         char: CHARS[letter],
+        character: letter,
         currentLetter: current
       });
     case LletresActions.WIN_LETTER:

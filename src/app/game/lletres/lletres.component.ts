@@ -12,11 +12,8 @@ import { Punt } from './punt';
 import { Segment } from './segment';
 import { Lletra, IPoint } from './lletres.state';
 import { TmpoTweenService } from '../../shared/tween';
-import { Easing } from '../../shared/easing';
+import { FxService } from '../../fx/fx.service';
 
-// export function buildPositions(a: any) {
-
-// }
 
 @Component({
   selector: 'app-lletres',
@@ -33,28 +30,39 @@ export class LletresComponent extends PixiBase
     { x: 400, y: 350 }]
   ];
 
-  // lletraA = [[73, 4, 79], [38, 42]];
   @Input()
   lletraA = [[73, 1, 22, 31, 37, 49, 58, 72]];
+
+  @Input()
+  character = '';
 
   @Output()
   win = new EventEmitter<boolean>();
 
-  private puntsClip = <Punt[]>[];
-  private segments = <Segment[]>[];
-  private line: Graphics = new Graphics();
+  @Output()
+  onPoint = new EventEmitter<boolean>();
 
+  closePart = -1; // -1 No circular, 0 > circular
   current = 0;
   dragging = false;
   currentPart = 0;
   initialized = false;
 
-  constructor(ngZone: NgZone, el: ElementRef, private tween: TmpoTweenService) {
+  private puntsClip = <Punt[]>[];
+  private segments = <Segment[]>[];
+  private line: Graphics = new Graphics();
+
+  constructor(
+    ngZone: NgZone,
+    el: ElementRef,
+    private tween: TmpoTweenService,
+    private fx: FxService) {
     super(ngZone, el);
   }
 
   ngOnInit() {
     super.ngOnInit();
+    this.checkSelfClosing();
   }
 
   ngOnDestroy() {
@@ -72,6 +80,26 @@ export class LletresComponent extends PixiBase
       p.init();
       this.puntsClip.push(p);
       this.stage.addChild(p);
+    }
+
+  }
+
+  addClosePoint(part: number) {
+    if (this.closePart === part) {
+      let i = this.puntsClip.length;
+      let p = new Punt(this.lletra[part][0], i);
+      p.radius = this.width / 25;
+      p.init();
+      this.puntsClip.push(p);
+      this.stage.addChild(p);
+    }
+  }
+  // Patch to have autoclosing characters
+  checkSelfClosing() {
+    if (['O', 'Q', '8'].indexOf(this.character) !== -1) {
+      this.closePart = 0;
+    } else {
+      this.closePart = -1;
     }
   }
 
@@ -108,6 +136,12 @@ export class LletresComponent extends PixiBase
     this.curr.removeListener('touchstart', this.mouseDown.bind(this));
     this.curr.interactive = false;
     this.current++;
+    // this.fx.play('/assets/fx/click.mp3');
+    this.onPoint.next(true);
+    if (this.current === 1) {
+      this.addClosePoint(this.currentPart);
+    }
+
     if (this.current === this.puntsClip.length - 1) {
       // console.log('wins');
       this.dragging = false;
@@ -119,7 +153,7 @@ export class LletresComponent extends PixiBase
         this.setActive();
         return;
       }
-      console.log('You win');
+      // console.log('You win');
       // this.win.next(true);
       this.onWin();
       return;
@@ -141,13 +175,13 @@ export class LletresComponent extends PixiBase
     i = 1;
     this.segments.forEach((el) => {
       this.tween
-        .to(el, 200, { alpha: 0})
+        .to(el, 200, { alpha: 0 })
         .delay(500 + (i * 50))
         .do(v => Object.assign(el, v))
         .subscribe();
       i++;
     });
-    setTimeout(() => this.win.next(true), 1500);
+    setTimeout(() => this.win.next(true));
 
   }
 
@@ -186,6 +220,7 @@ export class LletresComponent extends PixiBase
       this.stage.removeChildren();
     }
     if (this.initialized) {
+      this.checkSelfClosing();
       this.pixiReady();
     }
   }
@@ -204,8 +239,8 @@ export class LletresComponent extends PixiBase
       this.stage.on('mousemove', this.mouseMove.bind(this));
       this.stage.on('touchmove', this.mouseMove.bind(this));
       this.stage.addChildAt(this.line, 0);
-      this.initialized = true;
     }
+    this.initialized = true;
   }
 
   getRenderOptions(): IRendererOptions {

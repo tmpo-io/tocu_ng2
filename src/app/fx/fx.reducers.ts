@@ -16,11 +16,6 @@ export const initial: Fx = {
 export function fxReducer(state = initial, action: Action) {
   switch (action.type) {
     case FxActions.LOAD:
-      console.log(
-        'action dispatched',
-        state.loading.indexOf(action.payload)
-      );
-
       if (!(action.payload in state.audios) &&
          (state.loading.indexOf(action.payload) === -1)) {
         return Object.assign({}, state, {
@@ -32,7 +27,6 @@ export function fxReducer(state = initial, action: Action) {
       audios[action.payload.sound] = action.payload.howl;
 
       let loading = [];
-      //console.log( state.loading );
       if (state.loading.length > 1) {
         let pos = state.loading
           .findIndex(a => a === action.payload.sound);
@@ -40,7 +34,6 @@ export function fxReducer(state = initial, action: Action) {
           ...state.loading.slice(0, pos),
           ...state.loading.slice(pos + 1)
         ];
-        console.log('action load complete', action, pos);
       }
 
       return Object.assign({}, state, {

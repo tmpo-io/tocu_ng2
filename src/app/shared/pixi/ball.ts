@@ -22,7 +22,7 @@ export class Ball extends Graphics {
     this.beginFill(color);
     this.drawCircle(0, 0, radius);
     this.endFill();
-    this.speed = 6 + Math.round(Math.random() * 10);
+    this.speed = 12 + Math.round(Math.random() * 10);
     this.seed = Math.round(Math.random() * 180);
   }
 
