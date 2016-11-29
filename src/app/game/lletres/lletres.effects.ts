@@ -1,7 +1,9 @@
 
 import { Injectable } from '@angular/core';
 
-import { Store } from '@ngrx/store';
+import { Store, Action } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+
 
 import { AppState } from '../../models/app';
 import { SoundFXService } from '../services/soundfx.service';
@@ -20,13 +22,13 @@ export class LletresEffects {
     private gfx: FxService) { }
 
   @Effect()
-  selectWord = this.actions
+  selectWord: Observable<Action> = this.actions
     .ofType(LletresActions.ADD_WORDS)
     .map(act => LletresActions.showWord());
 
 
   @Effect()
-  winLetter = this.actions
+  winLetter: Observable<Action> = this.actions
     .ofType(LletresActions.WIN_LETTER)
     .delay(500)
     .map(act => {
@@ -39,7 +41,7 @@ export class LletresEffects {
 
 
   @Effect()
-  hideWinWord = this.actions
+  hideWinWord: Observable<Action> = this.actions
     .ofType(LletresActions.HIDEWIN_WORD)
     .delay(1000)
     .map(act => {
