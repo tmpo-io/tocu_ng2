@@ -12,6 +12,14 @@ export const tipusJoc: TJoc[] = [
       Tens ${joc.words.length} paraules.`
   },
   {
+    desc: 'Escriu les lletres de les paraules d\'una en una',
+    key: 'lletres',
+    label: 'Escriure lletres',
+    validate: joc => joc.words.length >= 1,
+    validateHelp: joc => `Necessites definir un mínim d'una paraula.
+      Tens ${joc.words.length} paraules.`
+  },
+  {
     desc: 'El joc de les parelles on s\'ha de relacionar imatge i texte',
     key: 'relaciona',
     label: 'Relaciona',
