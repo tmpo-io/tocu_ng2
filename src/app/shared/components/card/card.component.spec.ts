@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { CardComponent } from './card.component';
+import { ButtonComponent } from '../button/button.component';
 
 describe('CardComponent', () => {
   let component: CardComponent;
@@ -11,7 +12,7 @@ describe('CardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CardComponent ]
+      declarations: [ CardComponent, ButtonComponent ]
     })
     .compileComponents();
   }));
