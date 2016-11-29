@@ -8,19 +8,9 @@ import { AppState } from '../models/app';
 @Injectable()
 export class FxService {
 
-  constructor(private store: Store<AppState>) {
-    // setTimeout(() => {
-    // }, 1000);
-    // this.loadMultiple([
-    //   '/assets/fx/click.mp3',
-    //   '/assets/fx/aplauso.mp3',
-    //   // '/assets/fx/fiuu.mp3'
-    // ]);
-    // this.load('/assets/fx/click.mp3');
-  }
+  constructor(private store: Store<AppState>) {}
 
   load(audio: string) {
-    // console.log('audio load', audio);
     this.store.next(
       FxActions.load(audio)
     );
