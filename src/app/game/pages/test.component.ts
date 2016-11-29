@@ -1,49 +1,26 @@
 import {
   Component,
-  EventEmitter,
   OnInit
 } from '@angular/core';
 
-import { CHARS } from '../lletres/chars';
 
 @Component({
   selector: 'app-test',
   template: `
-    <button (click)="toggle=!toggle">restart</button>
-    <app-lletres *ngIf="toggle"
-      [lletraA]="lletres$ | async"></app-lletres>
-    <div class="lletres">
-     <span
-      (click)="play(lletra)"
-      *ngFor="let lletra of chars">{{ lletra }}</span>
-    </div>
+    <button (click)="toggle=!toggle">Toggle</button>
+    <app-globus *ngIf="toggle"></app-globus>
     `,
   styles: [
     `
     button { position: absolute; z-index: 10000; }
-    app-lletres {
+    app-globus {
       box-sizing: border-box;
       top: 0px;
-      left: 10%;
+      left: 0;
       position: absolute;
-      width: 80%;
-      height: 80%;
+      width: 99%;
+      height: 99%;
       border: 1px solid grey;
-    }
-    app-lletres-editor {
-      left: 50%;
-    }
-    .lletres {
-      position: absolute;
-      bottom: 10%;
-      overflow: hidden;
-      overflow-x: auto;
-      width: 100%;
-    }
-    .lletres span {
-      cursor: pointer;
-      font-size: 24px;
-      padding: 10px;
     }
     `
   ]
@@ -51,9 +28,6 @@ import { CHARS } from '../lletres/chars';
 })
 export class TestComponent implements OnInit {
 
-  lletres$ = new EventEmitter<number[][]>();
-
-  chars = Object.keys(CHARS);
 
   public toggle: boolean = true;
   constructor() { }
@@ -62,14 +36,5 @@ export class TestComponent implements OnInit {
 
   }
 
-  play(s: string) {
-    this.toggle = false;
-    setTimeout(() => {
-      this.toggle = true;
-      setTimeout(() => {
-        this.lletres$.next(CHARS[s]);
-      });
-    }, 300);
-  }
 
 }

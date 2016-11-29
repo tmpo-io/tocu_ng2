@@ -7,6 +7,7 @@
 <ti-canvasexplosion
   *ngIf="state.status == 'win_word'"></ti-canvasexplosion>
 <app-card [word]="word"
+  class="cardend"
   completed="true"
   *ngIf="state.status == 'win_word'"
 (onClick)="action('winWord')"></app-card>

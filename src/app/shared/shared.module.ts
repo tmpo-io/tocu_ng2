@@ -17,6 +17,7 @@ import { CardComponent } from './components/card/card.component';
 import { WordprogressComponent } from './components/wordprogress/wordprogress.component';
 
 import { TmpoTweenService } from './tween';
+import { GlobusComponent } from './components/globus/globus.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { TmpoTweenService } from './tween';
     TiSpriteComponent,
     TiCanvasExplosionComponent,
     CardComponent,
-    WordprogressComponent
+    WordprogressComponent,
+    GlobusComponent,
   ],
   declarations: [
     TiPreloadComponent,
@@ -48,6 +50,7 @@ import { TmpoTweenService } from './tween';
     TiCanvasExplosionComponent,
     CardComponent,
     WordprogressComponent,
+    GlobusComponent,
   ],
   providers: [
     TmpoTweenService

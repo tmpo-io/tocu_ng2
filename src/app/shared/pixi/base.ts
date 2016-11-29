@@ -10,7 +10,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/takeUntil';
 
 // import * as Pixi from 'pixi.js';
-import { CanvasRenderer,
+import { CanvasRenderer, autoDetectRenderer,
     Container, IRendererOptions } from 'pixi.js';
 
 export class PixiBase implements OnInit, OnDestroy {
@@ -42,7 +42,7 @@ export class PixiBase implements OnInit, OnDestroy {
     let opts = Object.assign({}, this.getRenderOptions(), {
       view: this.canvas
     });
-    this.render = new CanvasRenderer(this.width, this.height, opts);
+    this.render = autoDetectRenderer(this.width, this.height, opts);
     this.el.nativeElement.appendChild(this.render.view);
     this.stage = new Container();
     this.pixiReady();
