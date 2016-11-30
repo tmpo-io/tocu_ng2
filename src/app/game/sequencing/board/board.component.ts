@@ -1,6 +1,6 @@
 import {
   Component, OnInit, Input, EventEmitter, Output,
- } from '@angular/core';
+} from '@angular/core';
 
 import { Word } from '../../../models/word';
 import { WordsService, SoundFXService } from '../../services';
@@ -38,7 +38,7 @@ export class SequencingBoardComponent implements OnInit {
   constructor(
     private srv: WordsService,
     private fx: SoundFXService
-  ) {}
+  ) { }
 
   public ngOnInit() {
     this.words = Shuffle(this.words);
@@ -54,14 +54,14 @@ export class SequencingBoardComponent implements OnInit {
     this.mixedWord.forEach(letter => this.statusWord.push(LetterState.Active));
     setTimeout(() => {
       this.wordVisible = 'in';
-    }, 100);
+    }, 600);
     setTimeout(() => {
       this.lettersVisible = 'in';
       this.clickSound();
     }, 300);
   }
 
-  private clickLetter(indx: number): void {
+  clickLetter(indx: number): void {
     if (this.statusWord[indx] !== LetterState.Active) {
       return;
     }
@@ -88,7 +88,7 @@ export class SequencingBoardComponent implements OnInit {
 
   private nextLetter() {
     this.currentLetter++;
-    if(this.currentLetter === this.splittedWord.length) {
+    if (this.currentLetter === this.splittedWord.length) {
       this.wins++;
       this.onWin.emit(this.wins);
       this.resultWord();
@@ -104,8 +104,8 @@ export class SequencingBoardComponent implements OnInit {
     }, 300);
   }
 
-  private clickNextWord() {
-    if(this.currentWord < this.words.length - 1) {
+  clickNextWord() {
+    if (this.currentWord < this.words.length - 1) {
       this.wordVisible = 'out';
       setTimeout(() => {
         this.goingNext = false;
