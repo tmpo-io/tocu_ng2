@@ -42,7 +42,7 @@
 <div class="list" *ngIf="dashboard.loadData=='ready'">
   <div *ngFor="let item of getJocs(); let i = index;"
     class="item"
-    [appStaggered]="i*100"
+    [appStaggered]="(i*100)"
     [ngClass]="{'disabled': !item.published}"
     [routerLink]="['/play/', user.id, item.id]">
     <span>
