@@ -1,6 +1,7 @@
 <div class="columna images">
   <relaciona-word
     *ngFor="let word of mixedImages; let i=index;"
+    [appStaggered]="i*200"
     [type]="'image'"
     [word]="word"
     [status]="statusImages[word.id]"
@@ -9,6 +10,7 @@
 </div>
 <div class="columna text">
   <relaciona-word
+    [appStaggered]="50 + (i*200)"
     *ngFor="let word of mixedTexts; let i=index;"
     [type]="'text'"
     [word]="word"

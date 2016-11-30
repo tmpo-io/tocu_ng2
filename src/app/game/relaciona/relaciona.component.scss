@@ -26,3 +26,16 @@
     }
   }
 }
+
+
+relaciona-word {
+  opacity: 0;
+  transform: translate3d(0,20%,0);
+  transition: all 0.5s ease-in;
+
+  &.tmpoIn {
+    opacity: 1;
+    transform: translate3d(0,0,0);
+  }
+
+}
