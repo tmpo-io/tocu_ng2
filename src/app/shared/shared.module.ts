@@ -18,6 +18,7 @@ import { WordprogressComponent } from './components/wordprogress/wordprogress.co
 
 import { TmpoTweenService } from './tween';
 import { GlobusComponent } from './components/globus/globus.component';
+import { StaggeredDirective } from './staggered.directive';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { GlobusComponent } from './components/globus/globus.component';
     CardComponent,
     WordprogressComponent,
     GlobusComponent,
+    StaggeredDirective
   ],
   declarations: [
     TiPreloadComponent,
@@ -51,6 +53,7 @@ import { GlobusComponent } from './components/globus/globus.component';
     CardComponent,
     WordprogressComponent,
     GlobusComponent,
+    StaggeredDirective,
   ],
   providers: [
     TmpoTweenService
