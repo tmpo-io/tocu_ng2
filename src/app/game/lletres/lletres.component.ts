@@ -70,7 +70,7 @@ export class LletresComponent extends PixiBase
   }
 
   addPoints(part: number) {
-    let radius = this.width / 25;
+    let radius = this.width / 20;
     for (let i = 0; i < this.lletra[part].length; i++) {
       let p = new Punt(this.lletra[part][i], i);
       p.radius = radius;

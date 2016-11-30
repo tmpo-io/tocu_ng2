@@ -13,6 +13,14 @@ app-lletres {
   height: 70%;
   top: 10%;
   left: 10%;
+
+  @include media($mobile) {
+    left: 0;
+    width: 100%;
+    height: 65%;
+    top: 20%;
+  }
+
 }
 
 
@@ -22,6 +30,10 @@ app-wordprogress {
   bottom: 10%;
   left: 50%;
   transform: translateX(-50%);
+
+  @include media($mobile) {
+    bottom: 2%;
+  }
 
 }
 
@@ -47,6 +59,11 @@ app-wordprogress {
     &.active {
       color: $blau;
       animation: blink-animation 1s infinite;
+    }
+
+    @include media($mobile) {
+      font-size: 24px;
+      width: 20px;
     }
 
 }
