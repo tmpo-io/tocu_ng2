@@ -16,13 +16,15 @@ import { TiCanvasExplosionComponent } from
 import { CardComponent } from './components/card/card.component';
 import { WordprogressComponent } from './components/wordprogress/wordprogress.component';
 
+import { FxModule } from '../fx/fx.module';
+
 import { TmpoTweenService } from './tween';
 import { GlobusComponent } from './components/globus/globus.component';
 import { StaggeredDirective } from './staggered.directive';
 
 
 @NgModule({
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FxModule],
   exports: [
     TiPreloadComponent,
     TiGameListComponent,

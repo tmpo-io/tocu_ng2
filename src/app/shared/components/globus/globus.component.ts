@@ -6,6 +6,12 @@ import {
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
+
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/take';
+import 'rxjs/add/operator/takeUntil';
+import 'rxjs/add/observable/interval';
+
 // import { animationFrame } from 'rxjs';
 // import { animationFrame } from 'rxjs';
 
