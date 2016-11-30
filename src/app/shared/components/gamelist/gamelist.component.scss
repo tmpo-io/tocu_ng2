@@ -10,35 +10,4 @@
   flex-wrap: wrap;
   flex-direction: row;
 }
-.item {
-  margin: 20px;
-  position: relative;
-  width: calc(33% - 40px);
-  display: block;
-  background: white;
-  text-decoration: none;
-  @include box_small($gris);
-  span {
-    display: block;
-    padding-top: 80%;
-  }
-  h2 {
-    font-size: 20px;
-    line-height: 22px;
-    color: $blau_fosc;
-    @include position(absolute, 20px auto auto 20px);
-    text-transform: uppercase;
-  }
-  div {
-    @include position(absolute, 70px 20px 20px 20px);
-    background-repeat: no-repeat;
-    background-size: 60%;
-    background-position: center center;
-  }
-
-  &:hover {
-    background: $ocre;
-    @include box_small($ocre_fosc);
-  }
-}
 

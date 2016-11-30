@@ -2,7 +2,9 @@
 
 
 <div class="list">
-  <a *ngFor="let item of jocs" class="item"
+  <a *ngFor="let item of jocs; let i = index;"
+    class="item"
+    [appStaggered]="(i*100)"
     [routerLink]="['/play/', user, item.id]">
     <span>
       <h2>{{ item.label }}</h2>
