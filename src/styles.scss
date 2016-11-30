@@ -3,16 +3,19 @@ progress,sub,sup{vertical-align:baseline}button,hr,input{overflow:visible}html{f
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; padding: 0; margin: 0; }
 
 
+@import './app/styles_shared';
+$brand-success: $verd;
+$brand-info: $blau;
 
 @import '../node_modules/bootstrap/scss/bootstrap-flex';
 
 $fa-font-path: '/assets/fonts';
 @import '../node_modules/font-awesome/scss/font-awesome';
 
-@import './app/styles_shared';
 
 $bgcolor: #999;
 $card_bg: #ccc;
+
 
 body {
 	font-family: 'Itim';

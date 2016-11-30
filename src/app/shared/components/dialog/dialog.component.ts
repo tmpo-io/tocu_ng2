@@ -1,6 +1,4 @@
-import {
-  Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation
-} from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import {state,
   style, transition,
@@ -10,8 +8,8 @@ import {state,
 @Component({
   selector: "ti-dialog",
   // encapsulation: ViewEncapsulation.None,
-  templateUrl:"./dialog.component.html",
-  styleUrls: ["./dialog.component.scss"],
+  templateUrl: './dialog.component.html',
+  styleUrls: ['./dialog.component.scss'],
   host: {
       '[@flyInOut]': 'state'
   },

@@ -1,5 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
+
+
 import { Router } from '@angular/router';
 
 import { Dashboard } from '../../models/dashboard';
@@ -9,6 +11,11 @@ import { Joc } from '../../models/joc';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
+import {
+  state,
+  style, transition,
+  animate, trigger
+} from '@angular/core';
 
 
 @Component({

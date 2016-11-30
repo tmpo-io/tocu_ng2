@@ -72,8 +72,11 @@ $desktop: 992px;
   }
 }
 
+$mobile: 767px;
+$tablet: 991px;
+
 @mixin media($size) {
-  @media (min-width: #{$size}) {
+  @media (max-width: #{$size}) {
     @content;
   }
 }
@@ -83,3 +86,4 @@ $desktop: 992px;
     @content;
   }
 }
+

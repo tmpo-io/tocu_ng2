@@ -1,6 +1,7 @@
 
 
 .board {
+  padding-top: 50px;
   min-width: 500px;
   max-width: 700px;
   display: flex;
@@ -26,3 +27,12 @@
 }
 
 
+memory-card {
+  opacity: 0;
+  transition: opacity 800ms;
+
+  &.tmpoIn {
+    opacity: 1;
+  }
+
+}

@@ -17,7 +17,7 @@ export function noob() { }
 export class Globus extends Sprite {
 
   static image = '/assets/img/globus.png';
-  animator$ = Observable.interval(50);
+  animator$ = Observable.interval(18);
   cancel$ = new Subject<boolean>();
   speed: number = 1;
   output: EventEmitter<boolean>;
@@ -28,7 +28,7 @@ export class Globus extends Sprite {
     this.anchor = new ObservablePoint(noob, this, 0.5, 0.5);
     this.x = 300;
     this.y = 700;
-    this.speed = Math.round(3 + Math.random() * 15);
+    this.speed = Math.round(2 + Math.random() * 8);
     let scale = 0.5 + Math.random();
     this.scale = new Point(scale, scale);
     this.animator$
@@ -55,7 +55,7 @@ export class Globus extends Sprite {
   }
 
   animate(fr: number) {
-    this.rotation = 0 + (Math.sin(fr / 10) * 10)
+    this.rotation = 0 + (Math.sin(fr / 20) * 10)
       * Math.PI / 180;
     this.y -= this.speed;
     if (this.y < -500) {

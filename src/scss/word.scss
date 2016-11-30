@@ -54,3 +54,85 @@ app-card {
   }
 
 }
+
+
+
+.item {
+
+  margin: 20px;
+  position: relative;
+  width: calc(33% - 40px);
+  display: block;
+  background: white;
+  text-decoration: none;
+  @include box_small($gris);
+  opacity: 0;
+
+  @include media($tablet) {
+    width: calc(50% - 40px);
+  }
+
+  @include media($mobile) {
+    width: calc(100% - 40px);
+  }
+
+  transition: opacity 600ms ease-in-out;
+
+  &.tmpoIn {
+    opacity: 1;
+  }
+
+  span {
+    display: block;
+    padding-top: 80%;
+  }
+  h2 {
+    font-size: 20px;
+    line-height: 22px;
+    color: $blau_fosc;
+    @include position(absolute, 20px auto auto 20px);
+    text-transform: uppercase;
+  }
+  div {
+    @include position(absolute, 70px 20px 20px 20px);
+    background-repeat: no-repeat;
+    background-size: 60%;
+    background-position: center center;
+  }
+
+  &:hover {
+    background: $ocre;
+    @include box_small($ocre_fosc);
+  }
+
+  &.disabled {
+    background-color: #eaeaea;
+  }
+
+  .toolbar {
+
+    padding: 5px;
+    padding-left: 10px;
+    position: absolute;
+    right: -3px;
+    bottom: 0px;
+    /*border-top-left-radius: 5px;*/
+    /*border-bottom-left-radius: 5px;*/
+    border-radius: 5px;
+    background-color: $blau_fosc;
+
+    li {
+      display: inline-block;
+      color: #fff;
+      padding-right: 10px;
+    }
+
+    i {
+      font-size: 24px;
+    }
+
+  }
+
+}
+
+

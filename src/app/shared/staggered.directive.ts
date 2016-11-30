@@ -14,6 +14,8 @@ export class StaggeredDirective implements OnInit {
     private renderer: Renderer) { }
 
   ngOnInit() {
+
+    // console.log('Element', this.el);
     this.renderer.setElementStyle(
         this.el.nativeElement, 'transition-delay', this.delay
       );
