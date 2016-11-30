@@ -1,4 +1,5 @@
-<div class="title" [@delayed]="state">
+<div class="title" [@delayed]="state" *ngIf="title">
   {{ title }}
 </div>
 <ng-content></ng-content>
+

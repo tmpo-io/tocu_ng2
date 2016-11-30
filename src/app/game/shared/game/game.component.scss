@@ -39,3 +39,19 @@ app-globus {
   top: 0px;
   left: 0px;
 }
+
+ti-dialog.wins {
+
+  .title {
+    background-color: $marro;
+    @include box_small($marro_fosc);
+  }
+
+  .content p {
+    font-size: 36px;
+    span {
+      color: $vermell;
+    }
+  }
+
+}

@@ -74,20 +74,26 @@
 
 <ti-dialog
   *ngIf="status=='end'"
-  [title]="tipus"
+  class="wins"
 >
+  <div class="title">
+    <i class="fa fa-diamond"></i>
+    <i class="fa fa-diamond"></i>
+    <i class="fa fa-diamond"></i>
+  </div>
   <div class="content">
     <p>
-      Felicitats has guanyat!!!!
+      HAS GUANYAT <span>{{ points }}</span> PUNTS.
     </p>
   </div>
   <div class="buttons">
-    <ti-button (click)="startGame($event)" [type]="'icon size-l blau'">
+    <ti-button (click)="startGame($event)"
+      [type]="'icon size-xl blau'">
       <i class="fa fa-refresh"></i>
     </ti-button>
     <ti-button
       (click)="loc.back()"
-      [type]="'icon size-l blau'">
+      [type]="'icon size-xl blau'">
       <i class="fa fa-home"></i>
     </ti-button>
   </div>
