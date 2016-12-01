@@ -96,7 +96,7 @@ app-card {
   div {
     @include position(absolute, 70px 20px 20px 20px);
     background-repeat: no-repeat;
-    background-size: 60%;
+    background-size: contain;
     background-position: center center;
   }
 
