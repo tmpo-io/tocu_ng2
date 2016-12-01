@@ -51,7 +51,7 @@ export class AddParaulaComponent implements OnInit {
     let file = storageRef.child(`${path}/${key}.jpg`);
 
     let w: Word = {
-      label: this.paraula,
+      label: this.paraula.trim(),
       id: key,
       image: '',
       audio: '',
