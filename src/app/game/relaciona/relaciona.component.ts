@@ -57,8 +57,9 @@ export class RelacionaComponent implements OnInit {
     if (this.getWordStatus(indx, type) !== WordState.Normal) {
       return;
     }
-
-    this.playSound(indx);
+    if (type === 'image') {
+      this.playSound(indx);
+    }
 
     if (this.selected) {
       if (indx === this.selected) {
@@ -124,7 +125,7 @@ export class RelacionaComponent implements OnInit {
     this.changeWordStatus(indx, 'image', WordState.Played);
 
     if (this.wins === this.total) {
-      this.onFinish.emit();
+      setTimeout(() => this.onFinish.emit(), 1000);
     }
   }
 
