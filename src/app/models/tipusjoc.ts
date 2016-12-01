@@ -20,7 +20,7 @@ export const tipusJoc: TJoc[] = [
       Tens ${joc.words.length} paraules.`
   },
   {
-    desc: 'El joc de les parelles on s\'ha de relacionar imatge i texte',
+    desc: 'El joc de les parelles on s\'ha de relacionar imatge i text',
     key: 'relaciona',
     label: 'Relaciona',
     validate: joc => joc.words.length >= 3,
