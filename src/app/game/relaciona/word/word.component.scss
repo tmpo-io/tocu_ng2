@@ -4,6 +4,7 @@
   display: block;
   position: relative;
 }
+
 div {
   border: 8px solid $blanc;
   background: $blanc;
@@ -12,6 +13,7 @@ div {
   text-align: center;
   font-size: 25px;
 }
+
 .image {
   padding-top: 75%;
   position: relative;
@@ -24,6 +26,9 @@ div {
     transform: translate(-50%, -50%);
   }
 }
+
 .text {
   margin: 20px 0;
+  display: inline-block;
+  padding: 5px;
 }

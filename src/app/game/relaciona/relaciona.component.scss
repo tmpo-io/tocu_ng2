@@ -8,21 +8,40 @@
 
 .columna {
   display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: space-between;
   align-items: center;
+  width: 100%;
 
   &.images {
-    width: 48%;
+
+    width: 100%;
+
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+
     relaciona-word {
-      width: calc(50% - 10px);
+      width: calc(25% - 10px);
+      margin: 10px;
+      flex: 0 1 auto;
+      align-self: auto;
     }
   }
+
+
   &.text {
-    width: calc(48% - 20px);
+    margin-top: 20px;
+    flex-wrap: wrap;
+    flex-direction: row;
+    text-justify: center;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    // width: calc(48% - 20px);
     relaciona-word {
-      width: 100%;
+      // width: 100%;
+      margin: 0 10px 0 10px;
     }
   }
 }
