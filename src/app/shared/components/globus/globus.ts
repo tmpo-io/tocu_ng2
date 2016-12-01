@@ -29,7 +29,7 @@ export class Globus extends Sprite {
     this.x = 300;
     this.y = 700;
     this.speed = Math.round(2 + Math.random() * 8);
-    let scale = 0.5 + Math.random();
+    let scale = 0.4 + Math.random();
     this.scale = new Point(scale, scale);
     this.animator$
       .takeUntil(this.cancel$)

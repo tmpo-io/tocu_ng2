@@ -57,7 +57,7 @@ export class GlobusComponent extends PixiBase implements OnInit, OnDestroy {
     // console.log('add balloons');
     let gl = new Globus();
     gl.x = 50 + Math.round(Math.random() * (this.width - 100));
-    gl.y = this.height + 100;
+    gl.y = this.height + 200;
     gl.output = this.emmit$;
     this.stage.addChild(gl);
   }
