@@ -2,10 +2,11 @@ import {
   Component, OnInit, Input, EventEmitter, Output,
 } from '@angular/core';
 
-import {state,
+import {
+  state,
   style, transition, animate, trigger,
   AnimationEntryMetadata
- } from '@angular/core';
+} from '@angular/core';
 
 
 import { Word } from '../../../models/word';
@@ -49,7 +50,7 @@ import { Observable } from 'rxjs/Rx';
 
 @Component({
   selector: "memory-board",
-  templateUrl:"./memoryboard.component.html",
+  templateUrl: "./memoryboard.component.html",
   styleUrls: ["./memoryboard.component.scss"],
   // animations: stagger('inboard', 0, 16, 50)
 })
@@ -59,16 +60,16 @@ import { Observable } from 'rxjs/Rx';
 
 export class MemoryBoardComponent implements OnInit {
 
-  @Input() cards:Word[];
+  @Input() cards: Word[];
 
-  public cardStatus:string[] = [];
-  private isActive:number;
-  private isOpened:boolean;
+  public cardStatus: string[] = [];
+  private isActive: number;
+  private isOpened: boolean;
   // between state check
-  private inTransition:boolean = false;
-  public wins:number = 0;
-  public fails:number = 0;
-  public total:number = 0;
+  private inTransition: boolean = false;
+  public wins: number = 0;
+  public fails: number = 0;
+  public total: number = 0;
   public index: number;
 
   // Emitters
@@ -77,32 +78,32 @@ export class MemoryBoardComponent implements OnInit {
   @Output() public onFinish = new EventEmitter<number>();
 
   constructor(
-    private srv:WordsService,
-    private fx:SoundFXService
-    ) {}
+    private srv: WordsService,
+    private fx: SoundFXService
+  ) { }
 
   ngOnInit() {
     this.buildBoard(this.cards);
     // stagger('asdf', 0, 15, '100ms')
   }
 
-  onClick(ind:number):void {
+  onClick(ind: number): void {
     // console.log("click on ", ind);
-    if(this.inTransition) {
+    if (this.inTransition) {
       return;
     }
     // test if index is already opened
-    if(this.isOpened && ind === this.isActive) {
+    if (this.isOpened && ind === this.isActive) {
       return;
     }
     // test if ind can be opened
-    let estat:string = this.cardStatus[ind];
-    if(estat===CardState.Played) {
+    let estat: string = this.cardStatus[ind];
+    if (estat === CardState.Played) {
       // @TODO emit sound, wrong click?
       return;
     }
 
-    if(!this.isOpened) {
+    if (!this.isOpened) {
       this.isActive = ind;
       this.isOpened = true;
       this.cardStatus[ind] = CardState.Opened;
@@ -110,14 +111,14 @@ export class MemoryBoardComponent implements OnInit {
       return;
     }
 
-    if(this.cards[this.isActive].id === this.cards[ind].id) {
+    if (this.cards[this.isActive].id === this.cards[ind].id) {
       // Goood
       this.inTransition = true;
-      setTimeout(()=>this.processGood(ind), 1000);
+      setTimeout(() => this.processGood(ind), 1000);
     } else {
       // error
       this.inTransition = true;
-      setTimeout(()=>this.processBad(ind), 1000)
+      setTimeout(() => this.processBad(ind), 1000)
     }
 
     // is already opened...
@@ -127,14 +128,14 @@ export class MemoryBoardComponent implements OnInit {
 
   }
 
-  playSound(ind:number) {
-    let audio:string = this.cards[ind].audio;
-    setTimeout(()=>{
+  playSound(ind: number) {
+    let audio: string = this.cards[ind].audio;
+    setTimeout(() => {
       this.fx.play(audio);
     }, 300);
   }
 
-  processBad(ind:number) {
+  processBad(ind: number) {
     // console.log("BADDD")
     this.cardStatus[ind] = CardState.Closed;
     this.cardStatus[this.isActive] = CardState.Closed;
@@ -144,9 +145,9 @@ export class MemoryBoardComponent implements OnInit {
     this.fails++;
     this.onFail.emit(this.fails);
 
-}
+  }
 
-  processGood(ind:number) {
+  processGood(ind: number) {
     // @TODO show animation
     //console.log("GOOD!", this.cards[ind].label);
     this.cardStatus[ind] = CardState.Played;
@@ -156,25 +157,31 @@ export class MemoryBoardComponent implements OnInit {
     this.inTransition = false;
     this.wins++;
     this.onWin.emit(this.wins);
-    if(this.wins==this.total) {
+    if (this.wins == this.total) {
       this.onFinish.emit();
     }
   }
 
 
-  buildBoard(cards:Word[]) {
-    let a:Word[] = [];
-    let snd:string[] = [];
+  buildBoard(words: Word[]) {
+    let cards = Shuffle(words);
+    // Ensure that a maximum of 8 cards are
+    // showed to user.
+    if (cards.length > 8) {
+      cards = cards.slice(0, 8);
+    }
+
+    let a: Word[] = [];
     cards.forEach((el, ind) => {
       // snd.push(el.audio);
       a.push(el);
       a.push(Object.assign({}, el));
     });
-    for(let i=0; i<a.length; i++) {
+    for (let i = 0; i < a.length; i++) {
       this.cardStatus[i] = CardState.Closed;
     }
     this.cards = Shuffle(a);
-    this.total = this.cards.length/2;
+    this.total = this.cards.length / 2;
     // this.fx.add(snd);
     // this.fx.preload();
   }
