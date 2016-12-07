@@ -65,6 +65,27 @@
   </div>
 </div>
 
+<div class="row admin btop" *ngIf="typus.hasLevels">
+  <div class="col-xs">
+    <label for="tipus">Nivell del joc:</label>
+  </div>
+  <div class="col-xs-10">
+    <div class="form-check"  *ngFor="let level of typus.levels">
+    <label class="form-check-label">
+        <input type="radio"
+          class="form-check-input"
+          name="lvl" id="tipus_2"
+          [(ngModel)]="joc.nivell"
+          [value]="level.titol"
+          (change)="modified=true"
+          checked>
+          <strong>{{ level.titol }}</strong><br/>
+          {{ level.desc }}
+    </label>
+    </div>
+  </div>
+</div>
+
 <div class="row admin btop">
   <div class="col-xs-2">
     <label>Paraules</label>

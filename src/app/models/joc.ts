@@ -12,5 +12,6 @@ export interface Joc {
   words?: Word[];
   $exists?: any;
   $key?: any;
+  level?: string;
 }
 

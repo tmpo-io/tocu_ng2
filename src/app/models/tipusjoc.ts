@@ -9,7 +9,22 @@ export const tipusJoc: TJoc[] = [
     label: 'Memory',
     validate: joc => joc.words.length === 8,
     validateHelp: joc => `Necessites definir 8 paraules.
-      Tens ${joc.words.length} paraules.`
+      Tens ${joc.words.length} paraules.`,
+    hasLevels: true,
+    levels: [
+      {
+        titol: 'principiant',
+        desc: 'Les dues fitxes apareixen amb imatge i texte'
+      },
+      {
+        titol: 'mig',
+        desc: 'Una fitxa apareix amb text i imatge, l\'altre només imatge'
+      },
+      {
+        titol: 'pro',
+        desc: 'Una fitxa amb imatge, l\'altre amb el text',
+      }
+    ]
   },
   {
     desc: 'Escriu les lletres de les paraules d\'una en una',

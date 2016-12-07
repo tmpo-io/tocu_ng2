@@ -215,6 +215,15 @@ export class JocEditComponent implements OnInit, OnDestroy {
     this.modified = true;
   }
 
+  get typus(): any {
+    if (this.joc && this.joc.tipus) {
+      return this.tipusJoc.find(x => x.key === this.joc.tipus);
+    }
+    return {
+      hasLevels: false
+    };
+  }
+
   save() {
     // Wait till audio is uploaded
     if (this.ensureWordsHasAudios() === false) {
