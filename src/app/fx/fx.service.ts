@@ -12,7 +12,7 @@ export class FxService {
 
   load(audio: string) {
     this.store.next(
-      FxActions.load(audio)
+      FxActions.load(this.getName(audio))
     );
   }
 
@@ -22,8 +22,15 @@ export class FxService {
 
   play(audio: string) {
     this.store.dispatch(
-      FxActions.play(audio)
+      FxActions.play(this.getName(audio))
     );
+  }
+
+  getName(s: string) {
+    if (!s.endsWith('.mp3')) {
+      return `/assets/fx/${s}.mp3`;
+    }
+    return s;
   }
 
 }

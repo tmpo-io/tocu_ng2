@@ -5,6 +5,7 @@ import {
 
 import { Word } from '../../../models/word';
 import { WordsService, SoundFXService } from '../../services';
+import { FxService } from '../../../fx/fx.service';
 import { CardState } from '../card/card';
 import { Shuffle } from '../../helpers';
 
@@ -43,12 +44,14 @@ export class MemoryBoardComponent implements OnInit {
 
   constructor(
     private srv: WordsService,
-    private fx: SoundFXService
+    private fx: SoundFXService,
+    private gfx: FxService
   ) { }
 
   ngOnInit() {
     this.buildBoard(this.cards);
     // stagger('asdf', 0, 15, '100ms')
+    this.gfx.load('clac');
   }
 
   onClick(ind: number): void {
@@ -60,6 +63,7 @@ export class MemoryBoardComponent implements OnInit {
     if (this.isOpened && ind === this.isActive) {
       return;
     }
+    this.gfx.play('clac');
     // test if ind can be opened
     let estat: string = this.cardStatus[ind];
     if (estat === CardState.Played) {
