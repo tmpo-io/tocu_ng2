@@ -52,6 +52,7 @@ export class MemoryBoardComponent implements OnInit {
     this.buildBoard(this.cards);
     // stagger('asdf', 0, 15, '100ms')
     this.gfx.load('clac');
+    this.gfx.load('aplausoshort');
   }
 
   onClick(ind: number): void {
@@ -128,6 +129,7 @@ export class MemoryBoardComponent implements OnInit {
   processGood(ind: number) {
     // @TODO show animation
     //console.log("GOOD!", this.cards[ind].label);
+    this.gfx.play('aplausoshort');
     this.cardStatus[ind] = CardState.Played;
     this.cardStatus[this.isActive] = CardState.Played;
     this.isActive = undefined;
