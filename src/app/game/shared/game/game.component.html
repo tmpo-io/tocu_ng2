@@ -28,18 +28,18 @@
     </ti-button>
   </div>
 </ti-dialog>
-
 <div
   *ngIf="status=='playing'"
   [ngSwitch]="gameType"
 >
-  <memory-board
+  <app-memory-board
     *ngSwitchCase="'memory'"
     [cards]="cards"
+    [level]="game.nivell"
     (onWin)="onWin($event)"
     (onFail)="onFail($event)"
     (onFinish)="onFinish($event)"
-  ></memory-board>
+  ></app-memory-board>
   <app-sequencing-board
     *ngSwitchCase="'sequencing'"
     [words]="cards"

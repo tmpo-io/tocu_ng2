@@ -7,5 +7,7 @@ export class Word {
   public audio?: string;
   public file?: string;
   public selected?: boolean;
+  level?: string;
+  parella?: boolean;
 }
 

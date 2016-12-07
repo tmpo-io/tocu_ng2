@@ -2,56 +2,19 @@ import {
   Component, OnInit, Input, EventEmitter, Output,
 } from '@angular/core';
 
-import {
-  state,
-  style, transition, animate, trigger,
-  AnimationEntryMetadata
-} from '@angular/core';
-
 
 import { Word } from '../../../models/word';
 import { WordsService, SoundFXService } from '../../services';
 import { CardState } from '../card/card';
 import { Shuffle } from '../../helpers';
 
-import { Observable } from 'rxjs/Rx';
-
-// import { stagger } from './animation';
-
-// function stagger(name:string, ini:number,
-//   end:number, delay:number):AnimationEntryMetadata[] {
-
-//   let nums:number[] = []
-//   for(let i=ini; i<end; i++) {
-//     nums.push(i);
-//   }
-//   //console.log(nums);
-//   //console.log(range);
-//   let out:any = [];
-//   nums.forEach((n) => {
-//     out.push(
-
-//           state(''+n, style({transform: 'scale(1,1)'})),
-//           transition('void => '+n, [
-//             style({transform: 'scale(0,0)'}),
-//             animate('500ms '+ delay*n +'ms ease-in')
-//           ]),
-//           transition(n + ' => void', [
-//             style({transform: 'scale(1,1)'}),
-//             animate('500ms '+ delay*n +'ms ease-in')
-//           ])
-
-//     );
-//   })
-//   //console.log(out);
-//   return [new AnimationEntryMetadata(name, out)];
-// }
+import { Observable } from 'rxjs/Observable';
 
 
 @Component({
-  selector: "memory-board",
-  templateUrl: "./memoryboard.component.html",
-  styleUrls: ["./memoryboard.component.scss"],
+  selector: 'app-memory-board',
+  templateUrl: './memoryboard.component.html',
+  styleUrls: ['./memoryboard.component.scss'],
   // animations: stagger('inboard', 0, 16, 50)
 })
 
@@ -61,6 +24,7 @@ import { Observable } from 'rxjs/Rx';
 export class MemoryBoardComponent implements OnInit {
 
   @Input() cards: Word[];
+  @Input() level: string = 'principiant';
 
   public cardStatus: string[] = [];
   private isActive: number;
@@ -74,7 +38,7 @@ export class MemoryBoardComponent implements OnInit {
 
   // Emitters
   @Output() public onWin = new EventEmitter<number>();
-  @Output() public onFail = new EventEmitter<number>()
+  @Output() public onFail = new EventEmitter<number>();
   @Output() public onFinish = new EventEmitter<number>();
 
   constructor(
@@ -118,7 +82,7 @@ export class MemoryBoardComponent implements OnInit {
     } else {
       // error
       this.inTransition = true;
-      setTimeout(() => this.processBad(ind), 1000)
+      setTimeout(() => this.processBad(ind), 1000);
     }
 
     // is already opened...
@@ -128,11 +92,21 @@ export class MemoryBoardComponent implements OnInit {
 
   }
 
+  get isPro(): boolean {
+    if (this.level && this.level !== 'principiant') {
+      return true;
+    }
+    return false;
+  }
+
   playSound(ind: number) {
     let audio: string = this.cards[ind].audio;
-    setTimeout(() => {
-      this.fx.play(audio);
-    }, 300);
+    if (this.cards[ind].parella === true && this.isPro) {
+      return;
+    }
+      setTimeout(() => {
+        this.fx.play(audio);
+      }, 300);
   }
 
   processBad(ind: number) {
@@ -157,7 +131,7 @@ export class MemoryBoardComponent implements OnInit {
     this.inTransition = false;
     this.wins++;
     this.onWin.emit(this.wins);
-    if (this.wins == this.total) {
+    if (this.wins === this.total) {
       this.onFinish.emit();
     }
   }
@@ -171,11 +145,16 @@ export class MemoryBoardComponent implements OnInit {
       cards = cards.slice(0, 8);
     }
 
+    cards.forEach(c => c.level = this.level);
+    console.log('Board', cards, this.level);
+
     let a: Word[] = [];
     cards.forEach((el, ind) => {
       // snd.push(el.audio);
       a.push(el);
-      a.push(Object.assign({}, el));
+      a.push(Object.assign({}, el, {
+        parella: true
+      }));
     });
     for (let i = 0; i < a.length; i++) {
       this.cardStatus[i] = CardState.Closed;

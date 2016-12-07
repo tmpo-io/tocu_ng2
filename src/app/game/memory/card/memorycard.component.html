@@ -2,8 +2,8 @@
   <div class="flipper">
     <div class="front" [@frontState]="status">
       <!-- front content -->
-      <img [src]="card.image" />
-      <p>{{ card.label }}</p>
+      <img [src]="card.image" *ngIf="image" />
+      <p *ngIf="label">{{ card.label }}</p>
     </div>
     <div class="back" [@backState]="status">
       <!-- back content -->

@@ -1,7 +1,7 @@
 import {
   Component, OnInit, Input, state,
   style, transition, animate, trigger
- } from '@angular/core';
+} from '@angular/core';
 import { CardState } from './card';
 import { Word } from '../../../models/word';
 
@@ -15,10 +15,10 @@ import { Word } from '../../../models/word';
       state('opened', style({
         transform: 'rotateY(0deg)'
       })),
-      state('closed',   style({
+      state('closed', style({
         transform: 'rotateY(180deg)'
       })),
-      state('played',   style({
+      state('played', style({
         transform: 'rotateY(0deg) scale(0.9,0.9)',
         filter: 'grayscale(100%)'
       })),
@@ -30,10 +30,10 @@ import { Word } from '../../../models/word';
       state('opened', style({
         transform: 'rotateY(180deg)'
       })),
-      state('closed',   style({
+      state('closed', style({
         transform: 'rotateY(0deg)'
       })),
-      state('played',   style({
+      state('played', style({
         transform: 'rotateY(180deg)'
       })),
       transition('opened => closed', animate('300ms ease-in')),
@@ -50,10 +50,10 @@ export class MemoryCardComponent implements OnInit {
   @Input()
   public status: CardState = CardState.Closed;
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit() {
-    //console.log(this.card);
+    // console.log(this.card);
   }
 
 
@@ -65,5 +65,22 @@ export class MemoryCardComponent implements OnInit {
     }
   }
 
+  get image(): boolean {
+    if (this.card.level && this.card.level !== 'principiant') {
+      if (this.card.parella) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  get label(): boolean {
+    if (this.card.level && this.card.level !== 'principiant') {
+      if (!this.card.parella && this.card.level === 'pro') {
+        return false;
+      }
+    }
+    return true;
+  }
 
 }

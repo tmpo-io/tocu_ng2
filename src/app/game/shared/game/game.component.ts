@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { GameSession } from '../../../models/gamesession';
 import { Word } from '../../../models/word';
+import { Joc } from '../../../models/joc';
 
 import {
   WordsService,
@@ -37,6 +38,7 @@ export class GameComponent implements OnInit, OnDestroy {
   public preloadReady: boolean = false;
 
   public cards: Word[];
+  public game: Joc;
 
   public preload$: Observable<number>;
   private sub: Subscription;
@@ -80,6 +82,7 @@ export class GameComponent implements OnInit, OnDestroy {
     const getStateFromGame = (game) => {
       this.cards = game.words;
       this.gameType = game.tipus;
+      this.game = game;
       this.status = 'preload';
     };
 
