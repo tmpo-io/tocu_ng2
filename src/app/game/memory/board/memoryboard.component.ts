@@ -152,7 +152,7 @@ export class MemoryBoardComponent implements OnInit {
     }
 
     cards.forEach(c => c.level = this.level);
-    console.log('Board', cards, this.level);
+    // console.log('Board', cards, this.level);
 
     let a: Word[] = [];
     cards.forEach((el, ind) => {

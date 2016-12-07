@@ -16,7 +16,7 @@ import {
 import { Observable } from 'rxjs/Rx';
 import { Subscription } from 'rxjs/Subscription';
 import { withLatestFrom } from 'rxjs/operator/withLatestFrom';
-import { combineLatest} from 'rxjs/operator/combineLatest';
+import { combineLatest } from 'rxjs/operator/combineLatest';
 
 import 'rxjs/add/operator/withLatestFrom';
 import 'rxjs/add/operator/takeWhile';
@@ -56,7 +56,7 @@ export class GameComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     public loc: Location,
     public store$: Store<GameSession>
-  ) {}
+  ) { }
 
   ngOnInit() {
 
@@ -66,8 +66,8 @@ export class GameComponent implements OnInit, OnDestroy {
     const url$ = this.route.url;
 
     const getParams$ = withLatestFrom.call(
-        params$, url$,
-        (x, y) => ({p: x, r: y[0]})
+      params$, url$,
+      (x, y) => ({ p: x, r: y[0] })
     );
 
     const getStateFromRouter = (router) => {
@@ -96,7 +96,7 @@ export class GameComponent implements OnInit, OnDestroy {
         return this.store$
           .select('gameSession')
           .switchMap((s: GameSession) => {
-            if (s.loadJocs === 'ready' ) {
+            if (s.loadJocs === 'ready') {
               let joc = s.jocs.filter(j => j.id === r.p['id']);
               return Observable.of(joc[0]);
             } else {
@@ -116,19 +116,19 @@ export class GameComponent implements OnInit, OnDestroy {
   // todo add preview...
   fromDb(router): Observable<any> {
     return this.srv
-        .getGame(router.p['uid'], router.p['id'])
-        .map(snap => snap.val());
+      .getGame(router.p['uid'], router.p['id'])
+      .map(snap => snap.val());
   }
 
   fromDev(router): Observable<any> {
     return this.srv.getWords().
-        map((w) => {
-          return {
-            tipus: router.p['game'],
-            title: router.p['game'],
-            words: w
-          };
-        });
+      map((w) => {
+        return {
+          tipus: router.p['game'],
+          title: router.p['game'],
+          words: w
+        };
+      });
   }
 
   startGame(event) {
@@ -160,6 +160,9 @@ export class GameComponent implements OnInit, OnDestroy {
   get total(): number {
     if (!this.cards) {
       return 0;
+    }
+    if (this.gameType === 'memory' && this.cards.length >= 8) {
+      return 8;
     }
     return this.cards.length;
   }
